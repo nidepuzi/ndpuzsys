@@ -31,8 +31,9 @@ M_SITE_URL = 'http://staging.nidepuzi.com'
 MYSQL_HOST = 'rm-bp15q7invojkg569no.mysql.rds.aliyuncs.com'
 MYSQL_AUTH = os.environ.get('MYSQL_AUTH')
 
-# REDIS_HOST = 'r-bp1dfd878c03cb44.redis.rds.aliyuncs.com:6379'
-# REDIS_AUTH = os.environ.get('REDIS_AUTH')
+# current use 小鹿集群
+REDIS_HOST = '121.196.219.80:31838'
+REDIS_AUTH = os.environ.get('REDIS_AUTH')
 # REDIS_AUTH = ''
 
 DATABASES = {
@@ -58,25 +59,25 @@ DATABASES = {
 }
 
 DJANGO_REDIS_IGNORE_EXCEPTIONS = True
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'redis_cache.RedisCache',
-#         'LOCATION': REDIS_HOST,
-#         'OPTIONS': {
-#             'DB': 11,
-#             'PASSWORD': REDIS_AUTH,
-#             "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
-#             "SOCKET_TIMEOUT": 5,  # in seconds
-#             'PARSER_CLASS': 'redis.connection.HiredisParser',
-#             'PICKLE_VERSION': 2,
-#             # 'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
-#             'CONNECTION_POOL_CLASS_KWARGS': {
-#                 'max_connections': 5,
-#                 # 'timeout': 10,
-#             }
-#         }
-#     }
-# }
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': REDIS_HOST,
+        'OPTIONS': {
+            'DB': 11,
+            'PASSWORD': REDIS_AUTH,
+            "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
+            "SOCKET_TIMEOUT": 5,  # in seconds
+            'PARSER_CLASS': 'redis.connection.HiredisParser',
+            'PICKLE_VERSION': 2,
+            # 'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+            'CONNECTION_POOL_CLASS_KWARGS': {
+                'max_connections': 5,
+                # 'timeout': 10,
+            }
+        }
+    }
+}
 
 ##########################CELERY TASK##########################
 CLOSE_CELERY = False
