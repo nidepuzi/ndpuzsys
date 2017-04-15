@@ -19,7 +19,9 @@ MAMA_MISSION_PUSH_SWITCH = True  # 妈妈周激励推送开关
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, "site_media", "static"),
 )
+
 STATIC_ROOT = "/data/site_media/static"
+LOGIN_URL = '/mall/user/login'
 M_STATIC_URL = '/'
 
 # WEB DNS
@@ -32,10 +34,6 @@ MYSQL_AUTH = os.environ.get('MYSQL_AUTH')
 
 REDIS_HOST = 'r-bp1dfd878c03cb44.redis.rds.aliyuncs.com:6379'
 REDIS_AUTH = os.environ.get('REDIS_AUTH')
-
-
-if os.environ.get('INSTANCE') == 'mall':
-    LOGIN_URL = '/mall/user/login'
 
 DATABASES = {
     'default': {
@@ -72,7 +70,7 @@ CACHES = {
         'BACKEND': 'redis_cache.RedisCache',
         'LOCATION': REDIS_HOST,
         'OPTIONS': {
-            'DB': 1,
+            'DB': 11,
             'PASSWORD': REDIS_AUTH,
             "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
             "SOCKET_TIMEOUT": 5,  # in seconds
@@ -92,7 +90,7 @@ CLOSE_CELERY = False
 CELERY_TASK_ALWAYS_EAGER = True
 CELERY_TASK_EAGER_PROPAGATES = True
 # CELERY_BROKER_URL = 'redis://:{0}@{1}:6379/9'.format(REDIS_AUTH, REDIS_HOST)
-CELERY_BROKER_URL = 'redis://:{0}@{1}/9'.format(REDIS_AUTH, REDIS_HOST)
+CELERY_BROKER_URL = 'redis://:{0}@{1}/19'.format(REDIS_AUTH, REDIS_HOST)
 CELERY_RESULT_BACKEND = 'django-db'
 
 ##########################SENTRY RAVEN##########################
@@ -173,7 +171,7 @@ PINGPP_APPKEY = ""
 XIAOLU_CLENTIP = "118.178.116.5"
 
 ########################### Statsd & Prometheus ##############################
-STATSD_HOST = 'statsd.default.svc.cluster.local'
+STATSD_HOST = 'localhost'
 STATSD_PORT = 9125
 # STATSD_CLIENT = 'celery_statsd.oneapm'
 # STATSD_CELERY_SIGNALS = True
