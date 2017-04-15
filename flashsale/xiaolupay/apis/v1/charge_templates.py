@@ -143,8 +143,8 @@ alipay = {
 alipay_wap = {
     "order_no": "xd161126583703e203027",
     "extra": {
-      "cancel_url": "https://m.xiaolumeimei.com/mall/ol.html?type=1",
-      "success_url": "https://m.xiaolumeimei.com/mall/order/success/516413/xd161126583703e203027"
+      "cancel_url": "https://m.nidepuzi.com/mall/ol.html?type=1",
+      "success_url": "https://m.nidepuzi.com/mall/order/success/516413/xd161126583703e203027"
     },
     "app": "app_LOOajDn9u9WDjfHa",
     "livemode": True,

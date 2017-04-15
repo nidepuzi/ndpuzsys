@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from core.admin import BaseModelAdmin
 from .models import XiaoluAdministrator, GroupMamaAdministrator, GroupFans, ActivityUsers
 
-HOST = "http://m.xiaolumeimei.com"
+HOST = "http://m.nidepuzi.com"
 
 
 class XiaoluAdministratorAdmin(BaseModelAdmin):

@@ -65,9 +65,9 @@ def task_weixin_push_awardcarry(awardcarry):
     from flashsale.xiaolumm import util_description
     courage_remarks = util_description.get_awardcarry_courage_remarks(awardcarry.carry_type)
 
-    to_url = 'http://m.xiaolumeimei.com'
+    to_url = 'http://m.nidepuzi.com'
     if awardcarry.carry_type == 1 or awardcarry.carry_type == 2:
-        to_url = 'http://m.xiaolumeimei.com/rest/v2/mama/redirect_stats_link?link_id=1'
+        to_url = 'http://m.nidepuzi.com/rest/v2/mama/redirect_stats_link?link_id=1'
 
     wp.push_mama_award(awardcarry, courage_remarks, to_url)
 
@@ -207,7 +207,7 @@ def task_weixin_push_update_app(app_visit):
     wp = WeixinPush()
 
     mama_id = app_visit.mama_id
-    to_url = "http://m.xiaolumeimei.com/sale/promotion/appdownload/"
+    to_url = "http://m.nidepuzi.com/sale/promotion/appdownload/"
 
     wp.push_mama_update_app(mama_id, user_version, latest_version, to_url, device=device)
 

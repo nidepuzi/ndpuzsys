@@ -762,7 +762,7 @@ def task_check_schedule_is_lock():
     name = ','.join(set([x.responsible_person_name for x in items]))
     date = tomorrow.strftime('%Y-%m-%d')
     count = items.count()
-    msg = u"""%s\n %s日还有%s个排期没有锁定哦。\n\n 点这里进去锁定吧=>http://admin.xiaolumm.com/console/#/schedule\n\n by 小鹿精灵""" % (name, date, count)
+    msg = u"""%s\n %s日还有%s个排期没有锁定哦。\n\n 点这里进去锁定吧=>http://admin.nidepuzi.com/console/#/schedule\n\n by 小鹿精灵""" % (name, date, count)
 
     dd = DingDingAPI()
     dd.sendMsg(msg, toparty='4486273')

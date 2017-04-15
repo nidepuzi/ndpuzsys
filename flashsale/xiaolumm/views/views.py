@@ -36,7 +36,7 @@ SHOPURL = "http://mp.weixin.qq.com/bizmall/mallshelf?id=&t=mall/list&biz=MzA5NTI
 WEB_SHARE_URL = "{site_url}/mall/?mm_linkid={mm_linkid}&ufrom={ufrom}"
 
 
-# SHOPURL = "http://m.xiaolumeimei.com/mm/plist/"
+# SHOPURL = "http://m.nidepuzi.com/mm/plist/"
 
 def landing(request):
     return render(

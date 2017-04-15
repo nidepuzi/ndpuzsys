@@ -99,7 +99,7 @@ class ActivityGoodsViewSet(viewsets.ModelViewSet):
         act_id = content.get("promotion_id", None)
 
         if act_id:
-            #some customer visit http://m.xiaolumeimei.com/mall/activity/topTen/model/2?ufrom=wx&id=87%3F10000skip%3Dtrue&mm_linkid=23952
+            #some customer visit http://m.nidepuzi.com/mall/activity/topTen/model/2?ufrom=wx&id=87%3F10000skip%3Dtrue&mm_linkid=23952
             #id is wrong,so must avoid it
             if not (str(act_id).isdigit()):
                 act_arr = re.findall(r'\d+', str(act_id))

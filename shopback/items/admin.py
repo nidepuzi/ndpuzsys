@@ -1507,7 +1507,7 @@ class SkuStockAdmin(admin.ModelAdmin):
         if supplier:
             return ('<a href="%(product_url)s" target="_blank">'
                     '%(supplier)s</a>') % {
-                       'product_url': 'http://admin.xiaolumm.com/sale/dinghuo/supplier_sku/%d' % supplier.id,
+                       'product_url': 'http://admin.nidepuzi.com/sale/dinghuo/supplier_sku/%d' % supplier.id,
                        'supplier': supplier.supplier_name
                    }
         return ''

@@ -18,14 +18,14 @@ XIAOLU_UNIONPAY_SWICH = True #切换小鹿支付开关
 ADMINS = ()
 
 MANAGERS = (
-    ('meixqhi', 'xiuqing.mei@xiaolumeimei.com'),
+    ('admin', 'shangHaiDanLai2017@qq.com'),
 )
 
 ALLOWED_HOSTS = ['*']
 
 # 微信分享备用域名
 STANDBY_DOMAINS = [
-    ('m.xiaolumm.com', 'http'),
+    ('m.nidepuzi.com', 'http'),
 ]
 
 DATABASES = {
@@ -271,7 +271,7 @@ ALIPAY_MCHID     = '2088911223385116'
 ALIAPY_APPID     = '2016012701123211'
 
 ALIPAY_GATEWAY_URL = 'https://openapi.alipay.com/gateway.do'
-ALIPAY_NOTIFY_URL = 'http://i.xiaolumm.com/rest/notify/alipay/'
+ALIPAY_NOTIFY_URL = 'http://i.nidepuzi.com/rest/notify/alipay/'
 
 ALIPAY_RSA_PRIVATE_KEY_PATH = '/data/certs/alipay/rsa_private_key.pem'
 ALIPAY_RSA_PUBLIC_KEY_PATH = '/data/certs/alipay/rsa_public_key_ali.pem'
@@ -305,12 +305,12 @@ JD_API_ENDPOINT = 'http://%s/routerjson' % JD_API_HOSTNAME
 
 #################### PRINT CONFIG ###################
 BASE_FONT_PATH = '/data/fonts/'
-FANGZHENG_LANTINGHEI_FONT_PATH = '/data/fonts/方正兰亭黑.TTF'
+FANGZHENG_LANTINGHEI_FONT_PATH = '/data/fonts/fzltbold.ttf'
 FONT_PATH = '/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif-Bold.ttf'
 ASYNC_FILE_PATH = os.path.join(PROJECT_ROOT, "site_media", "asyncfile")
 
 ################### HTTPS/SSL SETTINGS ##################
-SECURE_SSL_HOST = 'https://m.xiaolumeimei.com'
+SECURE_SSL_HOST = 'https://m.nidepuzi.com'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 HTTPS_SUPPORT = False
 SECURE_REQUIRED_PATHS = (
@@ -328,11 +328,11 @@ WEIXIN_QRCODE_HOST = "https://mp.weixin.qq.com"
 WEIXIN_AUTHORIZE_URL = "https://open.weixin.qq.com/connect/oauth2/authorize"
 
 # ================ 小鹿美美[微信小程序] ==================
-WEAPP_APPID  = 'wxea4fd45c52e4a20e'
-WEAPP_SECRET = '1246301cdb41c6336d82a12600189283'
+WEAPP_APPID  = ''
+WEAPP_SECRET = ''
 
-WEAPP_MCHID = "1410583302" #受理商ID，身份标识
-WEAPP_KEY   = "t5UXHfwR7QEv2jMLFuZm8DdqnAT0ON9a" #支付密钥
+WEAPP_MCHID = "" #受理商ID，身份标识
+WEAPP_KEY   = "" #支付密钥
 
 WEAPP_CERT_PEM_PATH = '/data/certs/weapp/apiclient_cert.pem'
 WEAPP_KEY_PEM_PATH  = '/data/certs/weapp/apiclient_key.pem'
@@ -345,7 +345,7 @@ WX_MEDIA_GET_URL = 'https://api.weixin.qq.com/cgi-bin/media/get'
 
 ################### KUAIDI KDN SETTINGS ##################
 KDN_EBUSINESSID = 1264368
-KDN_APIKEY = "b2983220-a56b-4e28-8ca0-f88225ee2e0b"
+KDN_APIKEY = ""
 
 ############################# EXTENSION CONFIG ##############################
 TAOBAO_PAGE_SIZE = 50  # the page_size of  per request

@@ -12,7 +12,7 @@ from flashsale.pay.tasks import notifyTradePayTask
 import logging
 logger = logging.getLogger(__name__)
 
-TMPDB_HOST = 'staging.xiaolumm.com'
+TMPDB_HOST = 'staging.nidepuzi.com'
 TMPDB_PORT = 30001
 TMPDB_USER = 'qiyue'
 TMPDB_PWD = 'youni_2014qy'

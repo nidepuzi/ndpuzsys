@@ -175,7 +175,7 @@ class APIModelProductSerializer(serializers.Serializer):
             return ''
 
         protocol = 'com.jimei.xlmm://app/v1/webview?is_native=1&url={0}'
-        url = 'https://m.xiaolumeimei.com/mall/buycoupon?modelid={0}'.format(find_mp.id)
+        url = 'https://m.nidepuzi.com/mall/buycoupon?modelid={0}'.format(find_mp.id)
         return protocol.format(url)
 
     def get_source_type(self, obj):

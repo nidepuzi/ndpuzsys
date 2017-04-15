@@ -24,9 +24,9 @@ STATIC_ROOT = "/data/site_media/static"
 M_STATIC_URL = '/'
 
 # WEB DNS
-SITE_URL = 'http://staging.xiaolumm.com/'
+SITE_URL = 'http://staging.nidepuzi.com/'
 #######################  WAP AND WEIXIN CONFIG ########################
-M_SITE_URL = 'http://staging.xiaolumm.com'
+M_SITE_URL = 'http://staging.nidepuzi.com'
 
 MYSQL_HOST = 'rm-bp17ea269uu21f9i1o.mysql.rds.aliyuncs.com'
 MYSQL_AUTH = 'Xiaolu_test123'
@@ -90,7 +90,7 @@ CELERY_RESULT_BACKEND = 'django-db'
 ##########################SENTRY RAVEN##########################
 import raven
 RAVEN_CONFIG = {
-    'dsn': 'http://2d63e1b731cd4e53a32b0bc096fd3566:a38d367f2c644d81b353dabfbb941070@sentry.xiaolumm.com/4',
+    'dsn': 'http://2d63e1b731cd4e53a32b0bc096fd3566:a38d367f2c644d81b353dabfbb941070@sentry.nidepuzi.com/4',
     # If you are using git, you can also automatically configure the
     # release based on the git info.
     'release': raven.fetch_git_sha(PROJECT_ROOT),
@@ -108,8 +108,8 @@ MIDDLEWARE_CLASSES = (
 
 ######################## WEIXIN CONFIG ########################
 
-WX_NOTIFY_URL = 'http://warden.xiaolumm.com/apis/notify/weixin/'
-WX_JS_API_CALL_URL ='http://staging.xiaolumm.com/pay/?showwxpaytitle=1'
+WX_NOTIFY_URL = 'http://warden.nidepuzi.com/apis/notify/weixin/'
+WX_JS_API_CALL_URL ='http://staging.nidepuzi.com/pay/?showwxpaytitle=1'
 
 # ================ 小鹿美美特卖[公众号] ==================
 WEIXIN_SECRET = 'bc41b3a535b095afc55cd40d2e808d9c'
@@ -150,7 +150,7 @@ ALIPAY_MCHID     = '2088911223385116'
 ALIAPY_APPID     = '2016012701123211'
 
 ALIPAY_GATEWAY_URL = 'https://openapi.alipay.com/gateway.do'
-ALIPAY_NOTIFY_URL = 'http://warden.xiaolumm.com/rest/notify/alipay/'
+ALIPAY_NOTIFY_URL = 'http://warden.nidepuzi.com/rest/notify/alipay/'
 
 ######################## 小米推送 CONFIG ########################
 IOS_APP_SECRET = ''

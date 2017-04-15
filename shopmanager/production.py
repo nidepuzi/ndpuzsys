@@ -23,9 +23,9 @@ STATIC_ROOT = "/data/site_media/static"
 M_STATIC_URL = '/'
 
 # WEB DNS
-SITE_URL = 'http://admin.xiaolumm.com/'
+SITE_URL = 'http://admin.nidepuzi.com/'
 #######################  WAP AND WEIXIN CONFIG ########################
-M_SITE_URL = 'https://m.xiaolumeimei.com'
+M_SITE_URL = 'https://m.nidepuzi.com'
 
 MYSQL_HOST = 'rdsvrl2p9pu6536n7d99.mysql.rds.aliyuncs.com'
 MYSQL_AUTH = os.environ.get('MYSQL_AUTH')
@@ -98,7 +98,7 @@ CELERY_RESULT_BACKEND = 'django-db'
 ##########################SENTRY RAVEN##########################
 import raven
 RAVEN_CONFIG = {
-    'dsn': 'http://1e0aad4415454d5c9bbc22ac02a14b2e:42d9a07d79a2462fbc76eb543ac25fbf@sentry.xiaolumm.com/5',
+    'dsn': 'http://1e0aad4415454d5c9bbc22ac02a14b2e:42d9a07d79a2462fbc76eb543ac25fbf@sentry.nidepuzi.com/5',
     # If you are using git, you can also automatically configure the
     # release based on the git info.
     'release': raven.fetch_git_sha(PROJECT_ROOT),
@@ -113,8 +113,8 @@ REST_FRAMEWORK.update({
 
 ######################## WEIXIN CONFIG ########################
 
-WX_NOTIFY_URL = 'http://api.xiaolumeimei.com/rest/notify/{channel}/'
-WX_JS_API_CALL_URL ='http://i.xiaolumm.com/pay/?showwxpaytitle=1'
+WX_NOTIFY_URL = 'http://api.nidepuzi.com/rest/notify/{channel}/'
+WX_JS_API_CALL_URL ='http://i.nidepuzi.com/pay/?showwxpaytitle=1'
 
 # ================ 小鹿美美特卖[公众号] ==================
 WEIXIN_SECRET = 'dbd2103bb55c46c7a019ae1c1089f2fa'
@@ -155,7 +155,7 @@ ALIPAY_MCHID     = '2088911223385116'
 ALIAPY_APPID     = '2016012701123211'
 
 ALIPAY_GATEWAY_URL = 'https://openapi.alipay.com/gateway.do'
-ALIPAY_NOTIFY_URL = 'http://api.xiaolumeimei.com/rest/notify/alipay/'
+ALIPAY_NOTIFY_URL = 'http://api.nidepuzi.com/rest/notify/alipay/'
 
 ######################## 小米推送 CONFIG ########################
 IOS_APP_SECRET = 'UN+ohC2HYHUlDECbvVKefA=='
@@ -194,7 +194,7 @@ QINIU_SECRET_KEY = "8MkzPO_X7KhYQjINrnxsJ2eq5bsxKU1XmE8oMi4x"
 QINIU_PRIVATE_BUCKET = 'invoiceroom'
 QINIU_PRIVATE_DOMAIN = '7xrpt3.com2.z0.glb.qiniucdn.com'
 QINIU_PUBLIC_BUCKET = 'xiaolumm'
-QINIU_PUBLIC_DOMAIN = 'img.xiaolumeimei.com'
+QINIU_PUBLIC_DOMAIN = 'img.nidepuzi.com'
 
 ############### REMOTE MEDIA STORAGE ################
 QINIU_BUCKET_NAME   = 'mediaroom'

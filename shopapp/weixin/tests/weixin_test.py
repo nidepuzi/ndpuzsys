@@ -17,7 +17,7 @@ def test_main():
     ordercarry = OrderCarry.objects.get(id=10)
     push = WeixinPush()
     remarks = u'来自好友%s，快打开App看看她买了啥～' % ordercarry.contributor_nick
-    to_url = 'http://m.xiaolumeimei.com/sale/promotion/appdownload/'
+    to_url = 'http://m.nidepuzi.com/sale/promotion/appdownload/'
     # push.push_mama_ordercarry(ordercarry, remarks, to_url)
     mama_id = 1
     user_version = '1.1'
@@ -89,7 +89,7 @@ def test_send_msg():
              {
                  'title': '小鹿美美｜欢迎加入小鹿妈妈！',
                  'description': '小鹿美美｜欢迎加入小鹿妈妈！',
-                 'url': 'http://m.xiaolumeimei.com/mama_shop/html/greetings_mama.html',
+                 'url': 'http://m.nidepuzi.com/mama_shop/html/greetings_mama.html',
                  'picurl': 'http://7xogkj.com1.z0.glb.clouddn.com/xiaolumm/manager/yaya.jpg'
              },
              ]

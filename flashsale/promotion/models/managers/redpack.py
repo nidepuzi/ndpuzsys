@@ -51,7 +51,7 @@ class ReadPacketManager(CacheManager):
         """
         给用户客户端推送消息
         """
-        site_url = 'http://m.xiaolumeimei.com/sale/promotion/xlsampleorder/'
+        site_url = 'http://m.nidepuzi.com/sale/promotion/xlsampleorder/'
         desc = choice(self.descs)
         target_url = get_target_url(TARGET_TYPE_WEBVIEW, {'is_native': 1, 'url': site_url})
         mipush_of_android.push_to_account(customer_id,

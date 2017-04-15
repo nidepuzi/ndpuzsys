@@ -57,8 +57,8 @@ class XiaoluPayChargeTestCase(TestCase):
         data = self.data.copy()
         data['channel'] = channel
         data['extra'] = {
-            "cancel_url": "https://i.xiaolumm.com/mall/ol.html?type=1",
-            "success_url": "https://i.xiaolumm.com/mall/order/success/"
+            "cancel_url": "https://i.nidepuzi.com/mall/ol.html?type=1",
+            "success_url": "https://i.nidepuzi.com/mall/order/success/"
         }
         ch = Charge.create(**data)
         self.assertEqual(ch.order_no, self.order_no)

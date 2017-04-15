@@ -12,8 +12,8 @@ MAMA_LINK_FILEPATH = '/qrcode/xiaolumm/mm-{mm_linkid}.jpg'
 # 妈妈专属链接
 MAMA_SHARE_LINK = '{site_url}m/{mm_linkid}/'
 
-APP_DOWNLOAD_URL = 'http://m.xiaolumeimei.com/sale/promotion/appdownload/'
-WEEKLY_AWARD_RULES_URL = 'http://forum.xiaolumeimei.com/accounts/xlmm/login/?next=/topic/1263/%s/'%urllib.quote('小鹿美美周奖励机制最详尽揭秘')
+APP_DOWNLOAD_URL = 'http://m.nidepuzi.com/sale/promotion/appdownload/'
+WEEKLY_AWARD_RULES_URL = 'http://forum.nidepuzi.com/accounts/xlmm/login/?next=/topic/1263/%s/'%urllib.quote('小鹿美美周奖励机制最详尽揭秘')
 
 PERSONAL_TARGET_STAGE = [
     (0, 30, 100),

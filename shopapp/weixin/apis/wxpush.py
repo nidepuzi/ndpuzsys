@@ -112,10 +112,10 @@ class WeixinPush(object):
 
         if is_boutique_register_product:
             footer = u'恭喜你开通小鹿精品代理！活动期间，推荐新代理奖励30元！请点击【详情】查看新手教程如何赚钱！'
-            to_url = 'http://m.xiaolumeimei.com/mama_shop/html/intro_march.html'
+            to_url = 'http://m.nidepuzi.com/mama_shop/html/intro_march.html'
         else:
             footer = template.footer.decode('string_escape')
-            to_url = 'http://m.xiaolumeimei.com/mall/od.html?id=%s' % saletrade.id
+            to_url = 'http://m.nidepuzi.com/mall/od.html?id=%s' % saletrade.id
 
         template_data = {
             'first': {
@@ -191,7 +191,7 @@ class WeixinPush(object):
                 'color': '#000000',
             },
         }
-        to_url = 'http://m.xiaolumeimei.com/mall/od.html?id=%s' % saletrade.id
+        to_url = 'http://m.nidepuzi.com/mall/od.html?id=%s' % saletrade.id
         return self.push(customer, template_ids, template_data, to_url)
 
     def push_refund_notify(self, salerefund, event_type):
@@ -246,7 +246,7 @@ class WeixinPush(object):
                 'color': '#000000',
             },
         }
-        to_url = 'http://m.xiaolumeimei.com/mall/refunds/details/%s' % salerefund.id
+        to_url = 'http://m.nidepuzi.com/mall/refunds/details/%s' % salerefund.id
         try:
             event = WeixinPushEvent(customer_id=customer.id,
                                     uni_key=uni_key,
@@ -354,7 +354,7 @@ class WeixinPush(object):
                 'color': '#F87217',
             },
         }
-        to_url = 'https://m.xiaolumeimei.com'
+        to_url = 'https://m.nidepuzi.com'
 
         return self.push(customer, template_ids, template_data, to_url)
 
@@ -468,7 +468,7 @@ class WeixinPush(object):
                 'color': '#F87217',
             },
         }
-        to_url = 'http://m.xiaolumeimei.com/mall/order/spell/group/{teambuy_id}?mm_linkid={mama_id}&from_page=wx_push'.format(**{
+        to_url = 'http://m.nidepuzi.com/mall/order/spell/group/{teambuy_id}?mm_linkid={mama_id}&from_page=wx_push'.format(**{
             'teambuy_id': teambuy.id,
             'mama_id': teambuy.share_xlmm_id
         })
@@ -526,7 +526,7 @@ class WeixinPush(object):
             },
         }
 
-        to_url = 'http://m.xiaolumeimei.com/mall/order/spell/group/{teambuy_id}?mm_linkid={mama_id}&from_page=wx_push'.format(**{
+        to_url = 'http://m.nidepuzi.com/mall/order/spell/group/{teambuy_id}?mm_linkid={mama_id}&from_page=wx_push'.format(**{
             'teambuy_id': teambuy.id,
             'mama_id': teambuy.share_xlmm_id
         })
@@ -586,7 +586,7 @@ class WeixinPush(object):
             },
         }
 
-        to_url = 'http://m.xiaolumeimei.com/mall/order/spell/group/{teambuy_id}?mm_linkid={mama_id}&from_page=wx_push'.format(**{
+        to_url = 'http://m.nidepuzi.com/mall/order/spell/group/{teambuy_id}?mm_linkid={mama_id}&from_page=wx_push'.format(**{
             'teambuy_id': teambuy.id,
             'mama_id': teambuy.share_xlmm_id
         })
@@ -667,7 +667,7 @@ class WeixinPush(object):
 
         header = template.header.format(carry_count).decode('string_escape')
         footer = template.footer.format('%.2f' % (clickcarry.total_value * 0.01)).decode('string_escape')
-        to_url = 'http://m.xiaolumeimei.com/rest/v2/mama/redirect_stats_link?link_id=4'
+        to_url = 'http://m.nidepuzi.com/rest/v2/mama/redirect_stats_link?link_id=4'
         footer_color = '#F87217'
 
         # 模板消息底部替换为小广告
@@ -754,7 +754,7 @@ class WeixinPush(object):
 
         header = template.header.format().decode('string_escape')
         footer = template.footer.format().decode('string_escape')
-        to_url = 'https://m.xiaolumeimei.com/rest/v1/users/weixin_login/?next=https://m.xiaolumeimei.com/tran_coupon/html/trancoupon.html'
+        to_url = 'https://m.nidepuzi.com/rest/v1/users/weixin_login/?next=https://m.nidepuzi.com/tran_coupon/html/trancoupon.html'
         footer_color = '#F87217'
 
         template_data = {
@@ -886,7 +886,7 @@ class WeixinPush(object):
                 'color': '#F87217',
             },
         }
-        to_url = 'http://m.xiaolumeimei.com'
+        to_url = 'http://m.nidepuzi.com'
         return self.push(referal_customer, template_ids, template_data, to_url)
 
     def push_new_mama_task(self, mama_id, header='', footer='', to_url='', params=None):
@@ -1010,7 +1010,7 @@ class WeixinPush(object):
             active_time = datetime.datetime.now() - datetime.timedelta(hours=6)
             activitys = get_effect_activities(active_time)
             entry = random.choice(activitys)
-            login_url = 'http://m.xiaolumeimei.com/rest/v1/users/weixin_login/?next='
+            login_url = 'http://m.nidepuzi.com/rest/v1/users/weixin_login/?next='
             redirect_url = '/rest/v2/mama/redirect_activity_entry?activity_id=%s' % entry.id
             to_url = login_url + redirect_url
             remark = template_data.get('remark')

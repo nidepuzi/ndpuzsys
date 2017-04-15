@@ -27,7 +27,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-DEFAULT_MAMA_THUMBNAIL = 'http://img.xiaolumeimei.com/undefined1472268058597lADOa301H8zIzMg_200_200.jpg_620x10000q90g.jpg?imageMogr2/thumbnail/80/crop/80x80/format/jpg'
+DEFAULT_MAMA_THUMBNAIL = 'http://img.nidepuzi.com/undefined1472268058597lADOa301H8zIzMg_200_200.jpg_620x10000q90g.jpg?imageMogr2/thumbnail/80/crop/80x80/format/jpg'
 
 
 def get_mama_customer(mama_id):
