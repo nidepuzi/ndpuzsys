@@ -20,7 +20,7 @@ publish:
     repo: xiaolu-img/xiaolusys
     tag: latest
     file: Dockerfile
-    mirror: https://n5fb0zgg.mirror.aliyuncs.com
+    mirror: https://kpm1lqaf.mirror.aliyuncs.com
     when:
       branch: alpha
   docker:
@@ -31,7 +31,7 @@ publish:
     repo: xiaolu-img/xiaolusys
     tag: django18
     file: Dockerfile
-    mirror: https://n5fb0zgg.mirror.aliyuncs.com
+    mirror: https://kpm1lqaf.mirror.aliyuncs.com
     when:
       branch: django18
   docker:
@@ -42,7 +42,7 @@ publish:
     repo: xiaolu-img/xiaolusys
     tag: warden
     file: Dockerfile
-    mirror: https://n5fb0zgg.mirror.aliyuncs.com
+    mirror: https://kpm1lqaf.mirror.aliyuncs.com
     when:
       branch: warden
 deploy:
