@@ -28,19 +28,19 @@ SITE_URL = 'http://staging.nidepuzi.com/'
 #######################  WAP AND WEIXIN CONFIG ########################
 M_SITE_URL = 'http://staging.nidepuzi.com'
 
-MYSQL_HOST = 'rm-bp17ea269uu21f9i1o.mysql.rds.aliyuncs.com'
-MYSQL_AUTH = 'Xiaolu_test123'
+MYSQL_HOST = 'rm-bp15q7invojkg569no.mysql.rds.aliyuncs.com '
+MYSQL_AUTH = os.environ.get('MYSQL_AUTH')
 
-REDIS_HOST = '121.196.219.80:31838'
-REDIS_AUTH = os.environ.get('REDIS_AUTH')
+# REDIS_HOST = 'r-bp1dfd878c03cb44.redis.rds.aliyuncs.com:6379'
+# REDIS_AUTH = os.environ.get('REDIS_AUTH')
 # REDIS_AUTH = ''
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
     # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'xiaoludb',  # Or path to database file if using sqlite3.
-        'USER': 'xiaoludev',  # Not used with sqlite3.
+        'NAME': 'nidepuzidb',  # Or path to database file if using sqlite3.
+        'USER': 'nidepuzidba',  # Not used with sqlite3.
         'PASSWORD': MYSQL_AUTH,  # Not used with sqlite3.
         'HOST': MYSQL_HOST,
     # Set to empty string for localhost. Not used with sqlite3. #192.168.0.28
@@ -51,32 +51,32 @@ DATABASES = {
             # 'sql_mode': 'STRICT_TRANS_TABLES',
         },  # storage_engine need mysql>5.4,and table_type need mysql<5.4
         'TEST': {
-            'NAME': 'test_xiaoludb',
+            'NAME': 'test_nidepuzidb',
             'CHARSET': 'utf8',
         }
     }
 }
 
 DJANGO_REDIS_IGNORE_EXCEPTIONS = True
-CACHES = {
-    'default': {
-        'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': REDIS_HOST,
-        'OPTIONS': {
-            'DB': 11,
-            'PASSWORD': REDIS_AUTH,
-            "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
-            "SOCKET_TIMEOUT": 5,  # in seconds
-            'PARSER_CLASS': 'redis.connection.HiredisParser',
-            'PICKLE_VERSION': 2,
-            # 'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
-            'CONNECTION_POOL_CLASS_KWARGS': {
-                'max_connections': 5,
-                # 'timeout': 10,
-            }
-        }
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'redis_cache.RedisCache',
+#         'LOCATION': REDIS_HOST,
+#         'OPTIONS': {
+#             'DB': 11,
+#             'PASSWORD': REDIS_AUTH,
+#             "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
+#             "SOCKET_TIMEOUT": 5,  # in seconds
+#             'PARSER_CLASS': 'redis.connection.HiredisParser',
+#             'PICKLE_VERSION': 2,
+#             # 'CONNECTION_POOL_CLASS': 'redis.BlockingConnectionPool',
+#             'CONNECTION_POOL_CLASS_KWARGS': {
+#                 'max_connections': 5,
+#                 # 'timeout': 10,
+#             }
+#         }
+#     }
+# }
 
 ##########################CELERY TASK##########################
 CLOSE_CELERY = False
@@ -84,13 +84,13 @@ CELERY_TASK_ALWAYS_EAGER = True
 CELERY_TASK_EAGER_PROPAGATES = True
 
 # CELERY_BROKER_URL = 'redis://:{0}@{1}:6379/19'.format(REDIS_AUTH, REDIS_HOST)
-CELERY_BROKER_URL = 'redis://:%s@121.196.219.80:31838/19' % REDIS_AUTH
+# CELERY_BROKER_URL = 'redis://:%s@121.196.219.80:31838/19' % REDIS_AUTH
 CELERY_RESULT_BACKEND = 'django-db'
 
 ##########################SENTRY RAVEN##########################
 import raven
 RAVEN_CONFIG = {
-    'dsn': 'http://2d63e1b731cd4e53a32b0bc096fd3566:a38d367f2c644d81b353dabfbb941070@sentry.nidepuzi.com/4',
+    'dsn': 'http://c10dc87141bf43c5a03ca5e615893669:ca2792b29a684b2ebd396107f666ffbb@sentry.xiaolumm.com/13',
     # If you are using git, you can also automatically configure the
     # release based on the git info.
     'release': raven.fetch_git_sha(PROJECT_ROOT),
