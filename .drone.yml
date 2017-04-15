@@ -2,6 +2,7 @@ build:
   image: registry.aliyuncs.com/xiaolu-img/xiaolusys-base:f8c653222e8a9d9d0cbe301bec4446957500e235
   environment:
     - TARGET=staging
+    - MYSQL_AUTH=$$MYSQL_AUTH
     - REDIS_AUTH=$$REDIS_AUTH2
   volumes:
     - /var/lib/drone/data:/data
