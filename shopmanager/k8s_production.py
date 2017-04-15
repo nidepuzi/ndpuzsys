@@ -158,6 +158,7 @@ STATSD_PORT = 9125
 # STATSD_CLIENT = 'celery_statsd.oneapm'
 # STATSD_CELERY_SIGNALS = True
 
+
 INSTALLED_APPS.extend([
     'django_prometheus',
 ])
@@ -181,8 +182,10 @@ APPSECRET = '5d845250d49aea44c3a07d8c1d513db5'
 JD_APP_KEY = 'F9653439C316A32BF49DFFDE8381CBC9'
 JD_APP_SECRET = 'f4fe333676af4f4eaeaa00ed20c82086'
 
+
 ################### QINIU SETTINGS ##################
 # inherit from base
+
 
 ############################# ALIYUN OCR CONFIG ##############################
 ALIYUN_APPCODE = '6dc0d0df019d4e83a704b434391e42b1'

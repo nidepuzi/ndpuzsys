@@ -35,6 +35,9 @@ MYSQL_AUTH = os.environ.get('MYSQL_AUTH')
 REDIS_HOST = 'r-uf66d18cf4ce3a44.redis.rds.aliyuncs.com:6379'
 REDIS_AUTH = os.environ.get('REDIS_AUTH')
 
+if os.environ.get('INSTANCE') == 'mall':
+    LOGIN_URL = '/mall/user/login'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -230,6 +233,7 @@ QINIU_PUBLIC_DOMAIN = 'oon0iwvsw.bkt.clouddn.com'
 ############### REMOTE MEDIA STORAGE ################
 QINIU_BUCKET_NAME   = 'image'
 QINIU_BUCKET_DOMAIN = 'oon0iwvsw.bkt.clouddn.com'
+
 QINIU_SECURE_URL    = 0
 DEFAULT_FILE_STORAGE = 'qiniustorage.backends.QiniuStorage'
 MEDIA_URL = "http://%s/" % QINIU_BUCKET_DOMAIN

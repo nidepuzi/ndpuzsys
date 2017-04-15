@@ -98,7 +98,7 @@ CELERY_RESULT_BACKEND = 'django-db'
 ##########################SENTRY RAVEN##########################
 import raven
 RAVEN_CONFIG = {
-    'dsn': 'http://1e0aad4415454d5c9bbc22ac02a14b2e:42d9a07d79a2462fbc76eb543ac25fbf@sentry.xiaolumm.com/5',
+    'dsn': 'http://1e0aad4415454d5c9bbc22ac02a14b2e:42d9a07d79a2462fbc76eb543ac25fbf@sentry.nidepuzi.com/5',
     # If you are using git, you can also automatically configure the
     # release based on the git info.
     'release': raven.fetch_git_sha(PROJECT_ROOT),
