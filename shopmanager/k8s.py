@@ -29,7 +29,7 @@ SITE_URL = 'http://staging.nidepuzi.com/'
 #######################  WAP AND WEIXIN CONFIG ########################
 M_SITE_URL = 'https://staging.nidepuzi.com'
 
-MYSQL_HOST = 'rm-bp15q7invojkg569n.mysql.rds.aliyuncs.com'
+MYSQL_HOST = 'rm-uf632p729ho32369e.mysql.rds.aliyuncs.com'
 MYSQL_AUTH = os.environ.get('MYSQL_AUTH')
 
 REDIS_HOST = 'r-bp1dfd878c03cb44.redis.rds.aliyuncs.com:6379'
