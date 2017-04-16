@@ -1,6 +1,6 @@
 # coding=utf-8
 import os
-from .base import *
+from .k8s import *
 
 DEBUG = False
 DEPLOY_ENV = True
@@ -152,7 +152,8 @@ PINGPP_APPKEY = ""
 XIAOLU_CLENTIP = "118.178.116.5"
 
 ########################### Statsd & Prometheus ##############################
-STATSD_HOST = 'statsd.default.svc.cluster.local'
+# STATSD_HOST = 'statsd.default.svc.cluster.local'
+STATSD_HOST = 'localhost'
 STATSD_PORT = 9125
 # STATSD_CLIENT = 'celery_statsd.oneapm'
 # STATSD_CELERY_SIGNALS = True
