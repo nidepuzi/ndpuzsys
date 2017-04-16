@@ -11,7 +11,7 @@ INSTALLED_APPS.extend([
 ##########################SENTRY RAVEN##########################
 import raven
 RAVEN_CONFIG = {
-    'dsn': 'http://8f3cfd4d83e34c899fc1ec9e7d803d73:996d9f459a944d988ae707939035e95c@sentry.nidepuzi.com/9',
+    'dsn': 'http://8f3cfd4d83e34c899fc1ec9e7d803d73:996d9f459a944d988ae707939035e95c@sentry.xiaolumm.com/9',
     # If you are using git, you can also automatically configure the
     # release based on the git info.
     'release': raven.fetch_git_sha(PROJECT_ROOT),

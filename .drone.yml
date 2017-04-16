@@ -18,7 +18,7 @@ publish:
     password: $$DOCKER_PASSWORD
     email: $$DOCKER_EMAIL
     registry: registry.aliyuncs.com
-    repo: xiaolu-img/xiaolusys
+    repo: ndpuz-img/ndpuzsys
     tag: latest
     file: Dockerfile
     mirror: https://kpm1lqaf.mirror.aliyuncs.com
@@ -29,7 +29,7 @@ publish:
     password: $$DOCKER_PASSWORD
     email: $$DOCKER_EMAIL
     registry: registry.aliyuncs.com
-    repo: xiaolu-img/xiaolusys
+    repo: ndpuz-img/ndpuzsys
     tag: django18
     file: Dockerfile
     mirror: https://kpm1lqaf.mirror.aliyuncs.com
@@ -40,7 +40,7 @@ publish:
     password: $$DOCKER_PASSWORD
     email: $$DOCKER_EMAIL
     registry: registry.aliyuncs.com
-    repo: xiaolu-img/xiaolusys
+    repo: ndpuz-img/ndpuzsys
     tag: warden
     file: Dockerfile
     mirror: https://kpm1lqaf.mirror.aliyuncs.com
@@ -53,23 +53,23 @@ deploy:
     when:
       branch: admin
     commands:
-      - docker pull registry.aliyuncs.com/xiaolu-img/xiaolusys:latest
+      - docker pull registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest
       - docker rm -f gunicorn
       - docker run --name=gunicorn --restart=always --log-opt max-file=1 --log-opt max-size=1m --memory=6144m
         -e TARGET=production -e INSTANCE=admin -e MYSQL_AUTH=$$MYSQL_AUTH -e REDIS_AUTH=$$REDIS_AUTH2
         -v /var/data:/data -d -p `ifconfig eth0 | awk '/inet addr/{print substr($2,6)}'`:9000:9000
-        registry.aliyuncs.com/xiaolu-img/xiaolusys:latest gunicorn -k gevent -c gunicorn_config.py -w 4 shopmanager.wsgi
+        registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest gunicorn -k gevent -c gunicorn_config.py -w 4 shopmanager.wsgi
   ssh:
     host: sale2.xiaolumm.com
     user: root
     when:
       branch: [admin, celery]
     commands:
-      - docker pull registry.aliyuncs.com/xiaolu-img/xiaolusys:latest
+      - docker pull registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest
       - docker rm -f celery
       - docker run --name=celery --restart=always --log-opt max-file=1 --log-opt max-size=1m --memory=2048m
         --cpu-period=100000 --cpu-quota=100000 -e TARGET=production -e MYSQL_AUTH=$$MYSQL_AUTH -e REDIS_AUTH=$$REDIS_AUTH2
-        -v /var/data:/data -d  -e C_FORCE_ROOT=1 registry.aliyuncs.com/xiaolu-img/xiaolusys:latest
+        -v /var/data:/data -d  -e C_FORCE_ROOT=1 registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest
         celery worker -c 2 -A shopmanager --time-limit=5400
         --loglevel=info -Q apis,default,async,notify,dinghuo,xiaolupay
   ssh:
@@ -78,12 +78,12 @@ deploy:
     when:
       branch: alpha
     commands:
-      - docker pull registry.aliyuncs.com/xiaolu-img/xiaolusys:latest
+      - docker pull registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest
       - docker rm -f gunicorn-staging
       - docker run --name=gunicorn-staging --restart=always --log-opt max-file=1 --log-opt max-size=1m
         -e INSTANCE=mall -e TARGET=staging -e REDIS_AUTH=$$REDIS_AUTH2
         -v /var/data:/data -d -p `ifconfig eth0 | awk '/inet addr/{print substr($2,6)}'`:9001:9000
-        registry.aliyuncs.com/xiaolu-img/xiaolusys:latest
+        registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest
         gunicorn -k gevent -w 1 -c gunicorn_config.py shopmanager.wsgi
   ssh:
     host: sale2.xiaolumm.com
@@ -91,12 +91,12 @@ deploy:
     when:
       branch: django18
     commands:
-      - docker pull registry.aliyuncs.com/xiaolu-img/xiaolusys:django18
+      - docker pull registry.aliyuncs.com/ndpuz-img/ndpuzsys:django18
       - docker rm -f gunicorn-django18
       - docker run --name=gunicorn-django18 --restart=always --log-opt max-file=1 --log-opt max-size=1m
         -e INSTANCE=mall -e TARGET=django18 -e MYSQL_AUTH=$$MYSQL_AUTH -e REDIS_AUTH=$$REDIS_AUTH2
         -v /var/data:/data -d -p `ifconfig eth0 | awk '/inet addr/{print substr($2,6)}'`:9002:9000
-        registry.aliyuncs.com/xiaolu-img/xiaolusys:django18
+        registry.aliyuncs.com/ndpuz-img/ndpuzsys:django18
         gunicorn -k gevent -w 1 -c gunicorn_config.py shopmanager.wsgi
   ssh:
     host: sale2.xiaolumm.com
@@ -104,12 +104,12 @@ deploy:
     when:
       branch: warden
     commands:
-      - docker pull registry.aliyuncs.com/xiaolu-img/xiaolusys:warden
+      - docker pull registry.aliyuncs.com/ndpuz-img/ndpuzsys:warden
       - docker rm -f gunicorn-warden
       - docker run --name=gunicorn-warden --restart=always --log-opt max-file=1 --log-opt max-size=1m
         -e INSTANCE=mall -e TARGET=staging -e REDIS_AUTH=$$REDIS_AUTH2
         -v /var/data:/data -d -p `ifconfig eth0 | awk '/inet addr/{print substr($2,6)}'`:9009:9000
-        registry.aliyuncs.com/xiaolu-img/xiaolusys:warden
+        registry.aliyuncs.com/ndpuz-img/ndpuzsys:warden
         gunicorn -k gevent -w 1 -c gunicorn_config.py shopmanager.wsgi
   ssh:
     host: sale2.xiaolumm.com
@@ -117,12 +117,12 @@ deploy:
     when:
       branch: flower
     commands:
-      - docker pull registry.aliyuncs.com/xiaolu-img/xiaolusys:latest
+      - docker pull registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest
       - docker rm -f celery-flower
       - docker run --name=celery-flower --restart=always -e TARGET=production --memory=1024m
         -e MYSQL_AUTH=$$MYSQL_AUTH -e REDIS_AUTH=$$REDIS_AUTH2 -e FLOWER_BASIC_AUTH=xiaolu:2016xiaoluyear
         -d -p `ifconfig eth0 | awk '/inet addr/{print substr($2,6)}'`:5555:5555
-        -v /var/data:/data  -e C_FORCE_ROOT=1 registry.aliyuncs.com/xiaolu-img/xiaolusys:latest
+        -v /var/data:/data  -e C_FORCE_ROOT=1 registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest
         flower -A shopmanager --log_file_max_size=1073741824 --conf=shopmanager/task_settings.py
   ssh:
     host:
@@ -131,12 +131,12 @@ deploy:
     when:
       branch: master
     commands:
-      - docker pull registry.aliyuncs.com/xiaolu-img/xiaolusys:latest
+      - docker pull registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest
       - docker rm -f gunicorn
       - docker run --name=gunicorn --restart=always --log-opt max-file=1 --log-opt max-size=1m --memory=6144m
         -e INSTANCE=mall -e TARGET=production -e MYSQL_AUTH=$$MYSQL_AUTH -e REDIS_AUTH=$$REDIS_AUTH2
         -v /var/data:/data -d -p `ifconfig eth0 | awk '/inet addr/{print substr($2,6)}'`:9000:9000
-        registry.aliyuncs.com/xiaolu-img/xiaolusys:latest
+        registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest
         gunicorn -k gevent -c gunicorn_config.py shopmanager.wsgi
   ssh:
     host:
@@ -145,12 +145,12 @@ deploy:
     when:
       branch: master
     commands:
-      - docker pull registry.aliyuncs.com/xiaolu-img/xiaolusys:latest
+      - docker pull registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest
       - docker rm -f gunicorn
       - docker run --name=gunicorn --restart=always --log-opt max-file=1 --log-opt max-size=1m --memory=6144m
         -e INSTANCE=mall -e TARGET=production -e MYSQL_AUTH=$$MYSQL_AUTH -e REDIS_AUTH=$$REDIS_AUTH2
         -v /var/data:/data -d -p `ifconfig eth0 | awk '/inet addr/{print substr($2,6)}'`:9000:9000
-        registry.aliyuncs.com/xiaolu-img/xiaolusys:latest
+        registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest
         gunicorn -k gevent -w 10 -c gunicorn_config.py shopmanager.wsgi
   ssh:
     host:
@@ -159,12 +159,12 @@ deploy:
     when:
       branch: [master, celery]
     commands:
-      - docker pull registry.aliyuncs.com/xiaolu-img/xiaolusys:latest
+      - docker pull registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest
       - docker rm -f celery
       - docker run --name=celery --restart=always --log-opt max-file=1 --log-opt max-size=1m
         -e TARGET=production -e MYSQL_AUTH=$$MYSQL_AUTH -e REDIS_AUTH=$$REDIS_AUTH2
         -v /var/data:/data -d -e C_FORCE_ROOT=1
-        registry.aliyuncs.com/xiaolu-img/xiaolusys:latest
+        registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest
         celery worker -c 4 -A shopmanager --loglevel=ERROR --time-limit=5400
         -Q apis,notify,peroid,frency,coupon,activevalue,mama,mamafortune,relationship,carryrecord,skustats,statistics,logistics,carrytotal,integral,dinghuo,xiaolupay
   ssh:
@@ -174,17 +174,17 @@ deploy:
     when:
       branch: [master, celery]
     commands:
-      - docker pull registry.aliyuncs.com/xiaolu-img/xiaolusys:latest
+      - docker pull registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest
       - docker rm -f celery1
       - docker run  --name=celery1 --restart=always -d --log-opt max-file=1 --log-opt max-size=1m --memory=1024m
         -e INSTANCE=celery-gevent -e TARGET=production -e MYSQL_AUTH=$$MYSQL_AUTH -e REDIS_AUTH=$$REDIS_AUTH2
-        -v /var/data:/data -e C_FORCE_ROOT=1 registry.aliyuncs.com/xiaolu-img/xiaolusys:latest
+        -v /var/data:/data -e C_FORCE_ROOT=1 registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest
         celery worker -P gevent -A shopmanager --loglevel=ERROR -c 200 --time-limit=1800
         -Q apis,notify,frency,mama,coupon,activevalue,mamafortune,relationship,carryrecord,logistics,weixin,qrcode,xiaolupay
       - docker rm -f celery2
       - docker run --name=celery2 --restart=always -d --log-opt max-file=1 --log-opt max-size=1m --memory=1024m
         -e INSTANCE=celery-gevent -e TARGET=production -e MYSQL_AUTH=$$MYSQL_AUTH -e REDIS_AUTH=$$REDIS_AUTH2
-        -v /var/data:/data -e C_FORCE_ROOT=1 registry.aliyuncs.com/xiaolu-img/xiaolusys:latest
+        -v /var/data:/data -e C_FORCE_ROOT=1 registry.aliyuncs.com/ndpuz-img/ndpuzsys:latest
         celery worker -P gevent -A shopmanager --loglevel=ERROR -c 200 --time-limit=1800
         -Q apis,notify,frency,mama,coupon,activevalue,mamafortune,relationship,carryrecord,logistics,qrcode,weixin
 
