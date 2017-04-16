@@ -16,7 +16,7 @@ M_SITE_URL = 'https://m.nidepuzi.com'
 MYSQL_HOST = 'rm-uf632p729ho32369e.mysql.rds.aliyuncs.com'
 MYSQL_AUTH = os.environ.get('MYSQL_AUTH')
 
-REDIS_HOST = 'r-bp1dfd878c03cb44.redis.rds.aliyuncs.com:6379'
+REDIS_HOST = 'r-uf66d18cf4ce3a44.redis.rds.aliyuncs.com:6379'
 REDIS_AUTH = os.environ.get('REDIS_AUTH')
 
 DATABASES = {
