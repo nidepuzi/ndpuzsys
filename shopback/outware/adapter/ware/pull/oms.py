@@ -34,6 +34,7 @@ def create_order(order_code, store_code, order_type, dict_obj):
         if not all([dict_obj.declare_type,
                    dict_obj.order_person_idname,
                    dict_obj.order_person_idcard]):
+
             raise Exception('跨境订单需要传入报关方式以及用户身份信息:order_no=%s'%order_code)
     else:
         dict_obj.order_type = order_type

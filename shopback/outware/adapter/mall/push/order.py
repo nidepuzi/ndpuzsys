@@ -78,6 +78,8 @@ def push_outware_order_by_package(package):
         params['order_person_idname'] = address.receiver_name
         params['order_person_idcard'] = address.idcard_no
         # params['receiver_info']['receiver_identity']   = address.idcard_no
+        params['receiver_info']['receiver_identity']   = address.idcard_no
+
 
     dict_obj = DictObject().fresh_form_data(params)
     response = oms.create_order(order_code, store_code, order_type, dict_obj)

@@ -174,6 +174,7 @@ MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
     # 'dogslow.WatchdogMiddleware',
 )
 
+
 #################### TAOBAO SETTINGS ###################
 APPKEY = '12545735'  # app name guanyi erp ,younishijie
 APPSECRET = '5d845250d49aea44c3a07d8c1d513db5'
