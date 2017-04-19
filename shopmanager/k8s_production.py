@@ -186,7 +186,6 @@ JD_APP_SECRET = 'f4fe333676af4f4eaeaa00ed20c82086'
 ################### QINIU SETTINGS ##################
 # inherit from base
 
-
 ############################# ALIYUN OCR CONFIG ##############################
 ALIYUN_APPCODE = '6dc0d0df019d4e83a704b434391e42b1'
 IDCARD_OCR_URL = 'https://dm-51.data.aliyun.com/rest/160601/ocr/ocr_idcard.json'
