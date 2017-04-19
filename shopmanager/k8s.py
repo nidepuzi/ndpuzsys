@@ -221,14 +221,15 @@ JD_APP_SECRET = ''
 ################### QINIU SETTINGS ##################
 QINIU_ACCESS_KEY = "AeJdr1yBmZhMe56bJ3OpRJ8enHpHa-ShXWc8PHLZ"
 QINIU_SECRET_KEY = "a80RgU1FPEh8uh_YEvZKO69KzZc7DxWbP7d4m3Us"
+
 QINIU_PRIVATE_BUCKET = 'private'
-QINIU_PRIVATE_DOMAIN = 'oog0oqtpe.bkt.clouddn.com'
+QINIU_PRIVATE_DOMAIN = 'oon022osk.bkt.clouddn.com'
 QINIU_PUBLIC_BUCKET = 'image'
-QINIU_PUBLIC_DOMAIN = 'oog0dvroy.bkt.clouddn.com'
+QINIU_PUBLIC_DOMAIN = 'oon0iwvsw.bkt.clouddn.com'
 
 ############### REMOTE MEDIA STORAGE ################
 QINIU_BUCKET_NAME   = 'image'
-QINIU_BUCKET_DOMAIN = 'oog0dvroy.bkt.clouddn.com'
+QINIU_BUCKET_DOMAIN = 'oon0iwvsw.bkt.clouddn.com'
 QINIU_SECURE_URL    = 0
 DEFAULT_FILE_STORAGE = 'qiniustorage.backends.QiniuStorage'
 MEDIA_URL = "http://%s/" % QINIU_BUCKET_DOMAIN

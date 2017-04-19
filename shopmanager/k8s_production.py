@@ -159,19 +159,7 @@ STATSD_PORT = 9125
 # STATSD_CELERY_SIGNALS = True
 
 ################### QINIU SETTINGS ##################
-QINIU_ACCESS_KEY = "AeJdr1yBmZhMe56bJ3OpRJ8enHpHa-ShXWc8PHLZ"
-QINIU_SECRET_KEY = "a80RgU1FPEh8uh_YEvZKO69KzZc7DxWbP7d4m3Us"
-QINIU_PRIVATE_BUCKET = 'private'
-QINIU_PRIVATE_DOMAIN = 'oog0oqtpe.bkt.clouddn.com'
-QINIU_PUBLIC_BUCKET = 'image'
-QINIU_PUBLIC_DOMAIN = 'oog0dvroy.bkt.clouddn.com'
-
-############### REMOTE MEDIA STORAGE ################
-QINIU_BUCKET_NAME   = 'image'
-QINIU_BUCKET_DOMAIN = 'oog0dvroy.bkt.clouddn.com'
-QINIU_SECURE_URL    = 0
-DEFAULT_FILE_STORAGE = 'qiniustorage.backends.QiniuStorage'
-MEDIA_URL = "http://%s/" % QINIU_BUCKET_DOMAIN
+# inherit from base
 
 ############################# ALIYUN OCR CONFIG ##############################
 ALIYUN_APPCODE = '6dc0d0df019d4e83a704b434391e42b1'
