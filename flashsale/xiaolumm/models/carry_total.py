@@ -140,8 +140,8 @@ class MamaCarryTotal(BaseMamaCarryTotal):
     class Meta:
         db_table = 'xiaolumm_carry_total'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿妈妈收益排名'
-        verbose_name_plural = u'小鹿妈妈收益排名列表'
+        verbose_name = u'你的铺子妈妈收益排名'
+        verbose_name_plural = u'你的铺子妈妈收益排名列表'
 
     @property
     def num(self):
@@ -484,8 +484,8 @@ class MamaTeamCarryTotal(BaseMamaTeamCarryTotal):
     class Meta:
         db_table = 'xiaolumm_team_carry_total'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿妈妈团队收益排名'
-        verbose_name_plural = u'小鹿妈妈团队收益排名列表'
+        verbose_name = u'你的铺子妈妈团队收益排名'
+        verbose_name_plural = u'你的铺子妈妈团队收益排名列表'
 
     def __unicode__(self):
         return 'mama rank:%d' % (self.mama_id,)
@@ -707,8 +707,8 @@ class CarryTotalRecord(BaseModel):
     class Meta:
         db_table = 'xiaolumm_carry_total_record'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿妈妈收益排名记录'
-        verbose_name_plural = u'小鹿妈妈收益排名记录'
+        verbose_name = u'你的铺子妈妈收益排名记录'
+        verbose_name_plural = u'你的铺子妈妈收益排名记录'
 
     @staticmethod
     def create(carry_total, save=True, record_time=None, type=0):
@@ -837,8 +837,8 @@ class RankActivity(AdminModel):
     class Meta:
         db_table = 'xiaolumm_rank_activity'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿妈妈收益排名活动'
-        verbose_name_plural = u'小鹿妈妈收益排名活动列表'
+        verbose_name = u'你的铺子妈妈收益排名活动'
+        verbose_name_plural = u'你的铺子妈妈收益排名活动列表'
 
     @staticmethod
     def now_activity():
@@ -931,8 +931,8 @@ class ActivityMamaCarryTotal(BaseMamaCarryTotal, ActivityRankTotal):
         unique_together = ('mama', 'activity')
         db_table = 'xiaolumm_activity_carry_total'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿妈妈活动收益排名'
-        verbose_name_plural = u'小鹿妈妈活动收益排名列表'
+        verbose_name = u'你的铺子妈妈活动收益排名'
+        verbose_name_plural = u'你的铺子妈妈活动收益排名列表'
 
     @staticmethod
     def filters():
@@ -1140,8 +1140,8 @@ class ActivityMamaTeamCarryTotal(BaseMamaTeamCarryTotal, ActivityRankTotal):
         unique_together = ('mama', 'activity')
         db_table = 'xiaolumm_activity_team_carry_total'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿妈妈活动收益排名'
-        verbose_name_plural = u'小鹿妈妈活动收益排名列表'
+        verbose_name = u'你的铺子妈妈活动收益排名'
+        verbose_name_plural = u'你的铺子妈妈活动收益排名列表'
 
     @classmethod
     def filters(cls):

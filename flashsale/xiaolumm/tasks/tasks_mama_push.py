@@ -150,7 +150,7 @@ def task_weixin_push_ordercarry(ordercarry):
         order_type = u'下属订单'
 
     if is_boutique:
-        params = {'first':{'value':u'女王大人, 小鹿美美App报告：您的店铺有人下单啦！', 'color':'#F87217'},
+        params = {'first':{'value':u'女王大人, 你的铺子App报告：您的店铺有人下单啦！', 'color':'#F87217'},
                   'tradeDateTime':{'value':ordercarry.created.strftime('%Y-%m-%d %H:%M:%S'),'color':'#000000'},
                   'orderType':{'value':order_type,'color':'#000000'},
                   'customerInfo':{'value':ordercarry.contributor_nick,'color':'#000000'},
@@ -158,7 +158,7 @@ def task_weixin_push_ordercarry(ordercarry):
                   'orderItemData':{'value':u'%.2f' % (total_carry * 0.01),'color':'#ff0000'},
                   'remark':{'value':u'包含%s,共%d件商品，快去看看吧～' % (ordercarry.sku_name, sku_num), 'color':'#F87217'}}
     else:
-        params = {'first': {'value': u'女王大人, 小鹿美美App报告：您的店铺有人下单啦！', 'color': '#F87217'},
+        params = {'first': {'value': u'女王大人, 你的铺子App报告：您的店铺有人下单啦！', 'color': '#F87217'},
                   'tradeDateTime': {'value': ordercarry.created.strftime('%Y-%m-%d %H:%M:%S'), 'color': '#000000'},
                   'orderType': {'value': order_type, 'color': '#000000'},
                   'customerInfo': {'value': ordercarry.contributor_nick, 'color': '#000000'},
@@ -304,7 +304,7 @@ def task_push_new_mama_task(xlmm, current_task, params=None):
 @app.task
 def task_sms_push_mama(xlmm):
     """
-    新加入一元妈妈，发送短信引导关注小鹿美美
+    新加入一元妈妈，发送短信引导关注你的铺子
     """
     from shopapp.smsmgr.sms_push import SMSPush
 

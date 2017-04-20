@@ -168,8 +168,8 @@ class XiaoluMama(BaseModel):
     class Meta:
         db_table = 'xiaolumm_xiaolumama'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿妈妈'
-        verbose_name_plural = u'小鹿妈妈列表'
+        verbose_name = u'你的铺子妈妈'
+        verbose_name_plural = u'你的铺子妈妈列表'
 
     def __unicode__(self):
         return '%s' % self.id
@@ -211,12 +211,12 @@ class XiaoluMama(BaseModel):
     @property
     def mama_manager(self):
         # type: () -> Optional[DjangoUser]
-        """获取小鹿妈妈管理员
+        """获取你的铺子妈妈管理员
 
         self.manager (mama.id)
         """
         from games.weixingroup.models import XiaoluAdministrator
-        
+
         mama = XiaoluMama.objects.filter(id=self.manager).first()
         if not mama:
             return None
@@ -273,7 +273,7 @@ class XiaoluMama(BaseModel):
         return 0
 
     def get_Mama_Order_Rebeta_Rate(self):
-        """ 获取小鹿妈妈订单提成点数 """
+        """ 获取你的铺子妈妈订单提成点数 """
         agency_levels = AgencyLevel.objects.filter(id=self.agencylevel)
         if agency_levels.count() == 0:
             return 0
@@ -284,7 +284,7 @@ class XiaoluMama(BaseModel):
     def get_Mama_Order_Product_Rate(self, product):
         """
                 如果特卖商品detail设置代理了返利，
-                则返回设置值，否则返回小鹿妈妈统一设置值
+                则返回设置值，否则返回你的铺子妈妈统一设置值
         """
         try:
             pdetail = product.details
@@ -311,7 +311,7 @@ class XiaoluMama(BaseModel):
         return scheme
 
     def get_Mama_Order_Rebeta(self, order):
-        # 如果订单来自小鹿特卖平台
+        # 如果订单来自你的铺子特卖平台
         from shopback.items.models import Product
         if hasattr(order, 'item_id'):
             product_qs = Product.objects.filter(id=order.item_id)
@@ -365,7 +365,7 @@ class XiaoluMama(BaseModel):
             return rebeta_rate * order_payment
 
     def get_Mama_Order_Amount(self, order):
-        # 如果订单来自小鹿特卖平台
+        # 如果订单来自你的铺子特卖平台
         order_price = 0
         if hasattr(order, 'order_total_price'):
             order_price = order.order_total_price
@@ -398,12 +398,12 @@ class XiaoluMama(BaseModel):
         return self.get_Mama_Order_Amount(trade)
 
     def get_Mama_Click_Price(self, ordernum):
-        """ 获取今日小鹿妈妈点击价格 """
+        """ 获取今日你的铺子妈妈点击价格 """
         cur_date = datetime.date.today()
         return self.get_Mama_Click_Price_By_Day(ordernum, day_date=cur_date)
 
     def get_Mama_Click_Price_By_Day(self, ordernum, day_date=None):
-        """ 按日期获取小鹿妈妈点击价格
+        """ 按日期获取你的铺子妈妈点击价格
             agency_level = agency_levels[0]
             if not day_date or day_date < ROI_CLICK_START:
                 return base_price + agency_level.get_Click_Price(ordernum)
@@ -426,7 +426,7 @@ class XiaoluMama(BaseModel):
         return 10
 
     def get_Mama_Max_Valid_Clickcount(self, ordernum, day_date):
-        """ 获取小鹿妈妈最大有效点击数  """
+        """ 获取你的铺子妈妈最大有效点击数  """
         if self.agencylevel < 2:
             return 0
 
@@ -1019,7 +1019,7 @@ class XiaoluMama(BaseModel):
 
     def get_wallet_cash(self):
         """
-        获取小鹿妈妈钱包余额
+        获取你的铺子妈妈钱包余额
         """
         from flashsale.xiaolumm.models.models_fortune import MamaFortune
 
@@ -1102,7 +1102,7 @@ post_save.connect(update_trial_mama_full_member_by_condition,
 
 def created_instructor_for_mama(sender, instance, created, **kwargs):
     """
-    为小鹿妈妈创建讲师
+    为你的铺子妈妈创建讲师
     """
     if instance.charge_status == XiaoluMama.CHARGED and instance.status == XiaoluMama.EFFECT:
         from flashsale.xiaolumm.models import Instructor
@@ -1558,8 +1558,8 @@ class PotentialMama(BaseModel):
     class Meta:
         db_table = 'xiaolumm_potential_record'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿妈妈/潜在小鹿妈妈表'
-        verbose_name_plural = u'小鹿妈妈/潜在小鹿妈妈列表'
+        verbose_name = u'你的铺子妈妈/潜在你的铺子妈妈表'
+        verbose_name_plural = u'你的铺子妈妈/潜在你的铺子妈妈列表'
 
     def __unicode__(self):
         return '%s-%s' % (self.potential_mama, self.referal_mama)
@@ -1594,7 +1594,7 @@ class PotentialMama(BaseModel):
 
 #def potentialmama_push_sms(sender, instance, created, **kwargs):
 #    """
-#    新加入一元妈妈，发送短信引导关注小鹿美美
+#    新加入一元妈妈，发送短信引导关注你的铺子
 #    如果已经关注，直接微信发新手任务
 #    """
 #    from flashsale.xiaolumm.tasks_mama_push import task_sms_push_mama, task_push_new_mama_task

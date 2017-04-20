@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 CLICK_ACTIVE_START_TIME = datetime.datetime(2015, 6, 15, 10)
 CLICK_MAX_LIMIT_DATE = datetime.date(2015, 6, 5)
-# 切换小鹿妈妈点击提成到新小鹿妈妈结算体系日期
+# 切换你的铺子妈妈点击提成到新你的铺子妈妈结算体系日期
 SWITCH_CLICKREBETA_DATE = datetime.date(2016, 2, 24)
 
 
@@ -26,13 +26,13 @@ SWITCH_CLICKREBETA_DATE = datetime.date(2016, 2, 24)
 def task_Create_Click_Record(xlmmid, openid, unionid, click_time, app_key, click_url):
     """
     异步保存妈妈分享点击记录
-    xlmm_id:小鹿妈妈id,
+    xlmm_id:你的铺子妈妈id,
     openid:妈妈微信openid,
     click_time:点击时间
     """
     mama_id = int(xlmmid)
     mama = XiaoluMama.objects.filter(id=mama_id, status=XiaoluMama.EFFECT, charge_status=XiaoluMama.CHARGED).first()
-    
+
     if not mama:
         return
 
@@ -41,7 +41,7 @@ def task_Create_Click_Record(xlmmid, openid, unionid, click_time, app_key, click
     #if mama.renew_time < now:
     #    #如果妈妈的续费时间已过，不计点击记录.
     #    return
-    
+
     #tf = datetime.datetime(now.year, now.month, now.day, 0, 0, 0)
     #tt = datetime.datetime(now.year, now.month, now.day, 23, 59, 59)
     #
@@ -184,7 +184,7 @@ def task_Record_User_Click(pre_day=1):
         if click_num > 0 or user_num > 0 or valid_num > 0:  # 有不为0的数据是后才产生统计数字
             clickcount, state = ClickCount.objects.get_or_create(date=pre_date,
                                                                  linkid=xiaolumama.id)
-            # 在点击统计表中找今天的记录 如果 有number和小鹿妈妈的id相等的 说明已经该记录已经统计过了
+            # 在点击统计表中找今天的记录 如果 有number和你的铺子妈妈的id相等的 说明已经该记录已经统计过了
             clickcount.weikefu = xiaolumama.weikefu  # 写名字到统计表
             clickcount.username = xiaolumama.manager  # 接管人
             clickcount.click_num = click_num

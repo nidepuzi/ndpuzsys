@@ -76,7 +76,7 @@ class OrderListAdmin(BaseModelAdmin):
         part.append('<option value="0">-------------</option>')
 
         for user in User.objects.filter(is_staff=True,
-                                        groups__name__in=(u'小鹿买手资料员', u'小鹿采购管理员', u'小鹿采购员', u'管理员', u'小鹿管理员')). \
+                                        groups__name__in=(u'你的铺子买手资料员', u'你的铺子采购管理员', u'你的铺子采购员', u'管理员', u'你的铺子管理员')). \
                 distinct().order_by('id'):
             username = '%s%s' % (user.last_name, user.first_name)
             username = username or user.username

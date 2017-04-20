@@ -177,8 +177,8 @@ class WeekMamaCarryTotal(BaseMamaCarryTotal, WeekRank):
         unique_together = ('mama', 'stat_time')
         db_table = 'xiaolumm_week_carry_total'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿妈妈团队收益周排名'
-        verbose_name_plural = u'小鹿妈妈团队收益周排名列表'
+        verbose_name = u'你的铺子妈妈团队收益周排名'
+        verbose_name_plural = u'你的铺子妈妈团队收益周排名列表'
 
     @staticmethod
     def filters():
@@ -361,8 +361,8 @@ class WeekMamaTeamCarryTotal(BaseMamaTeamCarryTotal, WeekRank):
         unique_together = ('mama', 'stat_time')
         db_table = 'xiaolumm_week_team_carry_total'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿妈妈团队周收益排名'
-        verbose_name_plural = u'小鹿妈妈团队周收益排名列表'
+        verbose_name = u'你的铺子妈妈团队周收益排名'
+        verbose_name_plural = u'你的铺子妈妈团队周收益排名列表'
 
     @staticmethod
     def filters():

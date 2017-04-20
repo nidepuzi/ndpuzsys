@@ -59,7 +59,7 @@
 	}
 
 	.invite-count-section {}
-	
+
 	.digit {
 	  display: inline-block;
 	  width: 15%;
@@ -101,7 +101,7 @@
 	  background-color:transparent;
 	  background-size:100% 1px;
 	}
-	
+
 	.mix-head-image {
 	  width:100%;
 	  vertical-align:bottom;
@@ -207,7 +207,7 @@
 {% block content2 %}
     {% csrf_token %}
     {% if res %}
-    <div style="position:relative;top:-90px"> 
+    <div style="position:relative;top:-90px">
     <!-- 邀请图及邀请结果 -->
     <div class="invite-count">
       <div class="row">
@@ -232,7 +232,7 @@
 		  {% endif %}
 		</div>
       </div>
-    </div>    
+    </div>
     <!-- 睡袋展示区 -->
     <div class="sleepingbag-section">
       <div class="row">
@@ -266,7 +266,7 @@
       </div>
       {%else%}
       <div class="share-text">
-       <p><span>由于活动计划送出的<font style="color:#ffcf00">1000</font>个睡袋名额已全部放出<br>小鹿美美现追加<font style="color:#ffcf00">500</font>个睡袋</span></p>
+       <p><span>由于活动计划送出的<font style="color:#ffcf00">1000</font>个睡袋名额已全部放出<br>你的铺子现追加<font style="color:#ffcf00">500</font>个睡袋</span></p>
        <p><span>加油哦～现在邀请<font style="color:#ffcf00">10</font>位以上好友可获得睡袋<br>(邀请好友越多获得的机会就越大哦)～～</span></p>
       </div>
       {% endif %}
@@ -294,7 +294,7 @@
       </div>
     </div>
     <!-- end 分享区域 -->
-    
+
     <!-- start 中奖列表 -->
     <div class="zhongjiang-section">
       <div class="row">
@@ -337,7 +337,7 @@
       </div>
     </div>
      <!-- end 中奖列表 -->
-    
+
     <!-- start 红包区域 -->
     {% if res.reds %}
     <div class="hongbao-section">
@@ -372,7 +372,7 @@
       </div>
     </div>
     {% endif %}
-    
+
     </div>
     {% endif %}
     {% endblock %}
@@ -605,7 +605,7 @@
     $("#id-cancel-button").click(function () {
 	  $("#id-share-section").slideUp();
 	});
-    
+
     $('#receve_award').click(function(){
         var requestCallBack = function(resp){
             $('.good-btn').html('<img src="http://7xogkj.com2.z0.glb.qiniucdn.com/222-%E6%89%93%E9%92%A9-%E5%9C%86%E8%A7%92.png" ></img>');

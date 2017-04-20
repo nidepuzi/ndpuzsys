@@ -355,7 +355,7 @@ class BatchSetTime(generics.ListCreateAPIView):
         target_shelf_date = content.get("shelf_date", datetime.date.today())
         model_id = content.get("model_id", '')
         p_cate_search = content.get("search_cate", None)
-        ex_names = ['小鹿美美', '优尼世界']
+        ex_names = ['你的铺子', '优尼世界']
         parent_categorys = ProductCategory.objects.filter(
             is_parent=True).exclude(name__in=ex_names)
         p_cates = []

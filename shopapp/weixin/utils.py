@@ -62,7 +62,7 @@ def gen_mama_custom_qrcode_url(mama_id):
 
 def fetch_wxpub_mama_custom_qrcode_url(mama_id):
     """
-    为小鹿妈妈创建带背景图的开店二维码，并上传七牛，返回七牛链接
+    为你的铺子妈妈创建带背景图的开店二维码，并上传七牛，返回七牛链接
     """
     mama = XiaoluMama.objects.filter(id=mama_id).first()
     if not mama:

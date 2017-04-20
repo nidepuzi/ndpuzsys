@@ -1,6 +1,6 @@
 {% extends "apply/apply_base.html" %}
 
-{% block title %} 小鹿妈妈-填写基本信息{% endblock %}
+{% block title %} 你的铺子妈妈-填写基本信息{% endblock %}
 
 {% block head_script %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/invitation-letter.css">
@@ -12,7 +12,7 @@
         <ul class="flow-steps">
             <li class="col-xs-4 on"><a href="#" class="btn ">填写资料 &gt;</a></li>
             <li class="col-xs-4 "><a href="#" class="btn btn-default">支付押金 &gt;</a></li>
-            <li class="col-xs-4 "><a href="#" class="btn btn-default">加入小鹿 &gt;</a></li>
+            <li class="col-xs-4 "><a href="#" class="btn btn-default">加入你的铺子 &gt;</a></li>
         </ul>
         <div class="arr"></div>
     </div>
@@ -103,7 +103,7 @@
                     {% endif %}
                     <div class="form-group" style="display: none">
                         <button type="submit" id="next_step" name="diposite" class=""
-                                {% if not wxuser.isvalid %}disabled{% endif %}>立即申请加入小鹿妈妈
+                                {% if not wxuser.isvalid %}disabled{% endif %}>立即申请加入你的铺子妈妈
                         </button>
                     </div>
                 </form>-->

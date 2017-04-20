@@ -61,8 +61,8 @@ class RefundOrder(BaseModel):
     class Meta:
         db_table = 'xiaolupay_refund'
         app_label = 'xiaolupay'
-        verbose_name = u'小鹿支付/退款'
-        verbose_name_plural = u'小鹿支付/退款列表'
+        verbose_name = u'你的铺子支付/退款'
+        verbose_name_plural = u'你的铺子支付/退款列表'
 
     def confirm_refunded(self, succeed_time, **kwargs):
         update_fields = ['succeed', 'time_succeed']

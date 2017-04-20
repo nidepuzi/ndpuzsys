@@ -510,7 +510,7 @@ class SaleRefund(PayBaseModel):
                 return address
         except WareHouse.DoesNotExist:
             logger.warn('order product ware_by not found:saleorder=%s' % sorder)
-        return u'退货地址请咨询小鹿美美客服哦'
+        return u'退货地址请咨询你的铺子客服哦'
 
     def refund_status_shaft(self):
         # type: () -> List[Dict[str, Any]]
@@ -550,7 +550,7 @@ class SaleRefund(PayBaseModel):
         content_map = {
             WeixinPushEvent.SALE_REFUND_AGREE: u'退货申请审核通过！\n请及时填写退货 ==>物 流 单 号<== 以便系统更快处理退货!',
             WeixinPushEvent.SALE_REFUND_ARRIVE: u'仓库已收货，检验后即将完成退款。',
-            WeixinPushEvent.SALE_REFUND_GOODS_SUCCESS: u'已经退款成功\n退款金额已转入小鹿零钱帐户,请及时查看.'
+            WeixinPushEvent.SALE_REFUND_GOODS_SUCCESS: u'已经退款成功\n退款金额已转入你的铺子零钱帐户,请及时查看.'
         }
         return content_map[event_type]
 

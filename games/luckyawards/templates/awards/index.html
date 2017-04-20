@@ -1,10 +1,10 @@
-{% load mathfilters %} 
+{% load mathfilters %}
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>小鹿美美－大乐透</title>
+<title>你的铺子－大乐透</title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link href="//cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
@@ -161,7 +161,7 @@ function award(index){
     $('.award-ul').append(award);
 }
 function hasBump(index){
-    return index in lottery.prize_list || index in lottery.prize_rlist; 
+    return index in lottery.prize_list || index in lottery.prize_rlist;
 }
 function roll(){
 	lottery.times += 1;
@@ -188,7 +188,7 @@ function roll(){
 		    while(hasBump(index)){
 			  index = Math.random()*(lottery.count)|1;
 			}
-			lottery.prize = index;		
+			lottery.prize = index;
 		}else{
 			if (lottery.times > lottery.cycle+10 && ((lottery.prize==0 && lottery.index==7) || lottery.prize==lottery.index+1)) {
 				lottery.speed += 50;

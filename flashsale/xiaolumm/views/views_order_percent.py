@@ -1,12 +1,12 @@
 # coding=utf-8
 """
-按月统计订单中的  小鹿代理  内部推广 以及非专属链接的订单 数量 分布情况
+按月统计订单中的  你的铺子代理  内部推广 以及非专属链接的订单 数量 分布情况
 
 # 非专属链接 订单数量
 select count(*) from flashsale_tongji_shopping where linkid=0 and shoptime between '2015-03-01' and '2015-04-01' ;
 # 内部推广订单数量
 select count(*) from flashsale_tongji_shopping where linkid<=134 and linkid>0 and shoptime between '2015-03-01' and '2015-04-01' ;
-# 小鹿代理订单数量
+# 你的铺子代理订单数量
 select count(*) from flashsale_tongji_shopping where linkid>134 and shoptime between '2015-03-01' and '2015-04-01' ;
 
 """
@@ -119,7 +119,7 @@ WHERE shoptime BETWEEN '2015-07-01' AND '2015-08-01' and status in(0,1) and link
 @csrf_exempt
 def xlmm_Carry_Log(request):
     """
-    计算 某个时间段的小鹿妈妈总的 确定订单返利  待确定订单返利
+    计算 某个时间段的你的铺子妈妈总的 确定订单返利  待确定订单返利
     """
     content = request.POST
     time_from = content.get("time_from", None)

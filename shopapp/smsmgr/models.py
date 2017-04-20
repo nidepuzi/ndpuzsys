@@ -33,7 +33,7 @@ SMS_NOTIFY_REFUN_APPROVE = 'refund_approve'
 SMS_NOTIFY_REFUND_RETURN = 'refund_return'
 SMS_NOTIFY_REFUND_OK = 'refund_ok'
 
-SMS_NOTIFY_MAMA_ORDERCARRY = 'ordercarry'  # 小鹿妈妈订单收益
+SMS_NOTIFY_MAMA_ORDERCARRY = 'ordercarry'  # 你的铺子妈妈订单收益
 SMS_NOTIFY_APP_UPDATE = 'appupdate'        # APP更新通知
 SMS_NOTIFY_MAMA_SUBSCRIBE_WEIXIN = 'sbweixin'  # 提醒妈妈关注微信
 

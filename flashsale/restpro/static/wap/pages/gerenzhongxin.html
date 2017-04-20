@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>小鹿美美</title>
+    <title>你的铺子</title>
     <meta id="viewport" name="viewport"/>
     <meta name="format-detection" content="telephone=no"/>
     <script src="//cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
@@ -76,12 +76,12 @@
 function loginclick(e){
 	e.stopPropagation();
 	var profile = getCookie(PROFILE_COOKIE_NAME);
-	if (isNone(profile) || 
+	if (isNone(profile) ||
 		($(e.target).tagName == 'A' && isNone($(e.target).attr('href')))){
 		e.preventDefault();
 		var next = window.location.href;
 		window.location = GLConfig.login_url+'?next='+encodeURIComponent(next);;
-	}	
+	}
 }
 </script>
 </body>

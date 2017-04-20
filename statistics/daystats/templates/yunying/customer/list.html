@@ -12,15 +12,15 @@
         <option value="no_buy" {% if q_customer == 'no_buy' %}selected="selected"{% endif %}>没买过</option>
         <option value="all" {% if q_customer == 'all' %}selected="selected"{% endif %}>所有</option>
       </select>
-      <label>小鹿妈妈</label>
+      <label>你的铺子妈妈</label>
       <select name="xlmm">
         <option value="all" {% if q_xlmm == 'all' %}selected="selected"{% endif %}>---</option>
         <option value="3" {% if q_xlmm == '3' %}selected="selected"{% endif %}>试用3天</option>
         <option value="15" {% if q_xlmm == '15' %}selected="selected"{% endif %}>试用15天</option>
         <option value="183" {% if q_xlmm == '183' %}selected="selected"{% endif %}>99元</option>
         <option value="365" {% if q_xlmm == '365' %}selected="selected"{% endif %}>188元</option>
-        <option value="not" {% if q_xlmm == 'not' %}selected="selected"{% endif %}>不是小鹿妈妈</option>
-        <option value="yes" {% if q_xlmm == 'yes' %}selected="selected"{% endif %}>是小鹿妈妈</option>
+        <option value="not" {% if q_xlmm == 'not' %}selected="selected"{% endif %}>不是你的铺子妈妈</option>
+        <option value="yes" {% if q_xlmm == 'yes' %}selected="selected"{% endif %}>是你的铺子妈妈</option>
       </select>
       <input type="submit" name="查询">
     </form>

@@ -207,7 +207,7 @@ class BuyerNameFilter(SimpleListFilter):
     parameter_name = 'buyer_id'
 
     def lookups(self, request, model_admin):
-        buyer_role = Group.objects.get(name=u"小鹿订货员")
+        buyer_role = Group.objects.get(name=u"你的铺子订货员")
         options = []
         for user in buyer_role.user_set.all():
             name = '%s%s' % (user.last_name, user.first_name) or user.username
@@ -239,7 +239,7 @@ class CreaterFilter(SimpleListFilter):
     parameter_name = 'buyer_id'
 
     def lookups(self, request, model_admin):
-        buyer_role = Group.objects.get(name=u"小鹿订货员")
+        buyer_role = Group.objects.get(name=u"你的铺子订货员")
         options = []
         for user in buyer_role.user_set.all():
             name = '%s%s' % (user.last_name, user.first_name) or user.username

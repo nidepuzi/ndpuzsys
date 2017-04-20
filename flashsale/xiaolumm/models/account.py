@@ -96,7 +96,7 @@ class AccountEntry(BaseModel):
         (SB_RECEIVE_WALLET, '应收账款-钱包抵让', '1104'),
 
         (SB_PAY, '应付账款', '0'),
-        (SB_PAY_XIAOLU, '应付账款-小鹿钱包', '1201'),
+        (SB_PAY_XIAOLU, '应付账款-你的铺子钱包', '1201'),
         (SB_PAY_MAMA, '应付账款-妈妈钱包', '1201'),
         (SB_PAY_MAMA_PEDING, '应付账款-妈妈钱包-待确定', '120102'),
         (SB_PAY_MAMA_CONFIRM, '应付账款-妈妈钱包-已确定', '120102'),

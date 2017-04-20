@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_WEN_POSTER = [
     {
-        "subject": ['2折起', '小鹿美美  女装专场'],
+        "subject": ['2折起', '你的铺子  女装专场'],
         "item_link": "/mall/product/list/lady",
         "app_link": "com.jimei.xlmm://app/v1/products/ladylist",
         "pic_link": ""
@@ -28,7 +28,7 @@ DEFAULT_WEN_POSTER = [
 
 DEFAULT_CHD_POSTER = [
     {
-        "subject": ['2折起', '小鹿美美  童装专场'],
+        "subject": ['2折起', '你的铺子  童装专场'],
         "item_link": "/mall/product/list/child",
         "app_link": "com.jimei.xlmm://app/v1/products/childlist",
         "pic_link": ""

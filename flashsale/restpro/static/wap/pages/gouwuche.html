@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>小鹿美美</title>
+    <title>你的铺子</title>
     <meta charset="UTF-8">
     <meta id="viewport" name="viewport"/>
     <script src="../js/common.js"></script>
@@ -58,9 +58,9 @@ $(document).ready(function () {
   	touchend:btnUnpresse,
   	},'.buy .btn-buy');
 });
-  
+
 function Ctrl_sure_pay(){
-  /*去付款*/	
+  /*去付款*/
   var cart_ids = [];
   $('.item').each(function(index,e){
     cart_ids[cart_ids.length] = $(e).attr('cartid');

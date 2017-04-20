@@ -282,8 +282,8 @@ class DailyStat(BaseModel):
     total_youni_amount = models.FloatField(default=0, verbose_name=u'总优尼金额')
     total_noyouni_stock = models.FloatField(default=0, verbose_name=u'非优尼库存')
     total_noyouni_amount = models.FloatField(default=0, verbose_name=u'非优尼金额')
-    # total_xiaolu_stock = models.FloatField(default=0, verbose_name=u'小鹿标准库存')
-    # total_xiaolu_amount = models.FloatField(default=0, verbose_name=u'小鹿标准金额')
+    # total_xiaolu_stock = models.FloatField(default=0, verbose_name=u'你的铺子标准库存')
+    # total_xiaolu_amount = models.FloatField(default=0, verbose_name=u'你的铺子标准金额')
     total_order = models.FloatField(default=0, verbose_name=u'月订单总营收')
     total_purchase = models.FloatField(default=0, verbose_name=u'月采购总支出')
     daytime = models.DateTimeField(verbose_name=u'统计日')
@@ -292,8 +292,8 @@ class DailyStat(BaseModel):
     class Meta:
         db_table = 'statistics_daily_stat'
         app_label = 'statistics'
-        verbose_name = u'小鹿资产日统计表'
-        verbose_name_plural = u'小鹿资产日统计表'
+        verbose_name = u'你的铺子资产日统计表'
+        verbose_name_plural = u'你的铺子资产日统计表'
 
     @staticmethod
     def create(daytime):

@@ -91,7 +91,7 @@ def task_activevalue_update_mamafortune(mama_id):
 @app.task(max_retries=3, default_retry_delay=6)
 def task_update_mamafortune_invite_num(mama_id):
     from flashsale.xiaolumm.models import XiaoluMama
-    
+
     res = ReferalRelationship.objects.filter(referal_from_mama_id=mama_id).values('referal_type').annotate(num=Count('*'))
 
     invite_num, invite_trial_num = 0,0
@@ -132,7 +132,7 @@ def task_update_mamafortune_mama_level(relationship):
     #print "%s, mama_id: %s" % (get_cur_info(), mama_id)
     from flashsale.xiaolumm.models import XiaoluMama
     from_mama_id = relationship.referal_from_grandma_id
-    
+
     invite_num = ReferalRelationship.objects.filter(referal_from_mama_id=from_mama_id, referal_type__gte=XiaoluMama.HALF).count()
     group_num = ReferalRelationship.objects.filter(referal_from_grandma_id=from_mama_id, referal_type__gte=XiaoluMama.HALF).exclude(referal_to_mama_id=relationship.referal_to_mama_id).count()
     total = invite_num + group_num + 1
@@ -320,7 +320,7 @@ def task_new_guy_task_complete_send_award(mama):
 @app.task(max_retries=3, default_retry_delay=6)
 def task_subscribe_weixin_send_award(mama):
     """
-    新妈妈第一次关注小鹿美美奖励５元
+    新妈妈第一次关注你的铺子奖励５元
     奖励规则：
     １、已经关注公众号，再加入妈妈，奖励
     ２、已经是妈妈，第一次关注公众号，奖励，之前关注过的再关注均不奖励

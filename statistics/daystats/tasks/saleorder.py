@@ -161,7 +161,7 @@ def task_calc_all_sku_amount_stat_by_date(stat_date=None):
 
 @app.task
 def task_calc_all_sku_amount_stat_by_schedule():
-    """ 统计sku销售金额,由于小鹿币的兑换时间不确定,所以这里不能做任何处理 """
+    """ 统计sku销售金额,由于你的铺子币的兑换时间不确定,所以这里不能做任何处理 """
     # calc the last day sku_amount
     task_calc_all_sku_amount_stat_by_date(datetime.date.today() - datetime.timedelta(days=1))
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>小鹿美美</title>
+<title>你的铺子</title>
 <meta charset="UTF-8">
 <meta name="format-detection" content="telephone=no"/>
 <meta name="format-detection" content="email=no"/>
@@ -58,7 +58,7 @@ var NTKF_PARAM = {
   </div>
   <div>
     <p class="label1">商品总金额<span id="total_money">¥ 0</span></p>
-    <p class="label2">小鹿美美运费<span>¥ 0</span></p>
+    <p class="label2">你的铺子运费<span>¥ 0</span></p>
   </div>
   <div class="message">
 	<label>留言：</label><textarea id="id_buyer_message" rows="4" placeholder="选填：快递发韵达、邮政都包邮哦(限30字)" size="30" value="{{ buyer_message }}"></textarea>
@@ -139,13 +139,13 @@ $(document).ready(function(){
   //获取购买信息
   var urlParams = window.location.href.split('?')[1];
   Set_user_orderinfo(GLConfig.get_cart_payinfo_url+'?'+urlParams);
-  
+
   $(document).on({
   	tap:Confirm_charge,
   	touchstart:btnPresse,
   	touchend:btnUnpresse
   	},'.buy .btn-buy');
-  	
+
   get_Coupon_On_Buy();  //获取优惠券数量
 
 });

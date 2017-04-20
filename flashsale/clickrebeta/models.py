@@ -243,7 +243,7 @@ post_save.connect(update_statistic_shopping_stat, sender=StatisticsShopping)
 
 
 def get_xlmm_linkid(click_set):
-    ''' 根据点击获取小鹿妈妈ID '''
+    ''' 根据点击获取你的铺子妈妈ID '''
     exclude_xlmmids = (0, 44)
     for cc in click_set:
         if cc.linkid in exclude_xlmmids:
@@ -279,7 +279,7 @@ def tongji_wxorder(sender, obj, **kwargs):
 
     if isinxiaolumm.count() > 0:
         xiaolumm = isinxiaolumm[0]
-        # 计算小鹿妈妈订单返利
+        # 计算你的铺子妈妈订单返利
         mm_rebeta_amount = xiaolumm.get_Mama_Trade_Amount(obj)
         mm_order_rebeta = xiaolumm.get_Mama_Trade_Rebeta(obj)
         tongjiorder, state = StatisticsShopping.objects.get_or_create(linkid=xiaolumm.id,
@@ -313,7 +313,7 @@ def tongji_wxorder(sender, obj, **kwargs):
         xiaolu_mmset = XiaoluMama.objects.filter(id=mm_linkid)
         if xiaolu_mmset.count() > 0:
             xiaolu_mm = xiaolu_mmset[0]
-            # 计算小鹿妈妈订单返利
+            # 计算你的铺子妈妈订单返利
             mm_rebeta_amount = xiaolu_mm.get_Mama_Trade_Amount(obj)
             mm_order_rebeta = xiaolu_mm.get_Mama_Trade_Rebeta(obj)
             tongjiorder, state = StatisticsShopping.objects.get_or_create(linkid=mm_linkid,
@@ -368,13 +368,13 @@ def get_wxopenid(sale_trade, customer):
 
 
 def get_xiaolumm(sale_trade, customer):
-    """ 获取小鹿妈妈 """
+    """ 获取你的铺子妈妈 """
     obj = sale_trade
     ordertime = obj.pay_time
     order_stat_from = ordertime - datetime.timedelta(days=CLICK_VALID_DAYS)
     xd_openid, wx_unionid = get_wxopenid(sale_trade, customer)
 
-    # 计算订单所属小鹿妈妈ID
+    # 计算订单所属你的铺子妈妈ID
     xiaolumms = XiaoluMama.objects.filter(openid=wx_unionid,
                                           charge_status=XiaoluMama.CHARGED)
     if xiaolumms.exists():
@@ -386,7 +386,7 @@ def get_xiaolumm(sale_trade, customer):
 
     if xd_openid:
         mm_clicks = Clicks.objects.filter(click_time__range=(order_stat_from, ordertime)).filter(
-            openid=xd_openid).order_by('-click_time')  # 去掉0，44对应的小鹿妈妈ID
+            openid=xd_openid).order_by('-click_time')  # 去掉0，44对应的你的铺子妈妈ID
         mm_linkid = get_xlmm_linkid(mm_clicks)
         xiaolu_mmset = XiaoluMama.objects.filter(id=mm_linkid)
         if xiaolu_mmset.exists():
@@ -431,7 +431,7 @@ def tongji_saleorder(sender, obj, **kwargs):
     mm_linkid = xiaolu_mm and xiaolu_mm.id or 0
 
     if xiaolu_mm:
-        # 计算小鹿妈妈订单返利
+        # 计算你的铺子妈妈订单返利
         mm_rebeta_amount = xiaolu_mm.get_Mama_Trade_Amount(obj)
         mm_order_rebeta = xiaolu_mm.get_Mama_Trade_Rebeta(obj)
         tongjiorder, state = StatisticsShopping.objects.get_or_create(linkid=mm_linkid,

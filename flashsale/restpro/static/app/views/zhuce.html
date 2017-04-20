@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta id="viewport" name="viewport" content="">
-<title>小鹿美美</title>
+<title>你的铺子</title>
 <link rel="stylesheet" href="../css/common.css">
 <link rel="stylesheet" href="../css/zhuce.css">
 <script src="../script/common.js"></script>
@@ -62,22 +62,22 @@ angular.module('XLZCAPP',['MYMD'])
 		$scope.vmobile = "";
 		$scope.authcode = "";
 		$scope.error_tips = "";
-       	
+
        	$scope.verifyMB = function() {
        		console.log('verify mobile:'+$scope.vmobile);
 			var respVerify = Register.verify($scope.vmobile);
 			console.log('resp'+respVerify);
 		}
-				
+
        	console.log('INIT:'+$scope.vmobile);
     }]);
-	
+
 
 angular.module('ZCService',[])
 	.factory('Register',['$http',function($http){
 		var xlapiurl = 'http://192.168.1.6:8000/rest/v1',
           servicename = 'register';
-          
+
         var verify = function(mobile) {
 	        return $http({
 	          method: 'POST',
@@ -91,7 +91,7 @@ angular.module('ZCService',[])
 	        }
 	    }
 	}])
-	
+
 angular.module('MYNG',[])
 
 angular.module('MYMD',['ZCService','MYNG' ])

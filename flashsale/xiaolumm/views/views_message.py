@@ -15,8 +15,8 @@ from flashsale.xiaolumm.models import MamaTabVisitStats
 
 class XlmmMessageViewSet(viewsets.GenericViewSet, viewsets.mixins.ListModelMixin):
     """
-    - list: `get`  小鹿妈妈消息
-    - self_list: `get` 获取自己的小鹿妈妈消息
+    - list: `get`  你的铺子妈妈消息
+    - self_list: `get` 获取自己的你的铺子妈妈消息
     - <messageid>/read: `get` 设置消息为已读
     """
     queryset = XlmmMessage.objects.filter(dest=None)
@@ -35,9 +35,9 @@ class XlmmMessageViewSet(viewsets.GenericViewSet, viewsets.mixins.ListModelMixin
         try:
             mama = request.user.customer.get_xiaolumm()
         except:
-            raise exceptions.ValidationError(u'您并非登录小鹿妈妈或小鹿妈妈账号存在异常')
+            raise exceptions.ValidationError(u'您并非登录你的铺子妈妈或你的铺子妈妈账号存在异常')
         if not mama:
-            raise exceptions.ValidationError(u'您并非登录小鹿妈妈或小鹿妈妈账号存在异常')
+            raise exceptions.ValidationError(u'您并非登录你的铺子妈妈或你的铺子妈妈账号存在异常')
 
         queryset, unread_cnt = XlmmMessage.get_msg_list(mama.id)
         page = self.paginate_queryset(queryset)
@@ -51,29 +51,29 @@ class XlmmMessageViewSet(viewsets.GenericViewSet, viewsets.mixins.ListModelMixin
         try:
             mama = request.user.customer.get_xiaolumm()
         except:
-            raise exceptions.ValidationError(u'您并非登录小鹿妈妈或小鹿妈妈账号存在异常')
+            raise exceptions.ValidationError(u'您并非登录你的铺子妈妈或你的铺子妈妈账号存在异常')
         if not mama:
-            raise exceptions.ValidationError(u'您并非登录小鹿妈妈或小鹿妈妈账号存在异常')
+            raise exceptions.ValidationError(u'您并非登录你的铺子妈妈或你的铺子妈妈账号存在异常')
 
         task_mama_daily_tab_visit_stats.delay(mama.id, MamaTabVisitStats.TAB_NOTIFICATION)
-        
-        XlmmMessage.set_all_read(mama)        
+
+        XlmmMessage.set_all_read(mama)
         queryset, unread_cnt = XlmmMessage.get_msg_list(mama.id)
         page = self.paginate_queryset(queryset)
         serializer = self.get_serializer(page, many=True)
         res = self.get_paginated_response(serializer.data)
         res.data['unread_cnt'] = unread_cnt
         return res
-        
-    
+
+
     @detail_route(methods=['GET', 'POST'])
     def read(self, request, pk):
         try:
             mama = request.user.customer.get_xiaolumm()
         except:
-            raise exceptions.ValidationError(u'您并非登录小鹿妈妈或小鹿妈妈账号存在异常')
+            raise exceptions.ValidationError(u'您并非登录你的铺子妈妈或你的铺子妈妈账号存在异常')
         if not mama:
-            raise exceptions.ValidationError(u'您并非登录小鹿妈妈或小鹿妈妈账号存在异常')
+            raise exceptions.ValidationError(u'您并非登录你的铺子妈妈或你的铺子妈妈账号存在异常')
         message = get_object_or_404(XlmmMessage, pk=pk)
         if message.dest and message.dest != mama:
             raise exceptions.ValidationError(u'无法修改和自己无关的消息')

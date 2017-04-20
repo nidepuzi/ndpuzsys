@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-<title>小鹿美美</title>
+<title>你的铺子</title>
 <meta charset="utf-8">
 <meta name="format-detection" content="telephone=no" />
 <meta id="viewport" name="viewport" />
@@ -29,12 +29,12 @@
   //返回顶部
   $('#js-scroll-top').on('touchend',function(e){
     e.preventDefault();
-    $('body').animate({scrollTop:0},400);  
+    $('body').animate({scrollTop:0},400);
   });
    //获取待收货订单列表
   Set_orders(GLConfig.get_trade_waitsend_url);
 
-})(jQuery);  
-</script>  
+})(jQuery);
+</script>
 </body>
 </html>

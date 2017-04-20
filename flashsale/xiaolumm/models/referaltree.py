@@ -6,7 +6,7 @@ from core.models import BaseModel
 
 class MamaReferalTree(BaseModel):
 
-    referal_to_mama_id = models.IntegerField(default=0, unique=True, verbose_name=u'小鹿妈妈id')
+    referal_to_mama_id = models.IntegerField(default=0, unique=True, verbose_name=u'你的铺子妈妈id')
     referal_from_mama_id = models.IntegerField(default=0, db_index=True, verbose_name=u'上级妈妈id')
 
     direct_invite_num = models.IntegerField(default=0, db_index=True, verbose_name=u'直接邀请数')

@@ -84,7 +84,7 @@ class MmexamsViewSet(viewsets.ModelViewSet):
         if not customer:
             return Response({"code": 2, "info": "请登陆后重试!", "exam_info": ''})
         xlmm = customer.get_charged_mama()
-        is_xlmm = 1 if xlmm else 0  # 是否是小鹿妈妈
+        is_xlmm = 1 if xlmm else 0  # 是否是你的铺子妈妈
         fans_num = xlmm_fans_num(xlmm)
         invite_num = xlmm_invite_num(xlmm)
 
@@ -190,7 +190,7 @@ class MmexamsViewSet(viewsets.ModelViewSet):
             return Response({"code": 2, "info": "没有开放的考试！"})
         xlmm = customer.get_charged_mama()
         if not xlmm:
-            return Response({"code": 3, "info": "请申请成为小鹿妈妈后参加考试！"})
+            return Response({"code": 3, "info": "请申请成为你的铺子妈妈后参加考试！"})
         content = request.GET
         question_id = content.get("question_id") or None
         answer = content.get("answer") or None
@@ -235,7 +235,7 @@ class MmexamsViewSet(viewsets.ModelViewSet):
             return Response({"code": 1, "info": "请登陆后重试！",
                              "exam_result": default_result})
         if not xlmm:
-            return Response({"code": 2, "info": "请申请成为小鹿妈妈后参加考试！",
+            return Response({"code": 2, "info": "请申请成为你的铺子妈妈后参加考试！",
                              "exam_result": default_result})
         content = request.GET or request.POST
         sheaves = content.get("sheaves") or None

@@ -21,7 +21,7 @@ class DingDingAPI(object):
     corpsecret = 'k1LS2LMil27fZz81R66qG7U7wwrOJ0RsbaAJUylDFOgOe46TjKtBn0kB4LCMNG25'
     access_token = None
 
-    GROUP_TECH = '81e7257059a2626b1eda00d3b263f2851be07b40ee188f8b718c606bcdcbc8ae'  # 小鹿技术群
+    GROUP_TECH = '81e7257059a2626b1eda00d3b263f2851be07b40ee188f8b718c606bcdcbc8ae'  # 你的铺子技术群
     GROUP_OPERATE_TECH = 'ceee8be001caa0f452682c4eaa2285617d214d92a07e45f3656816fdf933ea61'  # 运营/技术群
 
     def __init__(self):

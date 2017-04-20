@@ -5,7 +5,7 @@ from flashsale.pay.models import Customer
 from django.contrib.auth.models import Permission
 
 
-# class IsAccessXiaoluCoin(permissions.BasePermission):  #管理小鹿币
+# class IsAccessXiaoluCoin(permissions.BasePermission):  #管理你的铺子币
 #     def has_permission(self, request, view):
 #         user = request.user
 #         own_perms = user.get_group_permissions()

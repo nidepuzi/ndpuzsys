@@ -26,28 +26,28 @@ class GroupMamaAdministratorAdmin(BaseModelAdmin):
     def admin__id(self, obj):
         return obj.admin.id
 
-    admin__id.short_description = u'小鹿管理员ID'
+    admin__id.short_description = u'你的铺子管理员ID'
 
     def admin__username(self, obj):
         return obj.admin.username
 
-    admin__username.short_description = u'小鹿管理员用户名'
+    admin__username.short_description = u'你的铺子管理员用户名'
 
     def admin__nick(self, obj):
         return obj.admin.nick
 
-    admin__nick.short_description = u'小鹿管理员昵称'
+    admin__nick.short_description = u'你的铺子管理员昵称'
 
     def mama_nick(self, obj):
         customer = obj.mama.get_mama_customer()
         return customer.nick if customer else ''
 
-    mama_nick.short_description = u'小鹿妈妈用户名'
+    mama_nick.short_description = u'你的铺子妈妈用户名'
 
     def mama_mobile(self, obj):
         return obj.mama.mobile
 
-    mama_mobile.short_description = u'小鹿妈妈手机'
+    mama_mobile.short_description = u'你的铺子妈妈手机'
 
     def fans_count_quick(self, obj):
         return obj.fans_count_dict.get(obj.id, 0)
@@ -64,7 +64,7 @@ class GroupMamaAdministratorAdmin(BaseModelAdmin):
     def group_link(self, obj):
         return HOST + "/july_event/html/mama_attender.html?unionid=" + obj.mama.openid
 
-    group_link.short_description = u'小鹿妈妈查看凉席活动详情'
+    group_link.short_description = u'你的铺子妈妈查看凉席活动详情'
 
 
 admin.site.register(GroupMamaAdministrator, GroupMamaAdministratorAdmin)

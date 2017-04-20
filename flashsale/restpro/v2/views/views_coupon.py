@@ -130,7 +130,7 @@ class CouponTransferRecordViewSet(viewsets.ModelViewSet):
         to_customer = Customer.objects.normal_customer.filter(user=request.user).first()
         to_mama = to_customer.get_charged_mama()
         if not to_mama:
-            return Response({"code": 4, "info": u"精英妈妈账户状态不正常，无法转券，请关注小鹿美美公众号联系客服或管理员！"})
+            return Response({"code": 4, "info": u"精英妈妈账户状态不正常，无法转券，请关注你的铺子公众号联系客服或管理员！"})
         apply_records = CouponTransferRecord.objects.filter(coupon_to_mama_id=to_mama.id,
                                                             template_id=template_id,
                                                             transfer_type=CouponTransferRecord.OUT_TRANSFER,
@@ -677,7 +677,7 @@ class CouponExchgOrderViewSet(viewsets.ModelViewSet):
                     if model_product:
                         imgs = model_product.head_imgs.split('\n')
                         head_img = imgs[0] if imgs else ''
-                        # indirect下级使用小鹿币购买的券，上级可以兑券,因为在保存ordercarry时已经判断了indirect才能保存，此处没有做indirect判断
+                        # indirect下级使用你的铺子币购买的券，上级可以兑券,因为在保存ordercarry时已经判断了indirect才能保存，此处没有做indirect判断
                         from flashsale.pay.apis.v1.order import get_pay_type_from_trade
                         # budget_pay, coin_pay = get_pay_type_from_trade(sale_order.sale_trade)
                         if left_exchange_num > 0 and model_product.extras.has_key('template_id'):

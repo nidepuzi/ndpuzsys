@@ -40,9 +40,9 @@ from shopback.items.models import Product
 from shopapp.smsmgr.apis import send_sms_message, SMS_TYPE
 from shopapp.smsmgr.models import SMSActivity, SMS_NOTIFY_GOODS_LACK
 
-# SEND_TEMPLATE = "您好，我是小鹿美美的客服Amy。您订购{0}{1}码 因销量火爆，厂家缺货。我们已经帮您自动退款并且补偿10元优惠券。给您带来不便非常抱歉！么么哒～"
-SEND_TEMPLATE = "尊贵的{0}小主！我是小鹿客服小凳子~在这里很抱歉的告诉小主，" \
-                "由于小主的眼光过于犀利，购买的{1}{2}这款宝贝严重缺货了呢。小凳子我在这里八百里加急为小主办理退款了~请小主息怒~小凳子对小主一片忠心望小主今后多多提携~【小鹿美美】"
+# SEND_TEMPLATE = "您好，我是你的铺子的客服Amy。您订购{0}{1}码 因销量火爆，厂家缺货。我们已经帮您自动退款并且补偿10元优惠券。给您带来不便非常抱歉！么么哒～"
+SEND_TEMPLATE = "尊贵的{0}小主！我是你的铺子客服小凳子~在这里很抱歉的告诉小主，" \
+                "由于小主的眼光过于犀利，购买的{1}{2}这款宝贝严重缺货了呢。小凳子我在这里八百里加急为小主办理退款了~请小主息怒~小凳子对小主一片忠心望小主今后多多提携~【你的铺子】"
 
 
 class SendMessageView(generics.ListCreateAPIView):

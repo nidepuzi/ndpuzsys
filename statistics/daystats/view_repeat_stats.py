@@ -142,7 +142,7 @@ class StatsRepeatView(View):
         end_month = end_date.month
         month_range = range(start_month + 1, end_month + 1)
         # task_id = task_calc_new_user_repeat.delay(start_date, end_date)  # 计算重复购买
-        # send_tasks = task_calc_xlmm.delay(start_time_str, end_time_str)  # 计算小鹿妈妈购买
+        # send_tasks = task_calc_xlmm.delay(start_time_str, end_time_str)  # 计算你的铺子妈妈购买
         # task_id_sale = task_calc_package.delay(start_date, end_date)  # 计算包裹数量
 
         customer_repeat_buy_data = calc_customer_repeat_buy(

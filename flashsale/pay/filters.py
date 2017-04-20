@@ -57,7 +57,7 @@ class CushopProCategoryFiler(SimpleListFilter):
 
 
 class MamaCreatedFilter(SimpleListFilter):
-    title = u'小鹿妈妈创建时间'
+    title = u'你的铺子妈妈创建时间'
     parameter_name = 'mama_created'
 
     def lookups(self, request, model_admin):

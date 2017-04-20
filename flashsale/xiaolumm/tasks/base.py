@@ -36,7 +36,7 @@ RED_PACK_START_TIME = datetime.datetime(2015, 7, 6, 0, 0)  # 订单红包开放�
 def task_Push_Pending_Carry_Cash(xlmm_id=None):
     """
     将待确认金额重新计算并加入妈妈现金账户
-    xlmm_id:小鹿妈妈id
+    xlmm_id:你的铺子妈妈id
     """
     # 结算订单提成
     task_Push_Pending_OrderRebeta_Cash(day_ago=ORDER_REBETA_DAYS, xlmm_id=xlmm_id)
@@ -185,7 +185,7 @@ def order_Red_Packet(xlmm):
 def task_Update_Xlmm_Order_By_Day(xlmm, target_date):
     """
     更新每天妈妈订单状态及提成
-    xlmm_id:小鹿妈妈id，
+    xlmm_id:你的铺子妈妈id，
     target_date：计算日期
     """
     from flashsale.clickrebeta.tasks import update_Xlmm_Shopping_OrderStatus
@@ -194,7 +194,7 @@ def task_Update_Xlmm_Order_By_Day(xlmm, target_date):
     time_to = datetime.datetime(target_date.year, target_date.month, target_date.day, 23, 59, 59)
 
     shoping_orders = StatisticsShopping.objects.filter(linkid=xlmm, shoptime__range=(time_from, time_to))
-    # 更新小鹿妈妈交易订单状态
+    # 更新你的铺子妈妈交易订单状态
     update_Xlmm_Shopping_OrderStatus(shoping_orders)
 
     try:
@@ -207,7 +207,7 @@ def task_Update_Xlmm_Order_By_Day(xlmm, target_date):
 def task_Push_Pending_ClickRebeta_Cash(day_ago=CLICK_REBETA_DAYS, xlmm_id=None):
     """
     计算待确认点击提成并计入妈妈现金帐号
-    xlmm_id:小鹿妈妈id，
+    xlmm_id:你的铺子妈妈id，
     day_ago：计算时间 = 当前时间 - 前几天
     """
     from flashsale.clickcount.tasks import calc_Xlmm_ClickRebeta
@@ -252,7 +252,7 @@ def task_Push_Pending_ClickRebeta_Cash(day_ago=CLICK_REBETA_DAYS, xlmm_id=None):
 def task_Push_Pending_OrderRebeta_Cash(day_ago=ORDER_REBETA_DAYS, xlmm_id=None):
     """
     计算待确认订单提成并计入妈妈现金帐号
-    xlmm_id:小鹿妈妈id，
+    xlmm_id:你的铺子妈妈id，
     day_ago：计算时间 = 当前时间 - 前几天
     """
     pre_date = datetime.date.today() - datetime.timedelta(days=day_ago)
@@ -303,7 +303,7 @@ def task_Push_Pending_OrderRebeta_Cash(day_ago=ORDER_REBETA_DAYS, xlmm_id=None):
 def task_Push_Pending_AgencyRebeta_Cash(day_ago=AGENCY_SUBSIDY_DAYS, xlmm_id=None):
     """
     计算代理贡献订单提成
-    xlmm_id:小鹿妈妈id，
+    xlmm_id:你的铺子妈妈id，
     day_ago：计算时间 = 当前时间 - 前几天
     """
     pre_date = datetime.date.today() - datetime.timedelta(days=day_ago)
@@ -420,7 +420,7 @@ def task_Calc_Month_ThousRebeta(pre_month=1):
 def task_Push_Pending_ThousRebeta_Cash(day_ago=ORDER_REBETA_DAYS, xlmm_id=None):
     """
     计算待确认千元提成并计入妈妈现金帐号
-    xlmm_id:小鹿妈妈id，
+    xlmm_id:你的铺子妈妈id，
     day_ago：计算时间 = 当前时间 - 前几天
     """
     pre_date = datetime.date.today() - datetime.timedelta(days=day_ago)
@@ -836,7 +836,7 @@ def task_update_trial_mama_full_member_by_condition(mama):
         trial_mama.save(update_fields=['last_renew_type', 'renew_time'])
         sys_oa = get_systemoa_user()
         log_action(sys_oa, trial_mama, CHANGE, u'满足转正条件,转为正式妈妈')
-        # 修改潜在小鹿妈妈列表中的　转正状态
+        # 修改潜在你的铺子妈妈列表中的　转正状态
 
         potential = PotentialMama.objects.filter(potential_mama=trial_mama.id, is_full_member=False).first()
         if potential:

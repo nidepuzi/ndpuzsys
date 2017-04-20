@@ -87,8 +87,8 @@ def test_send_msg():
         'news': {
             'articles': [
              {
-                 'title': '小鹿美美｜欢迎加入小鹿妈妈！',
-                 'description': '小鹿美美｜欢迎加入小鹿妈妈！',
+                 'title': '你的铺子｜欢迎加入你的铺子妈妈！',
+                 'description': '你的铺子｜欢迎加入你的铺子妈妈！',
                  'url': 'http://m.nidepuzi.com/mama_shop/html/greetings_mama.html',
                  'picurl': 'http://7xogkj.com1.z0.glb.clouddn.com/xiaolumm/manager/yaya.jpg'
              },

@@ -36,7 +36,7 @@ class LuntanPushViewSet(viewsets.ViewSet):
         comment_nickname = request.POST.get('comment_nickname', None)
         # print back_nickname,comment_nickname
         # msg = str(back_nickname) + "给" + str(comment_nickname) + "回复一条评论"
-        msg = str(back_nickname) + u"在小鹿论坛回复了你的评论,快点击来看看吧"
+        msg = str(back_nickname) + u"在你的铺子论坛回复了你的评论,快点击来看看吧"
         if comment_nickname and comment_nickname:
             AppPush.push(int(customer_id), TARGET_SCHEMA + TARGET_PATHS[13], msg)
             return HttpResponse({'customer-%d' % int(customer_id)})

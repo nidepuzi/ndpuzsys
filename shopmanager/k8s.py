@@ -117,11 +117,11 @@ REST_FRAMEWORK.update({
 WX_NOTIFY_URL = 'http://staging.nidepuzi.com/rest/notify/{channel}/'
 WX_JS_API_CALL_URL ='http://staging.nidepuzi.com/pay/?showwxpaytitle=1'
 
-# ================ 小鹿美美特卖[公众号] ==================
+# ================ 你的铺子特卖[公众号] ==================
 WEIXIN_SECRET = ''
 WEIXIN_APPID = ''
 
-# ================ 小鹿美美[公众号] ==================
+# ================ 你的铺子[公众号] ==================
 WX_PUB_APPID = ""
 WX_PUB_APPSECRET = ""
 
@@ -131,7 +131,7 @@ WX_PUB_KEY   = "" #支付密钥
 WX_PUB_KEY_PEM_PATH = '/data/certs/wxpub_key.pem'
 WX_PUB_CERT_PEM_PATH = '/data/certs/wxpub.pem'
 
-# ================ 小鹿美美[ APP客户端] ==================
+# ================ 你的铺子[ APP客户端] ==================
 WX_APPID = ""
 WX_APPSECRET = ""
 
@@ -141,7 +141,7 @@ WX_KEY   = "" #支付密钥
 WX_CERT_PEM_PATH = '/data/certs/wxapp.pem'
 WX_KEY_PEM_PATH  = '/data/certs/wxapp_key.pem'
 
-# ================ 小鹿美美[微信小程序] ==================
+# ================ 你的铺子[微信小程序] ==================
 WEAPP_APPID  = ''
 WEAPP_SECRET = ''
 

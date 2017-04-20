@@ -134,7 +134,7 @@ class TeamBuy(AdminModel):
             'share_type': 'link',
             'share_icon': self.sku.product.pic_path,
             'share_link': share_link,
-            'active_dec': u'我在小鹿美美发现一个好东西,团购更便宜,一起来拼团吧.',
+            'active_dec': u'我在你的铺子发现一个好东西,团购更便宜,一起来拼团吧.',
         }
 
     def get_qrcode_page_link(self, **params):

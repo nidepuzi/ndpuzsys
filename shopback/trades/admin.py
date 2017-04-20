@@ -1576,7 +1576,7 @@ class PackageSkuItemAdmin(admin.ModelAdmin):
                  str(p.sale_trade.receiver_address_detail), '', p.sale_trade.receiver_mobile, '', '', '', '',
                  p.sale_trade.created.strftime('%Y-%m-%D %H:%M:%S'),
                  p.sale_trade.pay_time.strftime('%Y-%m-%D %H:%M:%S'),
-                 p.sale_trade.logistics_company.name if p.sale_trade.logistics_company else '', '', u'小鹿美美，时尚健康美丽',
+                 p.sale_trade.logistics_company.name if p.sale_trade.logistics_company else '', '', u'你的铺子，时尚健康美丽',
                  '', '', saleproduct.product_link if saleproduct else ''])
         for p in need_send.exclude(package_order_pid=None):
             o = p.package_order
@@ -1589,7 +1589,7 @@ class PackageSkuItemAdmin(admin.ModelAdmin):
                           p.sale_trade.created.strftime('%Y-%m-%D %H:%M:%S'),
                           p.sale_trade.pay_time.strftime('%Y-%m-%D %H:%M:%S'),
                           p.sale_trade.logistics_company.name if p.sale_trade.logistics_company else '', '',
-                          u'小鹿美美，时尚健康美丽', '', '', saleproduct.product_link if saleproduct else ''])
+                          u'你的铺子，时尚健康美丽', '', '', saleproduct.product_link if saleproduct else ''])
         items = [columns] + items
         buff = StringIO.StringIO()
         is_windows = request.META['HTTP_USER_AGENT'].lower().find(

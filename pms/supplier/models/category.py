@@ -203,7 +203,7 @@ class SaleCategory(BaseModel):
         """ 产品类别map """
         from shopback.categorys.models import ProductCategory
         pcs = ProductCategory.objects.filter(status=ProductCategory.NORMAL)
-        pcs_full_names = [{pc.cid: [i.strip() for i in pc.__unicode__().split('/')[-2:] if i.strip() != u'小鹿美美']} for pc in pcs]
+        pcs_full_names = [{pc.cid: [i.strip() for i in pc.__unicode__().split('/')[-2:] if i.strip() != u'你的铺子']} for pc in pcs]
         self_names = [x.strip() for x in self.full_name.split('/')]
         for pcnames in pcs_full_names:
             if self_names == pcnames.values()[0]:
@@ -211,7 +211,7 @@ class SaleCategory(BaseModel):
                 if self_cat:
                     return self_cat
 
-        cur_cat = pcs.get(name=u'小鹿美美')
+        cur_cat = pcs.get(name=u'你的铺子')
         for cname in self_names:
             cur_cat, state = ProductCategory.objects.get_or_create(parent_cid=cur_cat.cid, name=cname)
         return cur_cat

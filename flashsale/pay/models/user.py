@@ -184,7 +184,7 @@ class Customer(BaseTagModel):
         return self._xiaolumm_
 
     def get_charged_mama(self):
-        """ 获取当前用户对应的小鹿妈妈 """
+        """ 获取当前用户对应的你的铺子妈妈 """
         if not self.unionid:
             return None
         if not hasattr(self, '_charged_mama_'):
@@ -195,7 +195,7 @@ class Customer(BaseTagModel):
         return self._charged_mama_
 
     def getXiaolumm(self):
-        """ 获取当前用户对应的小鹿妈妈 """
+        """ 获取当前用户对应的你的铺子妈妈 """
         if not self.unionid:
             return None
         if not hasattr(self, '_customer_mama_'):
@@ -206,7 +206,7 @@ class Customer(BaseTagModel):
         return self._customer_mama_
 
     def get_referal_xlmm(self):
-        """ 获取推荐当前用户的小鹿妈妈 """
+        """ 获取推荐当前用户的你的铺子妈妈 """
         if not hasattr(self, '_customer_referal_mama_'):
             from flashsale.xiaolumm.models.models_fans import XlmmFans
             from flashsale.xiaolumm.models import XiaoluMama
@@ -436,11 +436,11 @@ class UserBudget(PayBaseModel):
 
         try:
             if not self.user.unionid:
-                return 5, '提现请先关注公众号［小鹿美美］'
+                return 5, '提现请先关注公众号［你的铺子］'
             from shopapp.weixin.models import WeixinUnionID
             wx_union = WeixinUnionID.objects.get(app_key=settings.WX_PUB_APPID, unionid=self.user.unionid)
         except WeixinUnionID.DoesNotExist:
-            return 4, '提现请先关注公众号［小鹿美美］'  # 用户没有公众号提现账户
+            return 4, '提现请先关注公众号［你的铺子］'  # 用户没有公众号提现账户
 
         # 发放公众号红包
         recipient = wx_union.openid  # 接收人的openid
@@ -724,7 +724,7 @@ class BudgetLog(PayBaseModel):
     @classmethod
     def create_mm_cash_out_2_budget(cls, customer_id, value, referal_id):
         # type: (int, int, int) -> BudgetLog
-        """妈妈从 妈妈钱包 提现到 小鹿钱包创建小鹿钱包记录
+        """妈妈从 妈妈钱包 提现到 你的铺子钱包创建你的铺子钱包记录
         """
         budget_type = BudgetLog.BUDGET_IN
         budget_log_type = BudgetLog.BG_MAMA_CASH
@@ -745,7 +745,7 @@ class BudgetLog(PayBaseModel):
 
         if self.status == BudgetLog.CONFIRMED:
             return False
-        user_budget = self.user_budget  # 小鹿钱包
+        user_budget = self.user_budget  # 你的铺子钱包
 
         with transaction.atomic():
             if self.budget_type == BudgetLog.BUDGET_IN:  # 收入
@@ -786,7 +786,7 @@ class BudgetLog(PayBaseModel):
 
         if self.status == BudgetLog.CANCELED:
             return False
-        user_budget = self.user_budget  # 小鹿钱包
+        user_budget = self.user_budget  # 你的铺子钱包
 
         with transaction.atomic():
             if self.budget_type == BudgetLog.BUDGET_IN:  # 收入

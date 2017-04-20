@@ -10,7 +10,7 @@ wx = {
     "time_settle": None,
     "time_expire": 1480142679,
     "id": "ch_v5iPK44qDKiPvLWzD4Wrbrb5",
-    "subject": "小鹿美美平台交易",
+    "subject": "你的铺子平台交易",
     "failure_msg": None,
     "channel": "wx",
     "metadata": {
@@ -60,7 +60,7 @@ wx_pub = {
     "time_settle": None,
     "time_expire": 1480142880,
     "id": "ch_DC4iPCGuDuPSvfHe5OOmzrz5",
-    "subject": "小鹿美美平台交易",
+    "subject": "你的铺子平台交易",
     "failure_msg": None,
     "channel": "wx_pub",
     "metadata": {
@@ -107,7 +107,7 @@ alipay = {
     "time_settle": None,
     "time_expire": 1480222147,
     "id": "ch_Sa5WrHPebTy1GOSqnTevDCOG",
-    "subject": "小鹿美美平台交易",
+    "subject": "你的铺子平台交易",
     "failure_msg": None,
     "channel": "alipay",
     "metadata": {
@@ -116,7 +116,7 @@ alipay = {
     "body": "用户订单金额[1, 516410, 139.90]",
     "credential": {
       "alipay": {
-        "orderInfo": "service=\"mobile.securitypay.pay\"&_input_charset=\"utf-8\"&notify_url=\"https%3A%2F%2Fnotify.pingxx.com%2Fnotify%2Fcharges%2Fch_Sa5WrHPebTy1GOSqnTevDCOG\"&partner=\"2088911223385116\"&out_trade_no=\"xd161126583703e203026\"&subject=\"小鹿美美平台交易\"&body=\"用户订单金额[1, 516410, 139.90]\"&total_fee=\"139.90\"&payment_type=\"1\"&seller_id=\"2088911223385116\"&it_b_pay=\"2016-11-27 12:49:07\"&sign=\"E5hvOu82WWVK7I49La74OBoZ4X4U5oCDLu106SzM%2FkAIz7BXa3Z7mK4dwj1YkgDXPqwhYq3i8TlrkX8FzB3aUfzclGHbihrsc8102G1yCWNJ7uB%2FfDnCRWUNzyKYUS5PBO%2B0FDx4JqBkKp2TUZlhSSTyGXNR0ByEabJa5pHJ73Y%3D\"&sign_type=\"RSA\""
+        "orderInfo": "service=\"mobile.securitypay.pay\"&_input_charset=\"utf-8\"&notify_url=\"https%3A%2F%2Fnotify.pingxx.com%2Fnotify%2Fcharges%2Fch_Sa5WrHPebTy1GOSqnTevDCOG\"&partner=\"2088911223385116\"&out_trade_no=\"xd161126583703e203026\"&subject=\"你的铺子平台交易\"&body=\"用户订单金额[1, 516410, 139.90]\"&total_fee=\"139.90\"&payment_type=\"1\"&seller_id=\"2088911223385116\"&it_b_pay=\"2016-11-27 12:49:07\"&sign=\"E5hvOu82WWVK7I49La74OBoZ4X4U5oCDLu106SzM%2FkAIz7BXa3Z7mK4dwj1YkgDXPqwhYq3i8TlrkX8FzB3aUfzclGHbihrsc8102G1yCWNJ7uB%2FfDnCRWUNzyKYUS5PBO%2B0FDx4JqBkKp2TUZlhSSTyGXNR0ByEabJa5pHJ73Y%3D\"&sign_type=\"RSA\""
       },
       "object": "credential"
     },
@@ -152,7 +152,7 @@ alipay_wap = {
     "time_settle": None,
     "time_expire": 1480222195,
     "id": "ch_X9SyHGeDSO0Kib9ybPL4mTKG",
-    "subject": "小鹿美美平台交易",
+    "subject": "你的铺子平台交易",
     "failure_msg": None,
     "channel": "alipay_wap",
     "metadata": {

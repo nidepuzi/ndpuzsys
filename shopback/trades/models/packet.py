@@ -134,7 +134,7 @@ class PackageOrder(models.Model):
 
     @property
     def type(self):
-        return u'小鹿特卖'
+        return u'你的铺子特卖'
 
     @property
     def package_type(self):
@@ -826,7 +826,7 @@ class PackageOrder(models.Model):
         self.status = PO_STATUS.DELETE
         self.save()
         self.package_sku_items.filter(assign_status__in=[0, 1]).update(assign_status=3, status=PSI_STATUS.CANCEL)
-            
+
 
 def is_merge_trade_package_order_diff(package):
     merge_trade = package.get_merge_trade()

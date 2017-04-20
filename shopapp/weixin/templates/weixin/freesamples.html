@@ -11,9 +11,9 @@
     <div class="panel-heading" style="color:orange">8月卡通空气层睡袋活动 公告</div>
     <div class="panel-body">
       <!--{% if started %}
-      <p>距离活动结束还有<font style="color:red;"><span style="font-size:20px">{{ days }}</span>天<span style="font-size:20px">{{ hours }}</span>小时<span style="font-size:20px">{{ minutes }}</span>分</font>,为感谢美妈们的积极参与，小鹿美美决定加赠<span style="font-size:20px;color:red;">1000</span>个睡袋,共<span style="font-size:20px;color:red;">2000</span>份全棉卡通空气层分腿睡袋免费送，赶快邀请好友来参加吧！最后一批名单将在17日（星期一）上午10点公布,谢谢参与! </p>
+      <p>距离活动结束还有<font style="color:red;"><span style="font-size:20px">{{ days }}</span>天<span style="font-size:20px">{{ hours }}</span>小时<span style="font-size:20px">{{ minutes }}</span>分</font>,为感谢美妈们的积极参与，你的铺子决定加赠<span style="font-size:20px;color:red;">1000</span>个睡袋,共<span style="font-size:20px;color:red;">2000</span>份全棉卡通空气层分腿睡袋免费送，赶快邀请好友来参加吧！最后一批名单将在17日（星期一）上午10点公布,谢谢参与! </p>
 	  {% else %}
-	  <p>小鹿美美全棉儿童空气层分腿睡袋免费试用开始预热啦！距离活动开始还有<font style="color:red;"><span style="font-size:20px">{{ days }}</span>天<span style="font-size:20px">{{ hours }}</span>小时<span style="font-size:20px">{{ minutes }}</span>分</font>。</p>
+	  <p>你的铺子全棉儿童空气层分腿睡袋免费试用开始预热啦！距离活动开始还有<font style="color:red;"><span style="font-size:20px">{{ days }}</span>天<span style="font-size:20px">{{ hours }}</span>小时<span style="font-size:20px">{{ minutes }}</span>分</font>。</p>
 	  {% endif %}-->
      <!-- <p><span style="font-size:20px">2500</span>份卡通吸汗巾已全部送出 <a href="/weixin/inviteresult/">查看中奖名单&gt;&gt;</a></p>-->
      <p><span style="font-size:20px">全部试用名单共2147名 <a href="/weixin/inviteresult/">查看中奖名单&gt;&gt;</a></p>
@@ -24,7 +24,7 @@
   <div class="panel panel-default" style="margin-top:5px">
   <div class="panel-heading" style="color:red">活动产品展示</div>
   <div class="panel-body">
-    
+
     <form action="/weixin/sampleapply/" method="post" onsubmit="return check()" class="form-group">{% csrf_token %}
       <input type="hidden" value="5" name="sample_pk"/>
 
@@ -52,7 +52,7 @@
       </div>
 
       <div class="row" style="margin-top:10px">
-	<div class="col-xs-2"></div>	  
+	<div class="col-xs-2"></div>
 	<div class="col-xs-8" style="text-align:center">
 	  {% if started %}
 	  {% if order_number < 1000 %}
@@ -71,7 +71,7 @@
 	</div>
 	<div class="col-xs-2"></div>
     </div>
-      
+
       <div class="row" style="text-align:center">
 	<p id="id_msg" style="text-align:center;color:red"></p>
 	<div class="col-xs-12" style="text-align:center; margin-top:16px">
@@ -82,7 +82,7 @@
     {% else %}
 	<input type="submit" class="btn btn-warning" value="提交试用申请"/>
 	{% endif %}
-    {% else %} 
+    {% else %}
 	  <!--<button type="button" class="btn btn-warning" disabled="disabled">申请待开放...</button>
 	  <p style="color:red;margin-top:10px">请提前关注【优尼世界】，申请待开放！</p>-->
 	  <p style="color:red;margin-top:10px">卡通凉席免费试用活动已结束，谢谢美妈们的参与，后期活动更精彩！</p>
@@ -114,7 +114,7 @@
 </div>
 
 </div>
-{% endblock %}    
+{% endblock %}
 
 {% block tail_script %}
 <script type="text/javascript">
@@ -125,7 +125,7 @@
 	  "https://mmbiz.qlogo.cn/mmbiz/yMhOQPTKhLuib4oia7Uxw0Ttn7TWcdaoxicC6Oyunic2mVscEdfU18bRTwCM57XAoFuTU7IVvzhw3KdaiatR1ibkcibJg/0?wx_fmt=png"
   ];
 
-  $("#id_selection_color").change(function(){ 
+  $("#id_selection_color").change(function(){
     var val = $(this).children("option:selected").val();
     $("#id_img1").attr("src",imgsrc[val]);
   });
@@ -139,8 +139,8 @@
     {% if not started %}
     return false;
     {% endif %}
-  
-    var vipcode = $("#id_vipcode").val();  
+
+    var vipcode = $("#id_vipcode").val();
     var msg = $("#id_msg");
     if (validateVipCode(vipcode) == false) {
 

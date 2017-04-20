@@ -62,7 +62,7 @@ class LessonTopicFilter(filters.FilterSet):
 class LessonTopicViewSet(viewsets.ModelViewSet):
     """
     Return lesson topics.
-    ### 小鹿妈妈/主题课程接口
+    ### 你的铺子妈妈/主题课程接口
     - [/rest/lesson/lessontopic](/rest/lesson/lessontopic) 主题课程list:
         1. method: get
             * 可过滤字段: `lesson_type`: 课程类型（3:基础课程,0: 课程,1: 实战, 2:知识）
@@ -140,7 +140,7 @@ class LessonTopicViewSet(viewsets.ModelViewSet):
         if not mama_id or not customer:
             if redirect_url:
                 return redirect(redirect_url)
-            return Response({'code': 1, 'info': '您还不是小鹿妈妈哦~',
+            return Response({'code': 1, 'info': '您还不是你的铺子妈妈哦~',
                              'lesson_attend_record_url': '', 'lesson': {}, 'lesson_attend_rcds': []})
         # 查看讲师记录
         instructor = Instructor.objects.filter(mama_id=mama_id).first()
@@ -305,7 +305,7 @@ class InstructorViewSet(viewsets.ModelViewSet):
 class LessonAttendRecordViewSet(viewsets.ModelViewSet):
     """
     Return attending records.
-    
+
     /attendrecord?lesson_id=1&unionid=xxx
     lesson_id: lesson id
     unionid: user's unionid

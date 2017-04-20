@@ -135,7 +135,7 @@ def create(order_no, amount, subject, body, recipient, remark):
     envelope.mch_billno = order_no
     envelope.mch_id = wx_account.partner_id
     envelope.wxappid = wx_account.app_id
-    envelope.send_name = u'小鹿美美'
+    envelope.send_name = u'你的铺子'
     envelope.openid = recipient
     envelope.total_amount = amount
     envelope.total_num = 1

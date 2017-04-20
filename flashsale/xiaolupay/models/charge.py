@@ -58,8 +58,8 @@ class ChargeOrder(BaseModel):
     class Meta:
         db_table = 'xiaolupay_charge'
         app_label = 'xiaolupay'
-        verbose_name = u'小鹿支付/支付记录'
-        verbose_name_plural = u'小鹿支付/支付记录列表'
+        verbose_name = u'你的铺子支付/支付记录'
+        verbose_name_plural = u'你的铺子支付/支付记录列表'
 
     def is_payable(self):
         if not self.paid and self.time_expire < datetime.datetime.now():
@@ -168,5 +168,5 @@ class Credential(BaseModel):
         db_table = 'xiaolupay_credential'
         unique_together = ["order_no", "channel"]
         app_label = 'xiaolupay'
-        verbose_name = u'小鹿支付/凭证'
-        verbose_name_plural = u'小鹿支付/凭证列表'
+        verbose_name = u'你的铺子支付/凭证'
+        verbose_name_plural = u'你的铺子支付/凭证列表'

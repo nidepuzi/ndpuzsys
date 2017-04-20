@@ -1,6 +1,6 @@
 {% extends "apply/apply_base.html" %}
 
-{% block title %} 小鹿妈妈-支付押金 {% endblock %}
+{% block title %} 你的铺子妈妈-支付押金 {% endblock %}
 
 {% block head_script %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/invitation-deposit.css">
@@ -29,7 +29,7 @@
     <ul class="flow-steps">
         <li class="col-xs-4 "><a href="#" class="btn btn-default">填写资料 &gt;</a></li>
         <li class="col-xs-4 on"><a href="#" class="btn ">支付押金 &gt;</a></li>
-        <li class="col-xs-4 "><a href="#" class="btn btn-default">加入小鹿 &gt;</a></li>
+        <li class="col-xs-4 "><a href="#" class="btn btn-default">加入你的铺子 &gt;</a></li>
     </ul>
     <div class="arr"></div>
 </div>
@@ -45,10 +45,10 @@
 
             <div class="about-detail">
                 <p>
-                    为了保障小鹿妈妈质量和活跃度<br/>
+                    为了保障你的铺子妈妈质量和活跃度<br/>
                     需支付鹿妈押金188元<br/>
                     在一年内，我们将返您365元<br/>
-                    根据您的活跃度,每天返回1元到您的小鹿账户<br/>
+                    根据您的活跃度,每天返回1元到您的你的铺子账户<br/>
                 </p>
             </div>
 
@@ -154,7 +154,7 @@
                         <div class="col-xs-offset-4 col-xs-10">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" onchange="Submit_enable(this);"> 同意小鹿妈妈条款<a
+                                    <input type="checkbox" onchange="Submit_enable(this);"> 同意你的铺子妈妈条款<a
                                         href="{{ STATIC_URL }}tiaokuan.html"><span class="label-text">点击查看</span></a>
                                 </label>
                             </div>
@@ -175,7 +175,7 @@
     <div class="pay-deposit-btn">
         <div class="mama-item">
             <input type="checkbox" onchange="Submit_enable(this);"/>
-            <span>注册即视为同意 <a href="{{ STATIC_URL }}tiaokuan.html">小鹿美美代理服务条款</a></span>
+            <span>注册即视为同意 <a href="{{ STATIC_URL }}tiaokuan.html">你的铺子代理服务条款</a></span>
         </div>
         <form id="deposite-form" action="#" method="POST">
 

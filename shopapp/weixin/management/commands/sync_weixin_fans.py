@@ -57,8 +57,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         appkeys = [
-            # settings.WX_PUB_APPID,  # 小鹿美美公众号
-            settings.WEIXIN_APPID,  # 小鹿特卖
+            # settings.WX_PUB_APPID,  # 你的铺子公众号
+            settings.WEIXIN_APPID,  # 你的铺子特卖
         ]
 
         for appkey in appkeys:

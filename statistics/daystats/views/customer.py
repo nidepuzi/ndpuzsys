@@ -188,16 +188,16 @@ def index(req):
     weixin_fans = execute_sql(cursor, sql)
 
     customer_items = {
-        '新增小鹿妈妈': [int(x[1]) for x in xiaolumm],
+        '新增你的铺子妈妈': [int(x[1]) for x in xiaolumm],
         '新增用户数': [int(x[1]) for x in customers],
     }
     trade_items = {
         '付款订单数': [int(x[1]) for x in trades_pay],
         '所有订单（含未付款）': [int(x[1]) for x in trades_all],
-        '来自小鹿妈妈订单': [int(x[1]) for x in xiaolumm_trades],
+        '来自你的铺子妈妈订单': [int(x[1]) for x in xiaolumm_trades],
     }
     weixin_items = {
-        '小鹿美美粉丝': [int(x[1]) for x in weixin_fans],
+        '你的铺子粉丝': [int(x[1]) for x in weixin_fans],
     }
 
     x_axis = [x.strftime('%Y-%m-%d') for x in generate_date(start_date, end_date)]

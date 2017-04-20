@@ -25,7 +25,7 @@ log = logging.getLogger('django.request')
 
 class XiaoluAdministratorViewSet(WeixinAuthMixin, viewsets.GenericViewSet):
     """
-        小鹿微信群管理员
+        你的铺子微信群管理员
     """
     queryset = XiaoluAdministrator.objects.all()
     serializer_class = XiaoluAdministratorSerializers
@@ -53,10 +53,10 @@ class XiaoluAdministratorViewSet(WeixinAuthMixin, viewsets.GenericViewSet):
             xiaoumama = XiaoluMama.objects.filter(openid=unionid).first()
 
         if not xiaoumama:
-            raise exceptions.ValidationError(u'您不是小鹿妈妈或者你的微信号未和小鹿妈妈账号绑定')
+            raise exceptions.ValidationError(u'您不是你的铺子妈妈或者你的微信号未和你的铺子妈妈账号绑定')
 
         task_mama_daily_tab_visit_stats.delay(xiaoumama.id, MamaTabVisitStats.TAB_MAMA_BOUTIQUE_FAQ)
-        
+
         mama_id = xiaoumama.id
         administrastor_id = request.POST.get('administrastor_id') or request.GET.get('administrastor_id')
         if GroupMamaAdministrator.objects.filter(mama_id=mama_id).exists():
@@ -90,7 +90,7 @@ class XiaoluAdministratorViewSet(WeixinAuthMixin, viewsets.GenericViewSet):
                     return redirect(redirect_url)
             xiaoumama = XiaoluMama.objects.filter(openid=unionid).first()
         if not xiaoumama:
-            raise exceptions.ValidationError(u'您不是小鹿妈妈或者你的微信号未和小鹿妈妈账号绑定')
+            raise exceptions.ValidationError(u'您不是你的铺子妈妈或者你的微信号未和你的铺子妈妈账号绑定')
         mama_id = xiaoumama.id
         administrastor_id = request.GET.get('administrastor_id')
         if GroupMamaAdministrator.objects.filter(mama_id=mama_id).exists():
@@ -120,7 +120,7 @@ class XiaoluAdministratorViewSet(WeixinAuthMixin, viewsets.GenericViewSet):
 
 class GroupMamaAdministratorViewSet(viewsets.mixins.CreateModelMixin, viewsets.GenericViewSet):
     """
-        小鹿微信群
+        你的铺子微信群
     """
     queryset = GroupMamaAdministrator.objects.all()
     serializer_class = MamaGroupsSerializers
@@ -142,7 +142,7 @@ class GroupMamaAdministratorViewSet(viewsets.mixins.CreateModelMixin, viewsets.G
             }
             return Response(res)
         except Exception, e:
-            raise exceptions.ValidationError(u'用户未登录或不是小鹿妈妈')
+            raise exceptions.ValidationError(u'用户未登录或不是你的铺子妈妈')
 
     @detail_route(methods=['GET'])
     def detail(self, request, pk):
@@ -157,10 +157,10 @@ class GroupMamaAdministratorViewSet(viewsets.mixins.CreateModelMixin, viewsets.G
     def groups(self, requenst, pk):
         mama = XiaoluMama.objects.filter(openid=pk).first()
         if not mama:
-            raise exceptions.NotFound(u'未能找到指定的小鹿妈妈')
+            raise exceptions.NotFound(u'未能找到指定的你的铺子妈妈')
         groups = GroupMamaAdministrator.objects.filter(mama_id=mama.id)
         if not groups.first():
-            raise exceptions.NotFound(u'此小鹿妈妈尚未报名到微信群')
+            raise exceptions.NotFound(u'此你的铺子妈妈尚未报名到微信群')
         res = {}
         admin = groups.first().admin
         res['admin'] = XiaoluAdministratorSerializers(admin).data
@@ -173,7 +173,7 @@ class GroupMamaAdministratorViewSet(viewsets.mixins.CreateModelMixin, viewsets.G
     def users(self, request, pk):
         group = GroupMamaAdministrator.objects.filter(group_uni_key=pk).first()
         if not group:
-            raise exceptions.NotFound(u'指定的小鹿妈妈群不存在')
+            raise exceptions.NotFound(u'指定的你的铺子妈妈群不存在')
         queryset = self.filter_queryset(group.fans.order_by('-id'))
         page = self.paginate_queryset(queryset)
         if page is not None:
@@ -190,7 +190,7 @@ class GroupMamaAdministratorViewSet(viewsets.mixins.CreateModelMixin, viewsets.G
     def qr_code(self, request, pk):
         group = GroupMamaAdministrator.objects.filter(group_uni_key=pk).first()
         if not group:
-            raise exceptions.NotFound(u'指定的小鹿妈妈群不存在')
+            raise exceptions.NotFound(u'指定的你的铺子妈妈群不存在')
         link = self.JOIN_URL + group.group_uni_key
         return redirect(push_qrcode_to_remote('lxmm_join' + group.group_uni_key, link))
 
@@ -225,7 +225,7 @@ class LiangXiActivityViewSet(WeixinAuthMixin, viewsets.GenericViewSet):
         group_id = request.GET.get('group_id')
         group = GroupMamaAdministrator.objects.filter(group_uni_key=group_id).first()
         if not group:
-            raise exceptions.NotFound(u'指定的小鹿妈妈群不存在')
+            raise exceptions.NotFound(u'指定的你的铺子妈妈群不存在')
         queryset = self.filter_queryset(group.fans.order_by('-id'))
         page = self.paginate_queryset(queryset)
         if page is not None:
@@ -305,7 +305,7 @@ class LiangXiActivityViewSet(WeixinAuthMixin, viewsets.GenericViewSet):
         else:
             raise exceptions.ValidationError(u'粉丝详情请从APP进入页面查看')
         if not xiaoumama:
-            raise exceptions.ValidationError(u'只有小鹿妈妈可以查看粉丝详情')
+            raise exceptions.ValidationError(u'只有你的铺子妈妈可以查看粉丝详情')
         fans = GroupFans.objects.filter(
             union_id=xiaoumama.openid
         ).first()
@@ -315,7 +315,7 @@ class LiangXiActivityViewSet(WeixinAuthMixin, viewsets.GenericViewSet):
             fans = GroupFans.create(group, customer.user.id, customer.thumbnail, customer.nick,
                                     customer.unionid, customer.openid)
             ActivityUsers.join(self.activity, customer.user.id, fans.group_id)
-        # 纠正成为了他人粉丝的小鹿妈妈
+        # 纠正成为了他人粉丝的你的铺子妈妈
         elif fans.group_id != group:
             log.error(u'fans become other fans:' + str(fans.id) + '|' + str(fans.group_id) + '|need' + str(group.id))
         return redirect("/mall/activity/summer/mat/register?groupId=" + group.group_uni_key+'&fansId=' + str(fans.id))

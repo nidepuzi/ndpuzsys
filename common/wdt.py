@@ -53,7 +53,7 @@ class WangDianTong(object):
         #     'GoodsTotal': wdt_order['total_fee'],  # 货款合计(销售出库时非空)
         #     'OrderPay': wdt_order['total_fee'],  # 订单付款金额（含运费）
         #     'LogisticsPay': wdt_order['logistics_pay'],  # 运费
-        #     'ShopName': '优禾生活小鹿美美店',  # 订单所属店铺名称（出库时非空）
+        #     'ShopName': '优禾生活你的铺子店',  # 订单所属店铺名称（出库时非空）
         #     'BuyerName': wdt_order['buyer']['name'],  # 收货人姓名
         #     'BuyerPostCode': wdt_order['buyer']['post_code'],  # 收货人邮编
         #     'BuyerTel': wdt_order['buyer']['tel'],
@@ -188,14 +188,14 @@ def main():
         'GoodsTotal': 10.0,  # 货款合计(销售出库时非空)
         'OrderPay': 10.0,  # 订单付款金额（含运费）
         'LogisticsPay': 0,  # 运费
-        'ShopName': '优禾生活小鹿美美店',  # 订单所属店铺名称（出库时非空）
+        'ShopName': '优禾生活你的铺子店',  # 订单所属店铺名称（出库时非空）
         'BuyerName': '测试合并订单',  # 收货人姓名
         'BuyerPostCode': '000000',  # 收货人邮编
         'BuyerTel': '18888888888',
         'BuyerProvince': '上海',
         'BuyerCity': '上海',
         'BuyerDistrict': '杨浦区',
-        'BuyerAdr': '小鹿美美',
+        'BuyerAdr': '你的铺子',
         'PayTime': '2016-11-21 00:00:01',
         'TradeTime': '2016-11-21 00:00:00',
         'ItemList': {

@@ -9,7 +9,7 @@
   <div class="panel panel-default" style="margin-top:5px">
     <!--<div class="panel-heading" style="color:orange">申请确认</div>-->
     <div class="panel-body">
-      
+
       <form method="post" action="/weixin/sampleconfirm/" onsubmit="return check()">{% csrf_token %}
 	<input type="hidden" name="sample_pk" value="{{ sample.pk }}"/>
 	<input type="hidden" name="sku_code" value="{{ sku.sku_code }}"/>
@@ -40,7 +40,7 @@
 	    {% if wx_user.isvalid %}
 	    <p>收货人手机: {{ wx_user.mobile }}</p>
 	    {% else %}
-	    
+
 	    <h5 style="color:#3071a9">验证手机</h5><span style="color:red" id="id_verify_msg"></span>
 	    <div class="input-group">
 	      <span class="input-group-addon">手机号</span>
@@ -61,12 +61,12 @@
 	</div>
 
 	<hr/>
-	
+
 	<div class="row">
 	  <div class="col-xs-12">
 	    <h5 style="color:red"><b>小调查</b></h5>
 	    <div>
-	      <p style="color:#029fd6">1. 小鹿美美，是优尼世界旗下新的童装女装特卖平台，主推外贸原单新款，每天10点上新。您会感兴趣吗？</p>
+	      <p style="color:#029fd6">1. 你的铺子，是优尼世界旗下新的童装女装特卖平台，主推外贸原单新款，每天10点上新。您会感兴趣吗？</p>
 	      <div class="radio">
 		<label>
 		  <input type="radio" name="p1" value="1" id="id_input11"> 每天可以准时来看看都特卖啥宝贝。
@@ -90,7 +90,7 @@
 
 	    <!--{% if hongbao_pass %}
 	    <div style="margin-top:20px">
-	      <p style="color:#029fd6">3. 若您是第一次参加小鹿美美活动，那么</p>
+	      <p style="color:#029fd6">3. 若您是第一次参加你的铺子活动，那么</p>
 	      <div class="radio">
 		<label>
 		  <input type="radio" name="p3" value="1" id="id_input3"> 可在申请提交后加客服微信，领>1元现金红包。
@@ -109,7 +109,7 @@
 	  </div>
 	</div>
 	{% endif %}
-	
+
 	<div class="row" style="margin-top:16px">
 	  <p id="id_msg" style="text-align:center;color:red"></p>
 	  <div class="col-xs-12" style="text-align:center">
@@ -137,8 +137,8 @@
   </div>
 
 </div>
-{% endblock %}    
-    
+{% endblock %}
+
 
 {% block tail_script %}
 <script type="text/javascript">
@@ -171,7 +171,7 @@
     if (status == "1" || status == "2") {
       return;
     }
-    
+
     var mobile = $("#id_mobile_input").val();
     if (validateMobile(mobile) == false) {
       return;
@@ -184,13 +184,13 @@
     var openid = $("#id_openid").val();
     var url = "/weixin/requestcode/";
     var data = {"mobile":mobile, "openid":openid};
-    
+
     var callback = function (res) {
       if (res["code"] == "wait") {
         $("#id_verify_msg")[0].innerHTML = "请先耐心等待180秒哦！";
         return;
-      } 
-      
+      }
+
       if (res["code"] != "good") {
         btn.attr("status","0");
         window.clearInterval(global_timer);
@@ -201,27 +201,27 @@
         btn[0].innerHTML = "已达上限";
         btn[0].innerHTML = "成功发送";
         return;
-      } 
+      }
 
       if (res["code"] == "anony") {
         $("#id_verify_msg")[0].innerHTML = "请从优尼世界微信登录此页面！";
         btn[0].innerHTML = "登录有误";
         return;
-      } 
+      }
 
       if (res["code"] == "bad") {
         $("#id_verify_msg")[0].innerHTML = "请输入正确的手机号码！";
         btn[0].innerHTML = "点击重发";
         return;
-      } 
+      }
 
       if (res["code"] == "dup") {
         $("#id_verify_msg")[0].innerHTML = "此号码已被他人验证，请重新输入！";
         btn[0].innerHTML = "点击重发";
         return;
-      } 
+      }
     };
-          
+
     $.ajax({url:url, data:data, success:callback});
   };
 

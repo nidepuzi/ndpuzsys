@@ -13,15 +13,15 @@ from flashsale.pay.models import SaleTrade, SaleOrder, SaleRefund
 
 def product_category_map():
     return {
-        4: '小鹿美美',
-        5: '小鹿美美 / 童装',
-        6: '小鹿美美 / 箱包',
-        8: '小鹿美美 / 女装',
-        10: '小鹿美美 / 饰品',
-        39: '小鹿美美 / 美食',
-        44: '小鹿美美 / 美妆',
-        49: '小鹿美美 / 家居',
-        52: '小鹿美美 / 母婴',
+        4: '你的铺子',
+        5: '你的铺子 / 童装',
+        6: '你的铺子 / 箱包',
+        8: '你的铺子 / 女装',
+        10: '你的铺子 / 饰品',
+        39: '你的铺子 / 美食',
+        44: '你的铺子 / 美妆',
+        49: '你的铺子 / 家居',
+        52: '你的铺子 / 母婴',
     }
 
 
@@ -344,8 +344,8 @@ class FinanceCostApiView(APIView):
 
 class MamaOrderCarryStatApiView(APIView):
     """
-    小鹿妈妈订单数占比: 状态在 预计 or 已经确定 订单类型 包含商城直接订单 和 app直接订单记录类型 不包含 下属订单类型
-    小鹿妈妈带来的单量 carry_num:提成金额　　order_value：订单金额
+    你的铺子妈妈订单数占比: 状态在 预计 or 已经确定 订单类型 包含商城直接订单 和 app直接订单记录类型 不包含 下属订单类型
+    你的铺子妈妈带来的单量 carry_num:提成金额　　order_value：订单金额
     """
     authentication_classes = (authentication.SessionAuthentication, authentication.BasicAuthentication)
     permission_classes = (permissions.IsAuthenticated, permissions.IsAdminUser)
@@ -378,7 +378,7 @@ class MamaOrderCarryStatApiView(APIView):
             {
                 'code': 0,
                 'info': 'success',
-                'desc': u'特卖商城小鹿妈妈订单占比信息',
+                'desc': u'特卖商城你的铺子妈妈订单占比信息',
                 'aggregate_data': {
                     'total_count': total_count,
                     'total_carry_num': total_carry_num,

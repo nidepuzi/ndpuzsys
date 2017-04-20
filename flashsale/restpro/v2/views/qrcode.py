@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 
 class QRcodeViewSet(viewsets.ModelViewSet):
     """
-    ## GET /rest/v2/qrcode/get_wxpub_qrcode　　根据小鹿妈妈 id 创建小鹿美美公众号临时二维码
+    ## GET /rest/v2/qrcode/get_wxpub_qrcode　　根据你的铺子妈妈 id 创建你的铺子公众号临时二维码
     params:
     - mama_id  可选。默认未当前用户妈妈，传入可获取指定mama_id的二维码
 
@@ -54,12 +54,12 @@ class QRcodeViewSet(viewsets.ModelViewSet):
 
             mama = customer.get_xiaolumm()
             if not mama:
-                return Response({"code": 2, "info": u"不是小鹿妈妈"})
+                return Response({"code": 2, "info": u"不是你的铺子妈妈"})
             mama_id = mama.id
         else:
             mama = XiaoluMama.objects.filter(id=mama_id).first()
             if not mama:
-                return Response({"code": 2, "info": u"不是小鹿妈妈"})
+                return Response({"code": 2, "info": u"不是你的铺子妈妈"})
 
         resp = {
             'code': 0,

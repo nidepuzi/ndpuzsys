@@ -133,7 +133,7 @@ def task_Merge_Sale_Customer(user, code):
 @app.task()
 def task_Push_SaleTrade_Finished(pre_days=10):
     """
-    定时将待确认状态小鹿特卖订单更新成已完成：
+    定时将待确认状态你的铺子特卖订单更新成已完成：
     1，查找明细订单对应的MergeOrder;
     2，根据MergeOrder父订单状态更新Saleorder状态；
     3，根据SaleTrade的所有SaleOrder状态更新SaleTrade状态;
@@ -457,7 +457,7 @@ def task_Record_Mama_Fans(instance, created):
         if not from_customer:  # 没有找到推荐人则返回
             return
         ins_xlmm = instance.getXiaolumm()
-        if ins_xlmm:  # 如果当前用户是小鹿妈妈则返回，不记录小鹿妈妈自己为自己的粉丝
+        if ins_xlmm:  # 如果当前用户是你的铺子妈妈则返回，不记录你的铺子妈妈自己为自己的粉丝
             return
         fans = XlmmFans.objects.filter(fans_cusid=instance.id)
         if fans.exists():  # 存在粉丝记录返回
@@ -805,7 +805,7 @@ def task_customer_update_weixinuserinfo(customer):
 
 @app.task()
 def task_sync_xlmm_fans_nick_thumbnail(customer):
-    """ 更新小鹿妈妈粉丝的头像和昵称 """
+    """ 更新你的铺子妈妈粉丝的头像和昵称 """
     from flashsale.xiaolumm.models import XlmmFans
     fans = XlmmFans.objects.filter(fans_cusid=customer.id).first()
     if not fans:
@@ -815,7 +815,7 @@ def task_sync_xlmm_fans_nick_thumbnail(customer):
 
 @app.task()
 def task_sync_xlmm_mobile_by_customer(customer):
-    """ 更新小鹿妈妈的手机号 """
+    """ 更新你的铺子妈妈的手机号 """
     xlmm = customer.get_xiaolumm()
     if not xlmm:
         return
@@ -959,7 +959,7 @@ def task_tongji_trade_source():
     now = datetime.datetime.today()
     today = datetime.datetime(now.year, now.month, now.day).strftime('%Y-%m-%d')
 
-    # 有　mm_linkid，是小鹿妈妈分享的链接
+    # 有　mm_linkid，是你的铺子妈妈分享的链接
     sql = """
         SELECT count(*) FROM flashsale_trade
         where extras_info not REGEXP '"mm_linkid": 0'
@@ -968,7 +968,7 @@ def task_tongji_trade_source():
     cursor.execute(sql, today)
     share_trades_count = cursor.fetchone()[0]
 
-    # 没有 mm_linkid，但是买家是小鹿妈妈
+    # 没有 mm_linkid，但是买家是你的铺子妈妈
     sql = """
         SELECT count(*)
         FROM flashsale_trade
@@ -1188,7 +1188,7 @@ def task_schedule_check_trades_and_budget():
 
     tt = datetime.datetime.now()
     tf = tt - datetime.timedelta(days=7)
-    # 1.检查已经支付的订单是否零钱／小鹿币／xiaolupay支付记录吻合
+    # 1.检查已经支付的订单是否零钱／你的铺子币／xiaolupay支付记录吻合
     from flashsale.pay.models.trade import SaleOrder, SaleTrade, Customer
     trade_qs = SaleTrade.objects.filter(status__in=[SaleTrade.WAIT_SELLER_SEND_GOODS,
                                                     SaleTrade.WAIT_BUYER_CONFIRM_GOODS,
@@ -1212,7 +1212,7 @@ def task_schedule_check_trades_and_budget():
                              SaleTrade.TRADE_CLOSED]:
             wrong_trades.append(log.referal_id)
 
-    # 3.检查小鹿币支付记录中订单状态是否正常
+    # 3.检查你的铺子币支付记录中订单状态是否正常
     from flashsale.xiaolumm.models import XiaoluCoinLog
     coin_logs = XiaoluCoinLog.objects.filter(iro_type=XiaoluCoinLog.OUT, subject=XiaoluCoinLog.CONSUME,
                                              created__gte=tf)

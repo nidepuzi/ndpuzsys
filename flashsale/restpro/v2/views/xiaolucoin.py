@@ -22,7 +22,7 @@ class XiaoluCoinViewSet(viewsets.GenericViewSet):
         """
         GET /rest/v2/xiaolucoin/history
 
-        小鹿币收支记录
+        你的铺子币收支记录
         """
         customer = Customer.getCustomerByUser(user=request.user)
         mama_id = customer.mama_id
@@ -58,7 +58,7 @@ class XiaoluCoinViewSet(viewsets.GenericViewSet):
         - subject 收支类型['gift', 'refund', 'recharge', 'consume']
         - referal_id (可选) 引用id
 
-        增加,减少小鹿币余额
+        增加,减少你的铺子币余额
         """
         content = request.POST or request.data
         mama_id = content.get('mama_id') or ''

@@ -219,7 +219,7 @@ class MamaStatsView(WeixinAuthMixin, View):
 
         wx_users = Customer.objects.filter(unionid=unionid, status=Customer.NORMAL)
         if not wx_users.exists():
-            return HttpResponse(u'<html><body>你还不是小鹿妈妈,请先<a href="/m/register/">申请</a></body></html>')
+            return HttpResponse(u'<html><body>你还不是你的铺子妈妈,请先<a href="/m/register/">申请</a></body></html>')
 
         wx_user = wx_users[0]
         target_date = datetime.date.today()
@@ -326,7 +326,7 @@ class MamaIncomeDetailView(WeixinAuthMixin, View):
 
         wx_users = Customer.objects.filter(unionid=unionid, status=Customer.NORMAL)
         if not wx_users.exists():
-            return HttpResponse(u'<html><body>你还不是小鹿妈妈,请先<a href="/m/register/">申请</a></body></html>')
+            return HttpResponse(u'<html><body>你还不是你的铺子妈妈,请先<a href="/m/register/">申请</a></body></html>')
 
         wx_user = wx_users[0]
         unionid = unionid or wx_user.unionid
@@ -589,12 +589,12 @@ class ClickLogView(WeixinAuthMixin, View):
 
         if not valid_openid(unionid):
             unionid = get_unionid_by_openid(openid, settings.WX_PUB_APPID)
-        # 2017-2-27 正式的小鹿妈妈为精英妈妈及以上
+        # 2017-2-27 正式的你的铺子妈妈为精英妈妈及以上
         xlmms = XiaoluMama.objects.filter(openid=unionid, status=XiaoluMama.EFFECT, charge_status=XiaoluMama.CHARGED,
                                           last_renew_type__gte=XiaoluMama.ELITE)
         mm_linkid = xlmms.exists() and xlmms[0].id or linkid
 
-        # 2017-2-27 如果打开链接的人是个小鹿妈妈，以前是会用小鹿妈妈id替换next里面的mamaid，现在不这样做，还是使用原来的linkid
+        # 2017-2-27 如果打开链接的人是个你的铺子妈妈，以前是会用你的铺子妈妈id替换next里面的mamaid，现在不这样做，还是使用原来的linkid
         # share_url = get_share_url(next_page=next_page, mm_linkid=mm_linkid, ufrom='wx')
         share_url = get_share_url(next_page=next_page, mm_linkid=linkid, ufrom='wx')
         response = redirect(share_url)
@@ -802,7 +802,7 @@ class CashOutVerify(APIView):
                             '%s pre_cash:%s cashout_value:%s' % (cash_out_id, mama_id, pre_cash, cashout.value))
 
                 wx_union = WeixinUnionID.objects.get(app_key=settings.WX_PUB_APPID, unionid=xiaolumama.openid)
-                mama_memo = u"小鹿妈妈编号:{0},提现前:{1}".format(str(mama_id), pre_cash)
+                mama_memo = u"你的铺子妈妈编号:{0},提现前:{1}".format(str(mama_id), pre_cash)
                 body=u'一份耕耘，一份收获，谢谢你的努力！'
 
                 en = Envelop(referal_id=cashout.id, amount=cashout.value, recipient=wx_union.openid,

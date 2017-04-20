@@ -313,7 +313,7 @@ class ReturnGoods(models.Model):
     @staticmethod
     def get_user_by_supplier(supplier_id):
         from django.contrib.auth.models import Group
-        g = Group.objects.get(name=u'小鹿订货员')
+        g = Group.objects.get(name=u'你的铺子订货员')
         uids = [u['id'] for u in g.user_set.values('id')]
         r = OrderList.objects.filter(supplier_id=supplier_id, buyer_id__in=uids).values('buyer_id').annotate(
             s=Count('buyer_id'))
@@ -428,7 +428,7 @@ class ReturnGoods(models.Model):
     @staticmethod
     def transactors():
         return User.objects.filter(is_staff=True,
-                                   groups__name__in=(u'小鹿买手资料员', u'小鹿采购管理员', u'小鹿采购员', u'管理员', u'小鹿管理员')). \
+                                   groups__name__in=(u'你的铺子买手资料员', u'你的铺子采购管理员', u'你的铺子采购员', u'管理员', u'你的铺子管理员')). \
             distinct().order_by('id')
 
     def add_sku(self, skuid, num, price=None, inferior=False):

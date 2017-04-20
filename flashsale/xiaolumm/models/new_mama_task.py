@@ -24,7 +24,7 @@ class NewMamaTask(object):
         items = {
             cls.TASK_SUBSCRIBE_WEIXIN: (
                 u'关注公众号成功，您已获得５元奖励。\n',
-                u'恭喜开通小鹿妈妈15天体验帐户！下载小鹿App，开启分享赚钱之旅！请加管理员微信，在管理员指导下，您会赚很多很多零花钱的哦！',
+                u'恭喜开通你的铺子妈妈15天体验帐户！下载你的铺子App，开启分享赚钱之旅！请加管理员微信，在管理员指导下，您会赚很多很多零花钱的哦！',
                 'http://m.nidepuzi.com/sale/promotion/appdownload/',
             ),
             cls.TASK_FIRST_CARRY: (
@@ -44,7 +44,7 @@ class NewMamaTask(object):
             ),
             cls.TASK_FIRST_MAMA_RECOMMEND: (
                 u'恭喜您推荐了一位1元体验妈妈！\n',
-                u'\n下一个任务：快去推荐一位1元体验小鹿妈妈！推荐2名奖励5元！完成新手任务还有10元奖金等你哦！点击查看教程。',
+                u'\n下一个任务：快去推荐一位1元体验你的铺子妈妈！推荐2名奖励5元！完成新手任务还有10元奖金等你哦！点击查看教程。',
                 'http://mp.weixin.qq.com/s?__biz=MzA5MzQxMzU2Mg==&mid=2650808011&idx=5&sn=1a2ec2083149b4c0334d96c5eeff24b2',
             ),
             cls.TASK_FIRST_COMMISSION: (

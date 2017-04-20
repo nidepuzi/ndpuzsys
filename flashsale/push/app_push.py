@@ -97,7 +97,7 @@ class AppPush(object):
     @classmethod
     def push_mama_ordercarry(cls, ordercarry):
         """
-        有新的订单收益推送给小鹿妈妈
+        有新的订单收益推送给你的铺子妈妈
         """
         customer = get_mama_customer(ordercarry.mama_id)
         target_url = get_target_url(protocal_constants.TARGET_TYPE_VIP_HOME)
@@ -114,7 +114,7 @@ class AppPush(object):
     @classmethod
     def push_mama_ordercarry_to_all(cls, ordercarry):
         """
-        有新的订单收益推送给所有小鹿妈妈,使用透传消息
+        有新的订单收益推送给所有你的铺子妈妈,使用透传消息
         """
         topic = APPFullPushMessge.TOPIC_XLMM
         msgtpl = PushMsgTpl.objects.filter(id=12, is_valid=True).first()

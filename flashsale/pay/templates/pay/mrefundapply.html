@@ -1,6 +1,6 @@
 {% extends "pay/base_profile.html" %}
 
-{% block title %}小鹿美美-个人中心{% endblock %}
+{% block title %}你的铺子-个人中心{% endblock %}
 
 {% block style %}
 <link rel="stylesheet" href="{{ STATIC_URL }}style/main.css">
@@ -64,16 +64,16 @@
 	</div>
   </div>
   </div>
-</div>	
+</div>
 
 <div id="refund-module" role="tabpanel">
-  
+
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="li-half active" ><a href="#refund" aria-controls="home" role="tab" data-toggle="tab" >我要退款</a></li>
     <li role="presentation" class="li-half"><a href="#refund-good" aria-controls="profile" role="tab" data-toggle="tab" >我要退货</a></li>
   </ul>
-  
+
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="refund">
@@ -104,7 +104,7 @@
 		  </div>
 		  <div class="form-group ">
 		    <label for="inputRefund31" class="control-label">退款金额：</label>
-		    <input type="number" name="refund_fee" max="{{ order.payment }}" min="0" step = "any" 
+		    <input type="number" name="refund_fee" max="{{ order.payment }}" min="0" step = "any"
 		    	required = "required" class="form-control " id="inputRefund31" value="{{ order.payment }}">
 		  </div>
 		  <div class="form-group ">
@@ -175,13 +175,13 @@
 <script type="text/javascript">
 $(function(){
 	$('.ui-loader').remove();
-	
+
 	var Submit_func = function(event){
-	
+
 		var form = $(this);
 		var action = form.attr('action');
 		var data = form.serialize();
-		
+
 		var callback = function(resp){
 			try{
 				if(resp.id){
@@ -192,14 +192,14 @@ $(function(){
 				console.log('Ajax error:'+errr);
 			}
 		}
-		
+
 		$.post(action,data,callback,'json');
-		
+
 		return false;
 	};
-	
+
 	$('#refund-form').submit(Submit_func);
-	
+
 	$('#return-form').submit(Submit_func);
 })
 </script>

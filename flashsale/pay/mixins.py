@@ -111,7 +111,7 @@ class PayInfoMethodMixin(object):
         channel = sale_trade.channel
         if channel == SaleTrade.WX_PUB and not buyer_openid:
             raise ValueError(u'请先微信授权登陆后再使用微信支付')
-        
+
         success_url = urlparse.urljoin(settings.M_SITE_URL,
                                        kwargs.get('success_url', constants.MALL_PAY_SUCCESS_URL))
         cancel_url = urlparse.urljoin(settings.M_SITE_URL,
@@ -133,7 +133,7 @@ class PayInfoMethodMixin(object):
                   'currency': 'cny',
                   'amount': '%d' % payment,
                   'client_ip': settings.PINGPP_CLENTIP,
-                  'subject': u'小鹿美美平台交易',
+                  'subject': u'你的铺子平台交易',
                   'body': u'订单ID(%s),订单金额(%.2f)' % (sale_trade.id, sale_trade.payment),
                   'metadata': dict(color='red'),
                   'extra': extra}

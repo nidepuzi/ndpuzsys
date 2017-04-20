@@ -3,7 +3,7 @@
 {% block title %} 我的账户 {% endblock %}
 
 {% block head_script %}
-<link href='{{ STATIC_URL }}jquery/jquery-ui-1.10.1.css' rel='stylesheet'  />	
+<link href='{{ STATIC_URL }}jquery/jquery-ui-1.10.1.css' rel='stylesheet'  />
 
 <style type="text/css" >
 	.panel-body{
@@ -45,7 +45,7 @@
 {% block container %}
 <div ></div>
 <div class="page-header">
-  <h3>妈妈数据 
+  <h3>妈妈数据
   	<small>
 	  	<div class="btn-group" role="group" style="float:right;margin-right:20px;">
 	    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -56,7 +56,7 @@
 	      <li><a href="/m/help/sharewx/">发布特卖消息</a></li>
 	      <li><a href="/sale/exam/">代理考试</a></li>
 	      <li><a href="/m/help/term_service/">服务条款</a></li>
-	      <!--<li><a href="#">招募小鹿妈妈</a></li>-->
+	      <!--<li><a href="#">招募你的铺子妈妈</a></li>-->
 	    </ul>
 	  </div>
   </small>
@@ -100,11 +100,11 @@
 	  </div>
   </div>
  </div>
-  
+
   <ul class="list-group">
-    <li class="list-group-item">小鹿妈妈: {{ xlmm.weikefu }}&nbsp;
-    {% if referal_mmid > 0 %}(<a href="/m/register/{{referal_mmid}}/">申请正式小鹿妈妈</a>)
-    {% endif %} {%  ifequal xlmm.charge_status 'charged' %}<a class="btn btn-warning" href="/pages/shangpinxq.html?id=22030" role="button" style="float:right;  padding-left: 5px;padding-right: 5px;padding-bottom: 1px;">充值</a> 
+    <li class="list-group-item">你的铺子妈妈: {{ xlmm.weikefu }}&nbsp;
+    {% if referal_mmid > 0 %}(<a href="/m/register/{{referal_mmid}}/">申请正式你的铺子妈妈</a>)
+    {% endif %} {%  ifequal xlmm.charge_status 'charged' %}<a class="btn btn-warning" href="/pages/shangpinxq.html?id=22030" role="button" style="float:right;  padding-left: 5px;padding-right: 5px;padding-bottom: 1px;">充值</a>
     {% endifequal %}
     </li>
     <li class="list-group-item">手机号: {{ mobile }}</li>

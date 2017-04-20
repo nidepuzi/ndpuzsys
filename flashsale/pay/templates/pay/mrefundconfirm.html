@@ -1,6 +1,6 @@
 {% extends "pay/base_profile.html" %}
 
-{% block title %}小鹿美美-个人中心{% endblock %}
+{% block title %}你的铺子-个人中心{% endblock %}
 
 {% block style %}
 <link rel="stylesheet" href="{{ STATIC_URL }}style/main.css">
@@ -47,7 +47,7 @@
 	   <div class="row padding-lf5 font8 font-tp">尺码：<span >{{ order.sku_name }}</span></div>
     </div>
     <div class="col-xs-10 padding-lf0">
-       
+
     </div>
 	</div>
   </div>
@@ -73,7 +73,7 @@
 		{% else %}
 		<p>退款申请已关闭，如有疑问请联系在线客服！</p>
 		{% endif %}
-		
+
 		<table class="table table-striped">
 			<tr><td >申请时间：</td><td >{{ refund.created }}</td></tr>
 			<tr><td >申请类型：</td><td >{% if refund.has_good_return %}退货退款{% else %}退款{% endif %}</td></tr>
@@ -84,13 +84,13 @@
 			<tr><td >申请原因：</td><td >{{ refund.reason }}</td></tr>
 			<tr><td >补充描述：</td><td >{{ refund.desc }}</td></tr>
 		</table>
-		
+
 		<p><a href="{% url 'user_orderdetail' pk=order.sale_trade %}" class="btn btn-default btn-rowfull">返回订单详情</a></p>
 	  </div>
 	</div>
   </div>
   </div>
-</div>	
+</div>
 
 </div>
 {% endblock %}

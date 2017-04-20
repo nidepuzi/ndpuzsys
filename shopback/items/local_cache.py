@@ -36,7 +36,7 @@ class RebetaSchemaCache(cacheable.LocalCacheable):
 
 
 class ProductCategoryCache(cacheable.LocalCacheable):
-    EX_NAMES = ['小鹿美美', '优尼世界']
+    EX_NAMES = ['你的铺子', '优尼世界']
     cache_time = 30 * 60
     cache_key = '%s.%s' % (__name__, 'ProductCategoryCache')
 
