@@ -16,7 +16,7 @@ class XlmmMessage(AdminModel):
     content_link = models.CharField(max_length=512, blank=True, null=True, verbose_name=u'内容链接', help_text=u'优先使用消息链接')
     content = models.CharField(max_length=512, blank=True, verbose_name=u'消息内容')
     dest = models.CharField(max_length=10000, null=True, blank=True, verbose_name=u'接收人',
-                            help_text=u'null表示发给了所有小鹿妈妈;否则填写django orm查询条件字典json')
+                            help_text=u'null表示发给了所有你的铺子妈妈;否则填写django orm查询条件字典json')
     STATUS_CHOICES = ((0, u'无效'), (1, u'有效'))
     status = models.IntegerField(choices=STATUS_CHOICES, default=1, verbose_name=u'状态')
 
@@ -29,7 +29,7 @@ class XlmmMessage(AdminModel):
     @property
     def read_count(self):
         return self.rel_messages.all().count()
-        
+
     @property
     def read(self):
         if not hasattr(self, '_read_'):

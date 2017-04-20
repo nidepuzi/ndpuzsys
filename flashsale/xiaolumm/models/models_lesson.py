@@ -57,8 +57,8 @@ class LessonTopic(BaseModel):
     class Meta:
         db_table = 'flashsale_xlmm_lesson_topic'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿大学/课程主题'
-        verbose_name_plural = u'小鹿大学/课程主题列表'
+        verbose_name = u'你的铺子大学/课程主题'
+        verbose_name_plural = u'你的铺子大学/课程主题列表'
 
     def __unicode__(self):
         return "%s:%s" % (self.lesson_type, self.title)
@@ -83,8 +83,8 @@ class Instructor(BaseModel):
     class Meta:
         db_table = 'flashsale_xlmm_instructor'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿大学/资深讲师'
-        verbose_name_plural = u'小鹿大学/资深讲师列表'
+        verbose_name = u'你的铺子大学/资深讲师'
+        verbose_name_plural = u'你的铺子大学/资深讲师列表'
 
     def __unicode__(self):
         return "%s:%s" % (self.name, self.title)
@@ -157,8 +157,8 @@ class Lesson(BaseModel):
     class Meta:
         db_table = 'flashsale_xlmm_lesson'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿大学/课程'
-        verbose_name_plural = u'小鹿大学/课程列表'
+        verbose_name = u'你的铺子大学/课程'
+        verbose_name_plural = u'你的铺子大学/课程列表'
 
     def __unicode__(self):
         return "%s:%s:%s" % (self.title, self.instructor_name, self.start_time)
@@ -276,8 +276,8 @@ class LessonAttendRecord(BaseModel):
     class Meta:
         db_table = 'flashsale_xlmm_lesson_attend_record'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿大学/课程学员记录'
-        verbose_name_plural = u'小鹿大学/课程学员记录列表'
+        verbose_name = u'你的铺子大学/课程学员记录'
+        verbose_name_plural = u'你的铺子大学/课程学员记录列表'
 
     def __unicode__(self):
         return "%s:%s" % (self.lesson_id, self.student_nick)
@@ -342,8 +342,8 @@ class TopicAttendRecord(BaseModel):
     class Meta:
         db_table = 'flashsale_xlmm_topic_attend_record'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿大学/主题学员记录'
-        verbose_name_plural = u'小鹿大学/主题学员记录列表'
+        verbose_name = u'你的铺子大学/主题学员记录'
+        verbose_name_plural = u'你的铺子大学/主题学员记录列表'
 
     def __unicode__(self):
         return "%s:%s" % (self.topic_id, self.student_nick)

@@ -9,8 +9,8 @@ from flashsale.pay.models import Customer
 
 
 class XlmmFans(BaseModel):
-    xlmm = models.BigIntegerField(verbose_name=u'小鹿妈妈id')
-    xlmm_cusid = models.BigIntegerField(db_index=True, verbose_name=u'小鹿妈妈用户id')
+    xlmm = models.BigIntegerField(verbose_name=u'你的铺子妈妈id')
+    xlmm_cusid = models.BigIntegerField(db_index=True, verbose_name=u'你的铺子妈妈用户id')
     refreal_cusid = models.BigIntegerField(db_index=True, verbose_name=u'推荐人用户id')
     fans_cusid = models.BigIntegerField(unique=True, verbose_name=u'粉丝用户id')
     fans_nick = models.CharField(max_length=32, blank=True, null=True, verbose_name=u'粉丝昵称')
@@ -57,7 +57,7 @@ class XlmmFans(BaseModel):
     @staticmethod
     def bind_mama(customer, mama):
         if customer.getXiaolumm():  # 一元试用的也是妈妈 （除非等到冻结， 才可以成为别人粉丝）
-            raise Exception(u'小鹿妈妈不能成为粉丝')
+            raise Exception(u'你的铺子妈妈不能成为粉丝')
         if not XlmmFans.objects.filter(fans_cusid=customer.id).first():
             # 没有粉丝则建立粉丝
             xlmm_cusid = mama.get_mama_customer().id
@@ -68,7 +68,7 @@ class XlmmFans(BaseModel):
             XlmmFans(xlmm=mama.id, xlmm_cusid=xlmm_cusid, refreal_cusid=mama.get_mama_customer().id,
                      fans_cusid=fans_cusid, fans_nick=customer.nick, fans_thumbnail=customer.thumbnail).save()
         else:
-            raise Exception(u'此粉丝已经绑定过小鹿妈妈')
+            raise Exception(u'此粉丝已经绑定过你的铺子妈妈')
 
     def update_nick_thumbnail(self, nick='', thumbnail=''):
         """ 更新昵称以及头像 """
@@ -137,8 +137,8 @@ def xlmmfans_xlmm_newtask(sender, instance, **kwargs):
 
 
 class FansNumberRecord(BaseModel):
-    xlmm = models.BigIntegerField(db_index=True, verbose_name='小鹿妈妈id')
-    xlmm_cusid = models.BigIntegerField(db_index=True, verbose_name='小鹿妈妈用户id')
+    xlmm = models.BigIntegerField(db_index=True, verbose_name='你的铺子妈妈id')
+    xlmm_cusid = models.BigIntegerField(db_index=True, verbose_name='你的铺子妈妈用户id')
     fans_num = models.IntegerField(default=1, verbose_name='粉丝数量')
 
     class Meta:
@@ -167,8 +167,8 @@ def login_activate_appdownloadrecord(user):
 
 class FansChangeMamaRecord(BaseModel):
     fans = models.ForeignKey(XlmmFans, verbose_name=u'粉丝')
-    old_xlmm = models.BigIntegerField(verbose_name=u'原小鹿妈妈id')
-    new_xlmm = models.BigIntegerField(verbose_name=u'新小鹿妈妈id')
+    old_xlmm = models.BigIntegerField(verbose_name=u'原你的铺子妈妈id')
+    new_xlmm = models.BigIntegerField(verbose_name=u'新你的铺子妈妈id')
 
     class Meta:
         db_table = 'flashsale_xlmm_fans_change_mama'

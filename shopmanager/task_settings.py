@@ -779,7 +779,7 @@ CELERY_ROUTES = {
     'flashsale.xiaolumm.tasks.base.task_Push_Pending_Carry_Cash': {
         'queue': 'peroid',
         'routing_key': 'peroid.push_xlmm_pending_cash',
-    },  # 结算小鹿妈妈们待确认提成
+    },  # 结算你的铺子妈妈们待确认提成
     'flashsale.xiaolumm.tasks.mission.task_batch_create_or_update_mama_mission_state': {
         'queue': 'peroid',
         'routing_key': 'peroid.task_batch_create_or_update_mama_mission_state',
@@ -796,23 +796,23 @@ CELERY_ROUTES = {
     'flashsale.pay.tasks.notifyTradePayTask': {
         'queue': 'notify',
         'routing_key': 'notify.pingpp_paycallback',
-    },  # 小鹿特卖平台订单支付消息处理
+    },  # 你的铺子特卖平台订单支付消息处理
     'flashsale.pay.tasks.notifyTradeRefundTask': {
         'queue': 'notify',
         'routing_key': 'notify.ping_refundcallback',
-    },  # 小鹿特卖平台订单退款消息处理
+    },  # 你的铺子特卖平台订单退款消息处理
     'flashsale.pay.tasks.pushTradeRefundTask': {
         'queue': 'notify',
         'routing_key': 'notify.push_trade_refund',
-    },  # 小鹿特卖平台订单退款更新到仓库订单
+    },  # 你的铺子特卖平台订单退款更新到仓库订单
     'flashsale.pay.tasks.confirmTradeChargeTask': {
         'queue': 'notify',
         'routing_key': 'notify.confirm_trade_charge',
-    },  # 小鹿订单确认支付
+    },  # 你的铺子订单确认支付
     'flashsale.pay.tasks.task_saleorder_post_update_send_signal': {
         'queue': 'notify',
         'routing_key': 'notify.task_saleorder_post_update_send_signal',
-    },  # 小鹿特卖平台订单更新事件通知
+    },  # 你的铺子特卖平台订单更新事件通知
     'flashsale.xiaolumm.tasks.tasks_mama_push.task_push_ninpic_remind': {
         'queue': 'notify',
         'routing_key': 'notify.task_push_ninpic_remind',
@@ -898,7 +898,7 @@ CELERY_ROUTES = {
     'flashsale.pay.tasks.task_sync_xlmm_mobile_by_customer': {
         'queue': 'frency',
         'routing_key': 'frency.task_sync_xlmm_mobile_by_customer',
-    },  # 更新小鹿妈妈的手机号码
+    },  # 更新你的铺子妈妈的手机号码
 
     'shopapp.weixin.tasks.base.task_Update_Weixin_UserInfo': {
         'queue': 'frency',
@@ -1032,7 +1032,7 @@ SYNC_MODEL_SCHEDULE = {
         'args': (),
         'options': {'queue': 'peroid', 'routing_key': 'peroid.updateAllUserItemNumTask'}
     },
-    u'定时下载更新小鹿特卖订单': {
+    u'定时下载更新你的铺子特卖订单': {
         'task': 'flashsale.pay.tasks.pull_Paid_SaleTrade',
         'schedule': crontab(minute="30", hour="*/1"),
         'args': (),
@@ -1079,7 +1079,7 @@ SHOP_APP_SCHEDULE = {
         'args': (),
         'options': {'queue': 'peroid', 'routing_key': 'peroid.task_notify_parent_award'}
     },
-    u'定时统计昨日小鹿妈妈点击': {
+    u'定时统计昨日你的铺子妈妈点击': {
         'task': 'flashsale.clickcount.tasks.task_Record_User_Click',
         'schedule': crontab(minute="30", hour='4'),
         'args': (),
@@ -1224,13 +1224,13 @@ SHOP_APP_SCHEDULE = {
         'args': (),
         'options': {'queue': 'peroid', 'routing_key': 'peroid.task_site_push'}
     },
-    u'定时检查小鹿妈妈活跃更新续费时间': {
+    u'定时检查你的铺子妈妈活跃更新续费时间': {
         'task': 'flashsale.xiaolumm.tasks.base.task_mama_postphone_renew_time_by_active',
         'schedule': crontab(minute="45", hour="3"),
         'args': (),
         'options': {'queue': 'peroid', 'routing_key': 'peroid.task'}
     },
-    u'定时检查小鹿妈妈续费状态': {
+    u'定时检查你的铺子妈妈续费状态': {
         'task': 'flashsale.xiaolumm.tasks.base.task_period_check_mama_renew_state',
         'schedule': crontab(minute="45", hour="1"),
         'args': (),
@@ -1278,7 +1278,7 @@ SHOP_APP_SCHEDULE = {
         'args': (),
         'options': {'queue': 'peroid', 'routing_key': 'peroid.task_schedule_check_waitingpay_cnt'}
     },
-    u'小鹿每日统计总额':{
+    u'你的铺子每日统计总额':{
         'task': 'statistics.tasks.task_xiaolu_daily_stat',
         'schedule': crontab(minute="2", hour="0"),
         'args': (),
@@ -1326,7 +1326,7 @@ SHOP_APP_SCHEDULE = {
         'args': (),
         'options': {'queue': 'peroid', 'routing_key': 'peroid.task_update_appdownload_record'}
     },
-    # u'定时更新小鹿妈妈排名3分钟': {
+    # u'定时更新你的铺子妈妈排名3分钟': {
     #     'task': 'flashsale.xiaolumm.tasks.tasks_mama_carry_total.task_schedule_update_carry_total_ranking',
     #     'schedule': crontab(minute="30", hour="0"),
     #     'args': (),
@@ -1386,7 +1386,7 @@ SHOP_APP_SCHEDULE = {
         'args': (),
         'options': {'queue': 'peroid', 'routing_key': 'peroid.task_check_schedule_is_lock'}
     },
-    u'定时统计小鹿妈妈精品积分': {
+    u'定时统计你的铺子妈妈精品积分': {
         'task': 'flashsale.xiaolumm.tasks.tasks_mama_dailystats.task_calc_all_xlmm_elite_score',
         'schedule': crontab(minute="00", hour='3'),
         'args': (),

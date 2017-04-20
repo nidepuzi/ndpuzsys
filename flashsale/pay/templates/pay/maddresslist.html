@@ -1,11 +1,11 @@
 {% extends "pay/base_addr.html" %}
 
-{% block title %}小鹿美美-新增地址{% endblock %}
+{% block title %}你的铺子-新增地址{% endblock %}
 
 {% block style %}
 <link rel="stylesheet" href="{{ STATIC_URL }}style/profile.css">
 <style style="text/css">
-.bold { 
+.bold {
 	font-size:16px;
 	padding:10px 10px 10px 0px;
 }
@@ -83,30 +83,30 @@
 <script type="text/javascript">
 $(function(){
 	$('.ui-loader').remove();
-	
+
 	$('#address_plus_link').click(function(event){
 		console.log('init ready');
 		if ($(this).hasClass('glyphicon-menu-up')){
 			$('#address_plus_module').slideUp(1000);
 			$(this).removeClass('glyphicon-menu-up').addClass('glyphicon-plus');
-			return 
+			return
 		}
 		$(this).addClass('glyphicon-menu-up').removeClass('glyphicon-plus');
 		var callback = function(resp){
 			$('#address_plus_module').html(resp).slideDown(500);
-			
+
 		};
-	
+
 		$.get('/mm/addr/?format=html',callback);
 	});
-	
+
 	$('.del-link').on("click",function(event){
-		
+
 		var addrId = $(this).attr('addrid');
 		var csrf_token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
-		var params =  { "pk":addrId, 
-						"status":"delete", 
-						"csrfmiddlewaretoken":csrf_token, 
+		var params =  { "pk":addrId,
+						"status":"delete",
+						"csrfmiddlewaretoken":csrf_token,
 						"format":"json" };
 
 		var callback = function(resp){
@@ -116,20 +116,20 @@ $(function(){
 		};
 		$.post('/mm/addr/',params,callback,'json');
 	});
-	
+
 	$(".well").bind("swipeleft", function(event) {
 		var addrid = $(this).attr('addrid');
 		$('#addrwell-'+addrid).removeClass('col-xs-offset-1');
         $('#dellink-'+addrid).show();
 
-    }); 
-    
+    });
+
     $(".well").bind("swiperight", function(event) {
 	    var addrid = $(this).attr('addrid');
 		$('#addrwell-'+addrid).addClass('col-xs-offset-1');
         $('#dellink-'+addrid).hide();
-    }); 
-	
+    });
+
 });
 
 </script>

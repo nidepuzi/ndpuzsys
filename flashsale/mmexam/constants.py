@@ -6,7 +6,7 @@ ACITVES = [
     {
         'id': 1,
         'share_img': 'http://7xogkj.com2.z0.glb.qiniucdn.com/dress_%E5%88%86%E4%BA%AB%E5%9B%BE%E7%89%87.png',
-        'share_title': '小鹿美美趣味测试－穿衣年龄',
+        'share_title': '你的铺子趣味测试－穿衣年龄',
         'origin_desc': '快来测测你的穿衣品味在哪个年龄，分享好友还能获得５元红包哟',
         'share_desc': '{mama_dress.mama_nick} 的穿衣品味在 {dress_age} 岁，跟{dress_star[name]}一样呢,看看你们差几岁',
     }
@@ -172,5 +172,5 @@ ACTIVES = [
 XLMM_EXAM = 1
 
 EXAM_PARTICIPANT_CHOICE = (
-    (XLMM_EXAM, u'小鹿妈妈考试'),
+    (XLMM_EXAM, u'你的铺子妈妈考试'),
 )

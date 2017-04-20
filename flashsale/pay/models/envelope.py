@@ -200,7 +200,7 @@ class Envelop(PayBaseModel):
                     body=self.body,
                     currency='cny',
                     app=dict(id=settings.PINGPP_APPID),
-                    extra=dict(nick_name=u'上海己美网络科技', send_name=u'小鹿美美'),
+                    extra=dict(nick_name=u'上海己美网络科技', send_name=u'你的铺子'),
                     recipient=self.recipient,
                     description=self.description
                 )
@@ -223,7 +223,7 @@ class Envelop(PayBaseModel):
         if self.platform == Envelop.WX_TRANSFER:
             flow_amount = self.amount
             name = self.body
-            desc = u'小鹿美美提现'
+            desc = u'你的铺子提现'
             trade_id = envelope_unikey
 
             try:
@@ -269,7 +269,7 @@ class Envelop(PayBaseModel):
         from flashsale.pay.models import BudgetLog
         from flashsale.xiaolumm.models import CashOut
 
-        # 小鹿钱包提现
+        # 你的铺子钱包提现
         if self.subject == self.XLAPP_CASHOUT:
             bg = BudgetLog.objects.get(id=self.referal_id, budget_log_type=BudgetLog.BG_CASHOUT)
             bg.confirm_budget_log()

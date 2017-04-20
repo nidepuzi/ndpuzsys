@@ -64,7 +64,7 @@ class XiaoluMamaAdmin(ApproxAdmin):
     def get_readonly_fields(self, request, obj=None):
         readonly_fields = self.readonly_fields
         groups = list(request.user.groups.values_list('name', flat=True))
-        if not (request.user.is_superuser or groups.__contains__('小鹿推广管理员')):
+        if not (request.user.is_superuser or groups.__contains__('你的铺子推广管理员')):
             readonly_fields = readonly_fields + ('mobile', 'openid', 'lowest_uncoushout', 'charge_time',
                                                  'charge_status')
         return readonly_fields
@@ -258,7 +258,7 @@ class CashOutAdmin(ApproxAdmin):
 
     def fortune_carry(self, obj):
         # type: (CashOut) -> float
-        """计算小鹿妈妈的历史审核通过的提现记录（在当次提现记录创建日期之前的总提现金额 求和）
+        """计算你的铺子妈妈的历史审核通过的提现记录（在当次提现记录创建日期之前的总提现金额 求和）
         """
         try:
             fortune = get_mama_fortune_by_mama_id(obj.xlmm)
@@ -745,7 +745,7 @@ class XlmmMessageAdmin(admin.ModelAdmin):
     change_form_template = 'admin/xiaolumm/message/change_form.html'
 
     def to_mama(self, obj):
-        return u'全体小鹿妈妈'
+        return u'全体你的铺子妈妈'
 
     to_mama.short_description = u'接收人'
 

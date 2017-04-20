@@ -69,7 +69,7 @@ def task_sync_order_to_erp():
             'GoodsTotal': supplier_sku_sale_price * item.num,  # 货款合计(销售出库时非空)
             'OrderPay': supplier_sku_sale_price * item.num,  # 订单付款金额（含运费）
             'LogisticsPay': sale_trade.post_fee,  # 运费
-            'ShopName': '优禾生活小鹿美美店',  # 订单所属店铺名称（出库时非空）
+            'ShopName': '优禾生活你的铺子店',  # 订单所属店铺名称（出库时非空）
             'BuyerName': sale_trade.receiver_name,  # 收货人姓名
             'BuyerPostCode': sale_trade.receiver_zip,  # 收货人邮编
             'BuyerTel': sale_trade.receiver_mobile,

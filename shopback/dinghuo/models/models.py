@@ -58,7 +58,7 @@ signals.signal_product_upshelf.connect(init_stock_func, sender=Product)
 
 class SaleInventoryStat(models.Model):
     """
-    （只统计小鹿特卖商品）统计当天的订货表的新增采购数，未到货总数，到货数，发出件数，总库存数
+    （只统计你的铺子特卖商品）统计当天的订货表的新增采购数，未到货总数，到货数，发出件数，总库存数
     """
     CHILD = 1
     FEMALE = 2

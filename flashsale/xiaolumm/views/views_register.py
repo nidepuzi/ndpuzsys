@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 
 
 class MamaRegisterView(WeixinAuthMixin, PayInfoMethodMixin, APIView):
-    """ 小鹿妈妈申请成为代理 """
+    """ 你的铺子妈妈申请成为代理 """
     authentication_classes = (authentication.SessionAuthentication,)
     # permission_classes = (permissions.IsAuthenticated, )
     renderer_classes = (renderers.TemplateHTMLRenderer,)
@@ -39,10 +39,10 @@ class MamaRegisterView(WeixinAuthMixin, PayInfoMethodMixin, APIView):
         content = request.GET
         mama_id = content.get('mama_id')
         mama_id = re.match("\d+",mama_id).group()
-        
+
         deposite_url = "/m/register/deposite/?mama_id={0}".format(mama_id)
         # 加上装饰器之后已经登陆并注册状态（customer unionid）
-        # 必须注册之后才可以成为小鹿代理　　这里使用特卖公众账号授权
+        # 必须注册之后才可以成为你的铺子代理　　这里使用特卖公众账号授权
         self.set_appid_and_secret(settings.WX_PUB_APPID, settings.WX_PUB_APPSECRET)
         # 获取 openid 和 unionid
         # openid, unionid = self.get_openid_and_unionid(request)
@@ -59,10 +59,10 @@ class MamaRegisterView(WeixinAuthMixin, PayInfoMethodMixin, APIView):
         referal_from = referal.mobile if referal else ''  # 如果推荐人存在则
         if customer_mobile:  # 如果用户存在手机号码
             xlmm = XiaoluMama.objects.filter(openid=unionid).first()
-            if xlmm:  # 存在则保存当前登陆用户的手机号码到当前小鹿妈妈的手机号字段
+            if xlmm:  # 存在则保存当前登陆用户的手机号码到当前你的铺子妈妈的手机号字段
                 xlmm.mobile = customer_mobile
                 xlmm.save(update_fields=['mobile'])
-            else:  # 否则创建当前用户的小鹿妈妈账号 并且是填写资料后状态
+            else:  # 否则创建当前用户的你的铺子妈妈账号 并且是填写资料后状态
                 XiaoluMama.objects.create(mobile=customer_mobile,
                                           referal_from=referal_from,
                                           progress=XiaoluMama.PROFILE,
@@ -140,7 +140,7 @@ class MamaRegisterView(WeixinAuthMixin, PayInfoMethodMixin, APIView):
 
 
 class PayDepositeView(PayInfoMethodMixin, APIView):
-    """ 小鹿妈妈支付押金 """
+    """ 你的铺子妈妈支付押金 """
     authentication_classes = (authentication.SessionAuthentication,)
     # permission_classes = (permissions.IsAuthenticated,)
     renderer_classes = (renderers.JSONRenderer, renderers.TemplateHTMLRenderer)

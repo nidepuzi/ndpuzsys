@@ -64,7 +64,7 @@ def _verify_cash_out_2_budget(mama, value):
 
 def cash_out_2_budget(mama, value):
     # type: (XiaoluMama, int) -> None
-    """妈妈钱包 提现到 小鹿钱包
+    """妈妈钱包 提现到 你的铺子钱包
     """
     if not isinstance(value, int):
         raise Exception('参数错误!')

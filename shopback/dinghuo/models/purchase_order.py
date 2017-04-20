@@ -717,7 +717,7 @@ class OrderList(models.Model):
                      str(p.sale_trade.receiver_address_detail), '', p.sale_trade.receiver_mobile, '', '', '', '',
                      p.sale_trade.created.strftime('%Y-%m-%D %H:%M:%S'),
                      p.sale_trade.pay_time.strftime('%Y-%m-%D %H:%M:%S'),
-                     p.sale_trade.logistics_company.name if p.sale_trade.logistics_company else '', '', u'小鹿美美，时尚健康美丽',
+                     p.sale_trade.logistics_company.name if p.sale_trade.logistics_company else '', '', u'你的铺子，时尚健康美丽',
                      '', '', saleproduct.product_link if saleproduct else ''])
         elif format == 'with_card':
             columns = [u'订单号', u'产品条码', u'订单状态', u'买家id', u'子订单编号', u'供应商编码', u'买家昵称', u'商品名称', u'产品规格', u'商品单价',
@@ -748,7 +748,7 @@ class OrderList(models.Model):
                               str(o.receiver_address), '', p.sale_trade.receiver_mobile, '', '', '', '',
                      p.sale_trade.created.strftime('%Y-%m-%D %H:%M:%S'),
                      p.sale_trade.pay_time.strftime('%Y-%m-%D %H:%M:%S'),
-                     p.sale_trade.logistics_company.name if p.sale_trade.logistics_company else '', '', u'小鹿美美，时尚健康美丽',
+                     p.sale_trade.logistics_company.name if p.sale_trade.logistics_company else '', '', u'你的铺子，时尚健康美丽',
                      '', '', saleproduct.product_link if saleproduct else ''])
         elif format == 'third_package1':
             columns = [u'订单号', u'产品条码', u'订单状态', u'买家id', u'子订单编号', u'供应商编码', u'买家昵称', u'商品名称', u'产品规格', u'商品单价',
@@ -773,7 +773,7 @@ class OrderList(models.Model):
                               p.sale_trade.created.strftime('%Y-%m-%D %H:%M:%S'),
                               p.sale_trade.pay_time.strftime('%Y-%m-%D %H:%M:%S'),
                               p.sale_trade.logistics_company.name if p.sale_trade.logistics_company else '', '',
-                              u'小鹿美美，时尚健康美丽', '', '', saleproduct.product_link if saleproduct else ''])
+                              u'你的铺子，时尚健康美丽', '', '', saleproduct.product_link if saleproduct else ''])
         elif format == 'third_package_wangli':
             from .data_mengnuo_wangli import MENGNUO_DATA
             columns = [u'订单号', u'<必填>下单时间', u'付款时间', u'交易类型', u'备注', u'买家留言', u'总金额',
@@ -788,7 +788,7 @@ class OrderList(models.Model):
             for p in need_send.exclude(package_order_pid=None):
                 o = p.package_order
                 items.append([str(p.id), p.book_time.strftime('%Y-%m-%d %H:%M:%S'), p.pay_time.strftime('%Y-%m-%d %H:%M:%S'),
-                              u'货到付款', u'小鹿美美，时尚健康美丽', '', str(p.num * p.product_sku.cost),
+                              u'货到付款', u'你的铺子，时尚健康美丽', '', str(p.num * p.product_sku.cost),
                               '0', str(p.num * p.product_sku.cost), str(o.receiver_name), o.receiver_mobile, '', str(o.receiver_address_detail_wb), '',
                               '', MENGNUO_DATA.get(int(p.sku_id), ''), p.product_sku.product.name,
                               str(p.product_sku.color_size), str(p.num), str(p.product_sku.cost), str(p.num * p.product_sku.cost)])
@@ -814,7 +814,7 @@ class OrderList(models.Model):
                               p.sale_trade.created.strftime('%Y-%m-%D %H:%M:%S'),
                               p.sale_trade.pay_time.strftime('%Y-%m-%D %H:%M:%S'),
                               p.sale_trade.logistics_company.name if p.sale_trade.logistics_company else '', '',
-                              u'小鹿美美，时尚健康美丽', '', '', saleproduct.product_link if saleproduct else ''])
+                              u'你的铺子，时尚健康美丽', '', '', saleproduct.product_link if saleproduct else ''])
         return columns, items
 
     @staticmethod

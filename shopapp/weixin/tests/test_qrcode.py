@@ -8,7 +8,7 @@ class GenerateQrcodeTestCase(TestCase):
         params = {
           "background_url": "http://7xkyoy.com1.z0.glb.clouddn.com/mama_referal_base12.jpg",
           "text": {
-            "content": u"你好是我是s小鹿的ss爸d爸k",
+            "content": u"你好是我是s你的铺子的ss爸d爸k",
             "font_size": 36,
             "y": 174,
             "color": "#f1c40f"

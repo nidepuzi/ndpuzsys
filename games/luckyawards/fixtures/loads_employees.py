@@ -1,7 +1,7 @@
 #encoding:utf-8
 
 employees = (
-    ('小鹿美美','http://7xogkj.com2.z0.glb.qiniucdn.com/%E5%B9%BB%E7%81%AF%E7%89%871.JPG'),
+    ('你的铺子','http://7xogkj.com2.z0.glb.qiniucdn.com/%E5%B9%BB%E7%81%AF%E7%89%871.JPG'),
     ('钟子飞','http://7xogkj.com2.z0.glb.qiniucdn.com/%E5%B9%BB%E7%81%AF%E7%89%872.JPG'),
     ('严飞','http://7xogkj.com2.z0.glb.qiniucdn.com/%E5%B9%BB%E7%81%AF%E7%89%873.JPG'),
     ('吕凯凯','http://7xogkj.com2.z0.glb.qiniucdn.com/%E5%B9%BB%E7%81%AF%E7%89%874.JPG'),
@@ -31,7 +31,7 @@ employees = (
     ('李红军','http://7xogkj.com2.z0.glb.qiniucdn.com/%E5%B9%BB%E7%81%AF%E7%89%8728.JPG'),
     ('李晓娜','http://7xogkj.com2.z0.glb.qiniucdn.com/%E5%B9%BB%E7%81%AF%E7%89%8729.JPG'),
     ('王利清','http://7xogkj.com2.z0.glb.qiniucdn.com/%E5%B9%BB%E7%81%AF%E7%89%8730.JPG'),
-    
+
     ('肖建国','http://7xogkj.com2.z0.glb.qiniucdn.com/%E5%B9%BB%E7%81%AF%E7%89%8731.JPG'),
     ('叶凤云','http://7xogkj.com2.z0.glb.qiniucdn.com/%E5%B9%BB%E7%81%AF%E7%89%8732.JPG'),
     ('张焜','http://7xogkj.com2.z0.glb.qiniucdn.com/%E5%B9%BB%E7%81%AF%E7%89%8733.JPG'),

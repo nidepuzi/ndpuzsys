@@ -36,8 +36,8 @@ class PushViewSet(viewsets.ViewSet):
         返回用户所在 TOPIC　用于 APP　推送
 
         CUSTOMER_PAY 购买过的买家
-        XLMM 小鹿妈妈
-        XLMM_A类 一元小鹿妈妈
+        XLMM 你的铺子妈妈
+        XLMM_A类 一元你的铺子妈妈
 
         """
         customer = Customer.objects.filter(user=request.user).first()
@@ -65,7 +65,7 @@ class PushViewSet(viewsets.ViewSet):
         if customer.first_paytime:
             topics.append(APPFullPushMessge.TOPIC_CUSTOMER_PAY)
 
-        # 小鹿妈妈
+        # 你的铺子妈妈
         xlmm = customer.get_xiaolumm()
         if xlmm:
             topics.append(APPFullPushMessge.TOPIC_XLMM)

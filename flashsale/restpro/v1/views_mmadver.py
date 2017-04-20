@@ -311,7 +311,7 @@ class MamaVebViewConfFilter(filters.FilterSet):
 
 class MamaVebViewConfViewSet(viewsets.ModelViewSet):
     """
-    ### 小鹿妈妈主页webview配置接口:
+    ### 你的铺子妈妈主页webview配置接口:
     - [/rest/v1/mmwebviewconfig](/rest/v1/mmwebviewconfig) 配置列表(仅返回有效配置):
         * method : GET
             * 可过滤字段：　`version`, `id`

@@ -115,9 +115,9 @@ def weixinfans_create_awardcarry(sender, instance, created, **kwargs):
     if not created:
         return
 
-    if instance.app_key != settings.WX_PUB_APPID: # 关注小鹿美美有奖励，否则没有
+    if instance.app_key != settings.WX_PUB_APPID: # 关注你的铺子有奖励，否则没有
         return
-    
+
     if XiaoluSwitch.is_switch_open(2):
         return
 
@@ -142,7 +142,7 @@ post_save.connect(weixinfans_create_awardcarry,
 
 #def weixinfans_xlmm_newtask(sender, instance, **kwargs):
 #    """
-#    检测新手任务：　关注公众号“小鹿美美”
+#    检测新手任务：　关注公众号“你的铺子”
 #    """
 #    from flashsale.xiaolumm.tasks_mama_push import task_push_new_mama_task
 #    from flashsale.xiaolumm.tasks_mama_fortune import task_subscribe_weixin_send_award

@@ -1,9 +1,9 @@
 {% extends "mama_base.html" %}
 
-{% block title %} 小鹿妈妈-申请成功 {% endblock %}
+{% block title %} 你的铺子妈妈-申请成功 {% endblock %}
 
 {% block head_script %}
-<link href='{{ STATIC_URL }}jquery/jquery-ui-1.10.1.css' rel='stylesheet'  />    
+<link href='{{ STATIC_URL }}jquery/jquery-ui-1.10.1.css' rel='stylesheet'  />
 
 <style type="text/css" >
     tfoot input{
@@ -29,14 +29,14 @@
     <ul class="flow-steps">
     	<li class="col-xs-4 "><a href="#" class="btn btn-default">填写资料 &gt;</a></li>
         <li class="col-xs-4 "><a href="#" class="btn btn-default">支付押金 &gt;</a></li>
-        <li class="col-xs-4 on"><a href="#" class="btn">加入小鹿 &gt;</a></li>
+        <li class="col-xs-4 on"><a href="#" class="btn">加入你的铺子 &gt;</a></li>
     </ul>
     <div class="arr"></div>
 </div>
 
 <div class="jumbotron" style="padding:5px;">
   <div class="container">
-    <p>恭喜{{ xlmm.weikefu }}，您离成为正式小鹿妈妈就差一步了，请扫描二维码加客服(<span class="text-warning">并提醒设置正式妈妈权限哦</span>)：</p>
+    <p>恭喜{{ xlmm.weikefu }}，您离成为正式你的铺子妈妈就差一步了，请扫描二维码加客服(<span class="text-warning">并提醒设置正式妈妈权限哦</span>)：</p>
     <a href="#" class="thumbnail">
       <img src="{{ kefu_url }}" alt="...">
     </a>

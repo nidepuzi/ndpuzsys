@@ -68,7 +68,7 @@ class SaleTrade(BaseModel):
     BUDGET = 'budget'
     APPLE = 'applepay_upacp'
     CHANNEL_CHOICES = (
-        (BUDGET, u'小鹿钱包'),
+        (BUDGET, u'你的铺子钱包'),
         (WALLET, u'妈妈钱包'),
         (WX, u'微信APP'),
         (WEAPP, u'小程序支付'),
@@ -161,10 +161,10 @@ class SaleTrade(BaseModel):
     post_fee = models.FloatField(default=0.0, verbose_name=u'物流费用')
     discount_fee = models.FloatField(default=0.0, verbose_name=u'优惠折扣')
     budget_paid = models.FloatField(default=0.0, verbose_name=u'余额支付')
-    coin_paid   = models.FloatField(default=0.0, verbose_name=u'小鹿币支付')
+    coin_paid   = models.FloatField(default=0.0, verbose_name=u'你的铺子币支付')
 
     has_budget_paid = models.BooleanField(default=False, verbose_name=u'使用余额')
-    has_coin_paid   = models.BooleanField(default=False, verbose_name=u'使用小鹿币')
+    has_coin_paid   = models.BooleanField(default=False, verbose_name=u'使用你的铺子币')
     is_boutique     = models.BooleanField(default=False, db_index=True, verbose_name=u'精品订单')
 
     buyer_message = models.TextField(max_length=1000, blank=True, verbose_name=u'买家留言')
@@ -654,7 +654,7 @@ class SaleTrade(BaseModel):
             customer = Customer.objects.filter(id=self.buyer_id).first()
             xlmm     = customer.getXiaolumm()
             xiaolucoin = XiaoluCoin.objects.select_for_update().filter(mama_id=xlmm.id).first()
-            # 必须该订单有小鹿币消费记录，才能退款到小鹿币钱包
+            # 必须该订单有你的铺子币消费记录，才能退款到你的铺子币钱包
             consume_log   = XiaoluCoinLog.objects.filter(subject=XiaoluCoinLog.CONSUME, referal_id=self.id).first()
             if xiaolucoin and consume_log:
                 xiaolucoin.refund(self.coin_payment, self.id)
@@ -871,7 +871,7 @@ signal_saletrade_pay_confirm.connect(update_customer_first_paytime, sender=SaleT
 
 def do_buy_xiaolucoin_365(saleorder):
     """
-    新人充值365，得到365小鹿币，100个积分。
+    新人充值365，得到365你的铺子币，100个积分。
 
     此函数功能:推荐人得到30积分，推荐人上级得到10个积分。
     """
@@ -890,7 +890,7 @@ def do_buy_xiaolucoin_365(saleorder):
             and mama.status == XiaoluMama.EFFECT:
         return
     if (not mama) and customer.unionid:
-        # 是微信登录的就创建小鹿妈妈账号，用手机号登录的那只能找管理员了
+        # 是微信登录的就创建你的铺子妈妈账号，用手机号登录的那只能找管理员了
         mama = XiaoluMama.objects.create(
             mobile=customer.mobile,
             progress=XiaoluMama.PROFILE,
@@ -926,7 +926,7 @@ def do_buy_xiaolucoin_365(saleorder):
 
 def buy_boutique_register_product(sender, obj, **kwargs):
     """
-    购买小鹿全球精品会员注册礼包
+    购买你的铺子全球精品会员注册礼包
     """
     from flashsale.coupon.apis.v1.transfer import create_new_elite_mama
     from flashsale.coupon.apis.v1.transfer import create_present_elite_score
@@ -946,7 +946,7 @@ def buy_boutique_register_product(sender, obj, **kwargs):
 
         wx_union = WeixinUnionID.objects.get(app_key=settings.WX_PUB_APPID, unionid=customer.unionid)
         recipient = wx_union.openid
-        body = u'小鹿全球精品会员注册礼包'
+        body = u'你的铺子全球精品会员注册礼包'
         Envelop.objects.create(
             amount=flow_amount,
             platform=Envelop.WXPUB,
@@ -966,7 +966,7 @@ def buy_boutique_register_product(sender, obj, **kwargs):
                 and mama.status == XiaoluMama.EFFECT:
             return
         if (not mama) and customer.unionid:
-            # 是微信登录的就创建小鹿妈妈账号，用手机号登录的那只能找管理员了
+            # 是微信登录的就创建你的铺子妈妈账号，用手机号登录的那只能找管理员了
             mama = XiaoluMama.objects.create(
                 mobile=customer.mobile,
                 progress=XiaoluMama.PROFILE,
@@ -1064,7 +1064,7 @@ signal_saletrade_pay_confirm.connect(push_trade_pay_notify, sender=SaleTrade)
 def tongji_trade_source(sender, obj, **kwargs):
     """
     统计付款订单来源，发送到 OneAPM
-    1. 来自小鹿妈妈或者小鹿妈妈分享的链接
+    1. 来自你的铺子妈妈或者你的铺子妈妈分享的链接
     2. 来自直接购买
     """
     from flashsale.pay.tasks import task_tongji_trade_source
@@ -1364,7 +1364,7 @@ class SaleOrder(PayBaseModel):
             mp = ModelProduct.objects.filter(id = p.model_id).first()
             if mp.source_type == 3:
                 return False
-            
+
         now_time = datetime.datetime.now()
         consign_time = self.consign_time
         sign_time = self.sign_time
@@ -1649,7 +1649,7 @@ def post_save_order_trigger(sender, instance, created, raw, **kwargs):
                     customer = Customer.objects.get(id=instance.sale_trade.buyer_id)
                     to_mama = customer.get_xiaolumm()
                     if (not to_mama) and customer.unionid:
-                        # 是微信登录的就创建小鹿妈妈账号，用手机号登录的那只能找管理员了
+                        # 是微信登录的就创建你的铺子妈妈账号，用手机号登录的那只能找管理员了
                         to_mama = XiaoluMama.objects.create(
                             mobile=customer.mobile,
                             progress=XiaoluMama.PROFILE,

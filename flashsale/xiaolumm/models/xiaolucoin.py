@@ -10,11 +10,11 @@ from core.models import BaseModel
 
 class XiaoluCoin(BaseModel):
     """
-    小鹿币
+    你的铺子币
 
     4个接口
 
-    1. 创建小鹿币钱包 XiaoluCoin.create()
+    1. 创建你的铺子币钱包 XiaoluCoin.create()
     2. 充值 recharge()
     3. 消费 consume()
     4. 退款 refund()
@@ -26,8 +26,8 @@ class XiaoluCoin(BaseModel):
     class Meta:
         db_table = 'flashsale_xlmm_xiaolucoin'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿币'
-        verbose_name_plural = u'小鹿币'
+        verbose_name = u'你的铺子币'
+        verbose_name_plural = u'你的铺子币'
 
     @property
     def xiaolucoin_cash(self):
@@ -82,7 +82,7 @@ class XiaoluCoin(BaseModel):
 
     def change(self, amount, subject, referal_id=''):
         """
-        增加,减少小鹿币余额
+        增加,减少你的铺子币余额
 
         referal_id:
         """
@@ -134,8 +134,8 @@ class XiaoluCoinLog(BaseModel):
     class Meta:
         db_table = 'flashsale_xlmm_xiaolucoinlog'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿币收支记录'
-        verbose_name_plural = u'小鹿币收支记录'
+        verbose_name = u'你的铺子币收支记录'
+        verbose_name_plural = u'你的铺子币收支记录'
 
 
     @classmethod

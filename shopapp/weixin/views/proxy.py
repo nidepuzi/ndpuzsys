@@ -74,7 +74,7 @@ class WXMessageHttpProxy(HttpProxy):
         #     logger.error('DEBUG: WX|%s, %s, %s, %s, %s' % (openid, wx_pubid, event, msgtype, eventkey))
 
         event = event.lower()
-        
+
         # 获取信息和创建帐户
         if event == WeiXinAutoResponse.WX_EVENT_SUBSCRIBE.lower() or \
            event == WeiXinAutoResponse.WX_EVENT_SCAN.lower() or \
@@ -99,7 +99,7 @@ class WXMessageHttpProxy(HttpProxy):
                eventkey.strip() == PERSONAL_PAGE_LINK:
                 # tasks.task_activate_xiaolumama.delay(openid, wx_pubid)
                 pass
-         
+
         if event == WeiXinAutoResponse.WX_EVENT_SUBSCRIBE.lower() or\
            event == WeiXinAutoResponse.WX_EVENT_SCAN.lower() or \
            event == WeiXinAutoResponse.WX_EVENT_CLICK.lower():
@@ -250,7 +250,7 @@ class SaleProductSearch(View):
                 "siteprice": '%.2f' % product.agent_price,
                 "marketprice": '%.2f' % product.std_sale_price,
                 "category": str(product.category),
-                "brand": u"小鹿美美",
+                "brand": u"你的铺子",
                 "custom1": [u"可选颜色", product_detail and product_detail.color or ''],
                 "custom2": [u"可选尺码", ','.join([s.name for s in product.normal_skus])],
                 "custom3": [u"材质", product_detail and product_detail.material or ''],

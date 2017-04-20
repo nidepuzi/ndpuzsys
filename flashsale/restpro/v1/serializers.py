@@ -425,7 +425,7 @@ def generate_refund_choices(obj):
         return {}
 
     _default = {
-        obj.BUDGET: {'name': u'极速退款', 'desc_name': u'小鹿钱包',
+        obj.BUDGET: {'name': u'极速退款', 'desc_name': u'你的铺子钱包',
                      'desc_tpl': u'{refund_title}，退款金额立即退到{desc_name}，并可立即支付使用，无需等待.'},
         obj.WX: {'name': u'退微信支付', 'desc_name': u'微信钱包或微信银行卡',
                  'desc_tpl': u'{refund_title}，退款金额立即退到{desc_name}，需要等待支付渠道审核３至５个工作日到账.'},
@@ -753,7 +753,7 @@ class XiaoluMamaSerialize(serializers.ModelSerializer):
     can_trial = serializers.SerializerMethodField('can_trial_judgement', read_only=True)
     is_buyable = serializers.BooleanField(source='can_buy_transfer_coupon', read_only=True)
     xiaolucoin_cash = serializers.SerializerMethodField(read_only=True)
-    
+
     class Meta:
         model = XiaoluMama
         fields = (
@@ -1064,7 +1064,7 @@ class BudgetLogSerialize(serializers.ModelSerializer):
 
 
 class XlmmFansCustomerInfoSerialize(serializers.ModelSerializer):
-    """ 小鹿妈妈粉丝列表的用户信息 """
+    """ 你的铺子妈妈粉丝列表的用户信息 """
 
     class Meta:
         model = Customer

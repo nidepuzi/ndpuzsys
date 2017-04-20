@@ -862,7 +862,7 @@ class CustomerViewSet(viewsets.ModelViewSet):
     @list_route(methods=['post'])
     def budget_cash_out(self, request):
         """
-        小鹿钱包提现接口
+        你的铺子钱包提现接口
 
         POST /rest/v1/users/budget_cash_out
         参数：
@@ -970,7 +970,7 @@ class UserBugetBangView(WeixinAuthMixin, APIView):
             customer = get_object_or_404(Customer, pk=pk)
             cus_unionid = customer.unionid
             if cus_unionid.strip() and cus_unionid != unionid:
-                response = Response({'code': 2, 'info': '您的提现账号已绑定小鹿美美公众号', 'user_infos': user_infos})
+                response = Response({'code': 2, 'info': '您的提现账号已绑定你的铺子公众号', 'user_infos': user_infos})
         else:
             customer = customers[0]
             if customer.pk != pk:
@@ -981,7 +981,7 @@ class UserBugetBangView(WeixinAuthMixin, APIView):
             customer.save()
 
             task_Refresh_Sale_Customer.delay(user_infos, app_key=self._wxpubid)
-            response = Response({'code': 0, 'info': '恭喜，您成功绑定小鹿美美提众号！', 'user_infos': user_infos})
+            response = Response({'code': 0, 'info': '恭喜，您成功绑定你的铺子提众号！', 'user_infos': user_infos})
 
         self.set_cookie_openid_and_unionid(response, openid, unionid)
         return response

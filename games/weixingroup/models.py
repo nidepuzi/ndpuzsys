@@ -23,8 +23,8 @@ class XiaoluAdministrator(BaseModel):
 
     class Meta:
         app_label = 'weixingroup'
-        verbose_name = u'小鹿微信群管理员'
-        verbose_name_plural = u'小鹿微信群管理员列表'
+        verbose_name = u'你的铺子微信群管理员'
+        verbose_name_plural = u'你的铺子微信群管理员列表'
 
     @property
     def groups_count(self):
@@ -53,8 +53,8 @@ class XiaoluAdministrator(BaseModel):
 class GroupMamaAdministrator(BaseModel):
     class Meta:
         app_label = 'weixingroup'
-        verbose_name = u'小鹿微信群组'
-        verbose_name_plural = u'小鹿微信群组列表'
+        verbose_name = u'你的铺子微信群组'
+        verbose_name_plural = u'你的铺子微信群组列表'
 
     admin = models.ForeignKey(XiaoluAdministrator, related_name='mama_groups', verbose_name=u'管理员id')
     # mama = models.ForeignKey(XiaoluMama, verbose_name=u'妈妈用户')
@@ -141,8 +141,8 @@ class GroupMamaAdministrator(BaseModel):
 class GroupFans(BaseModel):
     class Meta:
         app_label = 'weixingroup'
-        verbose_name = u'小鹿微信群粉丝'
-        verbose_name_plural = u'小鹿微信群粉丝表'
+        verbose_name = u'你的铺子微信群粉丝'
+        verbose_name_plural = u'你的铺子微信群粉丝表'
 
     group = models.ForeignKey(GroupMamaAdministrator, related_name='fans')
     user_id = models.IntegerField(null=True, blank=True, verbose_name=u'关联用户')

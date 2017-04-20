@@ -73,7 +73,7 @@ def index(req):
     items = process_data(items, lambda x: x[key])
 
     weixin_items = {
-        '小鹿妈妈日活': [int(x[1]) for x in items],
+        '你的铺子妈妈日活': [int(x[1]) for x in items],
     }
     x_axis = [x[0] for x in items if x[0] is not None]
 
@@ -432,7 +432,7 @@ def new_mama(req):
             ratio = 0
         ratio_data.append(ratio)
 
-    charts = [generate_chart('小鹿妈妈', x_axis, z_items, width='1000px')]
+    charts = [generate_chart('你的铺子妈妈', x_axis, z_items, width='1000px')]
     y1 = max(new_mama_data) + 100
     y1_interval = int(y1 / 10)
     y2 = max(ratio_data) + 10
@@ -840,8 +840,8 @@ def transfer_coupon(req):
         'elite_mama_count': u'累计妈妈数',
         'new_elite_mama_count': u'新增妈妈',
         'active_elite_mama_count': u'活跃妈妈数',
-        'coin_charge_num': u'小鹿币充值',
-        'coin_refund_num': u'小鹿币退款',
+        'coin_charge_num': u'你的铺子币充值',
+        'coin_refund_num': u'你的铺子币退款',
     }
     items_dict = {k: [] for k, v in name_maps.iteritems()}
     for stats in stats_list:

@@ -29,7 +29,7 @@ class XiaoluMamaManager(BaseManager):
         return queryset.filter(status=self.model.EFFECT)
 
     def get_by_saletrade(self, sale_trade):
-        """ 通过特卖订单获取小鹿妈妈 """
+        """ 通过特卖订单获取你的铺子妈妈 """
         extra = sale_trade.extras_info
         mm_linkid = 0
         if 'mm_linkid' in extra:
@@ -77,7 +77,7 @@ class XlmmFansManager(BaseManager):
         from_cu = Customer.objects.get(pk=from_customer)
 
         xlmm = current_cu.getXiaolumm()
-        if xlmm:  # 如果申请人自己是小鹿妈妈，不做处理
+        if xlmm:  # 如果申请人自己是你的铺子妈妈，不做处理
             return
 
         from_xlmm = from_cu.getXiaolumm()

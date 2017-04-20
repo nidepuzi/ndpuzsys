@@ -13,7 +13,7 @@ global_setup.cancel_pingpp_charge_ssl_verify()
 
 DEBUG = False
 DEPLOY_ENV = False
-XIAOLU_UNIONPAY_SWICH = True #切换小鹿支付开关
+XIAOLU_UNIONPAY_SWICH = True #切换你的铺子支付开关
 
 ADMINS = ()
 
@@ -327,7 +327,7 @@ WEIXIN_MEDIA_HOST = "http://file.api.weixin.qq.com"
 WEIXIN_QRCODE_HOST = "https://mp.weixin.qq.com"
 WEIXIN_AUTHORIZE_URL = "https://open.weixin.qq.com/connect/oauth2/authorize"
 
-# ================ 小鹿美美[微信小程序] ==================
+# ================ 你的铺子[微信小程序] ==================
 WEAPP_APPID  = ''
 WEAPP_SECRET = ''
 

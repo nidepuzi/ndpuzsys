@@ -1,9 +1,9 @@
 {% extends "mama_base.html" %}
 
-{% block title %} 小鹿妈妈-填写基本信息 {% endblock %}
+{% block title %} 你的铺子妈妈-填写基本信息 {% endblock %}
 
 {% block head_script %}
-<link href='{{ STATIC_URL }}jquery/jquery-ui-1.10.1.css' rel='stylesheet'  />	
+<link href='{{ STATIC_URL }}jquery/jquery-ui-1.10.1.css' rel='stylesheet'  />
 
 <style type="text/css" >
     tfoot input{
@@ -26,13 +26,13 @@
     <ul class="flow-steps">
     	<li class="col-xs-4 on"><a href="#" class="btn ">填写资料 &gt;</a></li>
         <li class="col-xs-4 "><a href="#" class="btn btn-default">支付押金 &gt;</a></li>
-        <li class="col-xs-4 "><a href="#" class="btn btn-default">加入小鹿 &gt;</a></li>
+        <li class="col-xs-4 "><a href="#" class="btn btn-default">加入你的铺子 &gt;</a></li>
     </ul>
     <div class="arr"></div>
 </div>
 
 <div class="jumbotron" style="padding:5px;">
-  <h2>欢迎加入小鹿妈妈</h2>
+  <h2>欢迎加入你的铺子妈妈</h2>
   <div class="container">
     <form class="form-horizontal" action="" method="POST">
 		{% csrf_token %}
@@ -73,8 +73,8 @@
 
 {% endblock %}
 
-{% block tail_script %}    
-    
+{% block tail_script %}
+
     <script type="text/javascript">
       function validateMobile(s) {
         var validateReg = /^((\+?86)|(\(\+86\)))?1\d{10}$/;
@@ -123,7 +123,7 @@
 	  if (res["code"] == "wait") {
             $("#id_verify_msg")[0].innerHTML = "请先耐心等待60秒哦！";
             return;
-          } 
+          }
 
           if (res["code"] != "good") {
 	    btn.attr("status","0");
@@ -134,24 +134,24 @@
             $("#id_verify_msg")[0].innerHTML = "验证次数达到上限，请联系微信客服处理！";
             btn[0].innerHTML = "已达上限";
             return;
-          } 
+          }
 	  if (res["code"] == "anony") {
             $("#id_verify_msg")[0].innerHTML = "请从优尼世界微信登录此页面！";
             btn[0].innerHTML = "登录有误";
             return;
-          } 
+          }
 	  if (res["code"] == "bad") {
             $("#id_verify_msg")[0].innerHTML = "请输入正确的手机号码！";
             btn[0].innerHTML = "点击重发";
             return;
-          } 
+          }
 	  if (res["code"] == "dup") {
             $("#id_verify_msg")[0].innerHTML = "此号码已被他人验证，请重新输入！";
             btn[0].innerHTML = "点击重发";
             return;
-          } 
+          }
         };
-        
+
         $.ajax({url:url, data:data, success:callback});
       };
 
@@ -179,15 +179,15 @@
 		var data = {"verifycode":verifycode, "openid":openid};
         $.ajax({url:url, data:data, success:callback});
       };
-		
+
 	  $('#tk').change(function(e){
 	  	  if($("#tk").prop("checked")){
 			$('#next_step').removeClass('btn-default').addClass('btn-warning');
 	      }else{
-	        $('#next_step').removeClass('btn-warning').addClass('btn-default');  
+	        $('#next_step').removeClass('btn-warning').addClass('btn-default');
 	      }
 	  });
-		
+
       $("#next_step").click(function(e){
           if (!$('#next_step').hasClass('btn-warning')){e.preventDefault();return false;}
       })

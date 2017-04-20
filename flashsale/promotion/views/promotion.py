@@ -154,7 +154,7 @@ class XLSampleapplyView(WeixinAuthMixin, View):
             openid, unionid = self.get_openid_and_unionid_by_customer(request)
 
         referal = Customer.objects.normal_customer.filter(id=from_customer).first()
-        title = u'小鹿美美邀您闹元宵'
+        title = u'你的铺子邀您闹元宵'
 
         # 商品sku信息  # 获取商品信息到页面
         pro = get_active_pros_data()  # 获取活动产品数据
@@ -668,7 +668,7 @@ class PromotionResultMixin(object):
         inv_cnt = XLInviteCount.objects.get(customer_id=item.customer_id)
 
         mobile = ''.join([customer.mobile[0:3], "****", customer.mobile[7:11]])
-        thumbnail = customer.thumbnail or 'http://7xogkj.com2.z0.glb.qiniucdn.com/Icon-60%402x.png'  # 小鹿logo缺省头像
+        thumbnail = customer.thumbnail or 'http://7xogkj.com2.z0.glb.qiniucdn.com/Icon-60%402x.png'  # 你的铺子logo缺省头像
         res = (mobile, inv_cnt.invite_count, inv_cnt.apply_count, thumbnail)
         return res
 

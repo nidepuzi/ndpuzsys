@@ -56,7 +56,7 @@ def task_create_scan_customer(wx_userinfo):
     unionid = wx_userinfo['unionid']
     thumbnail = wx_userinfo['headimgurl']
     nick = wx_userinfo['nickname']
-    
+
     cu = Customer.objects.filter(unionid=unionid).first()
     if not cu:
         try:
@@ -109,8 +109,8 @@ def task_get_unserinfo_and_create_accounts(openid, wx_pubid):
             'message1': u'openid=%s wx_pubid=%s' % (openid, wx_pubid),
         }, exc_info=True)
         # raise task_get_unserinfo_and_create_accounts.retry(exc=exc)
-    
-    
+
+
 @app.task
 def task_create_scan_potential_mama(referal_from_mama_id, potential_mama_id, potential_mama_unionid):
     return
@@ -188,7 +188,7 @@ def task_update_weixinfans_upon_unsubscribe(openid, wx_pubid):
 
     unsubscribe_time = datetime.datetime.now()
     WeixinFans.objects.filter(app_key=app_key, openid=openid).update(subscribe=False, unsubscribe_time=unsubscribe_time)
-    
+
 
 @app.task
 def task_activate_xiaolumama(openid, wx_pubid):
@@ -205,9 +205,9 @@ def task_activate_xiaolumama(openid, wx_pubid):
     if not mama:
         return
 
-    # 内部测试 
+    # 内部测试
     if XiaoluSwitch.is_switch_open(2):
-        return 
+        return
 
     mama_id = mama.id
     charge_time = datetime.datetime.now()
@@ -224,7 +224,7 @@ def task_activate_xiaolumama(openid, wx_pubid):
         referal_from_mama_id = int(qrscene)
     else:
         return
-    
+
     if referal_from_mama_id < 1:
         return
 
@@ -255,11 +255,11 @@ def task_weixinfans_update_xlmmfans(referal_from_mama_id, referal_to_unionid):
         fans_cusid = customer.id
         fans_nick = customer.nick
         fans_thumbnail = customer.thumbnail
-    
+
         fan = XlmmFans.objects.filter(fans_cusid=fans_cusid).first()
         if fan:
             return
-    
+
         from_mama = XiaoluMama.objects.filter(id=referal_from_mama_id).first()
         if not from_mama:
             return
@@ -267,11 +267,11 @@ def task_weixinfans_update_xlmmfans(referal_from_mama_id, referal_to_unionid):
         from_customer = from_mama.get_mama_customer()
         if not from_customer:
             return
-    
+
         xlmm_cusid = from_customer.id
         if xlmm_cusid == fans_cusid:
             return
-    
+
         fan = XlmmFans(xlmm=referal_from_mama_id, xlmm_cusid=xlmm_cusid, refreal_cusid=xlmm_cusid, fans_cusid=fans_cusid,
                        fans_nick=fans_nick, fans_thumbnail=fans_thumbnail)
         fan.save()
@@ -282,9 +282,9 @@ def create_push_event_subscribe(mama_id, unionid, carry_num, date_field):
     customer = Customer.objects.filter(unionid=unionid, status=Customer.NORMAL).first()
     if not customer:
         return
-    
-    customer_id = customer.id 
-    
+
+    customer_id = customer.id
+
     event_type = WeixinPushEvent.FANS_SUBSCRIBE_NOTIFY
     uni_key = WeixinPushEvent.gen_subscribe_notify_unikey(event_type, customer_id)
     event = WeixinPushEvent.objects.filter(uni_key=uni_key).first()
@@ -295,21 +295,21 @@ def create_push_event_subscribe(mama_id, unionid, carry_num, date_field):
     tid = WeixinPushEvent.TEMPLATE_SUBSCRIBE_ID
 
     params = {'keyword1': {'value': u'%.2f元' % (carry_num * 0.01), 'color':'#FA5858'},
-              'keyword2': {'value': u'关注小鹿美美系列公众号', 'color': '#394359'},
+              'keyword2': {'value': u'关注你的铺子系列公众号', 'color': '#394359'},
               'keyword3': {'value':now.strftime('%Y-%m-%d %H:%M:%S'), 'color':'#394359'}}
-    
+
     to_url = 'http://m.nidepuzi.com/rest/v2/mama/redirect_stats_link?link_id=1'
     event = WeixinPushEvent(customer_id=customer_id,mama_id=mama_id,uni_key=uni_key,tid=tid,
                             event_type=event_type,date_field=date_field,params=params,to_url=to_url)
     event.save()
-    
 
-    
+
+
 @app.task(max_retries=3, default_retry_delay=60)
 def task_weixinfans_create_subscribe_awardcarry(unionid):
     carry_num = 100
     carry_type = AwardCarry.AWARD_SUBSCRIBE # 关注公众号
-    
+
     try:
         mama = XiaoluMama.objects.filter(openid=unionid).first()
         # 20170330试用3取消，关注公众号或扫码没有新增妈妈记录，那么就没有1块的奖励了，成为正式妈妈后还是有
@@ -319,7 +319,7 @@ def task_weixinfans_create_subscribe_awardcarry(unionid):
 
         mama_id = mama.id
         # We get here too fast that WeixinUserInfo objects have not been created yet,
-        # and when we try to access, error comes.        
+        # and when we try to access, error comes.
         userinfo = WeixinUserInfo.objects.filter(unionid=unionid).first()
         if not userinfo:
             raise WeixinUserInfo.DoesNotExist()
@@ -331,22 +331,22 @@ def task_weixinfans_create_subscribe_awardcarry(unionid):
 
         date_field = datetime.date.today()
         carry_description = u'谢谢关注！每天分享好东西，赚佣么么哒！'
-        carry_plan_name = u'小鹿千万粉丝计划'
+        carry_plan_name = u'你的铺子千万粉丝计划'
         contributor_mama_id = mama_id
         contributor_nick = userinfo and userinfo.nick or '匿名'
         contributor_img  = userinfo and userinfo.thumbnail or '匿名'
-    
+
         ac = AwardCarry(mama_id=mama_id,carry_num=carry_num, carry_type=carry_type, carry_description=carry_description,
                         contributor_nick=contributor_nick, contributor_img=contributor_img,
                         contributor_mama_id=contributor_mama_id, carry_plan_name=carry_plan_name,
                         date_field=date_field, uni_key=uni_key, status=AwardCarry.CONFIRMED)
         ac.save()
         create_push_event_subscribe(mama_id, unionid, carry_num, date_field)
-        
+
     except Exception,exc:
         #logger.error(str(exc), exc_info=True)
         raise task_weixinfans_create_subscribe_awardcarry.retry(exc=exc)
-    
+
 
 def get_max_today_fans_invites(mama_id):
     # 每日最多邀请20名
@@ -357,13 +357,13 @@ def create_push_event_invite_fans(mama_id, contributor_nick, contributor_mama_id
     mama = XiaoluMama.objects.filter(id=mama_id, status=XiaoluMama.EFFECT).first()
     if not mama:
         return
-    
+
     customer = Customer.objects.filter(unionid=mama.unionid, status=Customer.NORMAL).first()
     if not customer:
         return
-    
-    customer_id = customer.id 
-    
+
+    customer_id = customer.id
+
     event_type = WeixinPushEvent.INVITE_FANS_NOTIFY
     uni_key = WeixinPushEvent.gen_invite_fans_notify_unikey(event_type, customer_id, today_invites, date_field)
     event = WeixinPushEvent.objects.filter(uni_key=uni_key).first()
@@ -372,12 +372,12 @@ def create_push_event_invite_fans(mama_id, contributor_nick, contributor_mama_id
 
     footer = u'马上就成超级大咖啦！粉丝过千，日赚千元！'
     footer_color = '#394359'
-    
+
     max_today_fans_invites = get_max_today_fans_invites(mama_id)
     if today_invites > max_today_fans_invites * 0.6:
         footer = u'你的二维码推广每日只能新增%d名好友，超过将不能再得奖励，请知悉哦！你今日已增加%d名好友。详情请联系App客服MM咨询。' % (max_today_fans_invites, today_invites)
         footer_color = '#FA5858'
-        
+
     now = datetime.datetime.now()
     tid = WeixinPushEvent.TEMPLATE_INVITE_FANS_ID
     header = u"Great! 好友[%s]扫描二维码成为你的粉丝！" % contributor_nick
@@ -386,14 +386,14 @@ def create_push_event_invite_fans(mama_id, contributor_nick, contributor_mama_id
               'keyword1': {'value':contributor_mama_id, 'color':'#394359'},
               'keyword2': {'value':now.strftime('%Y-%m-%d %H:%M:%S'), 'color':'#394359'},
               'remark': {'value':footer, 'color':footer_color}}
-    
+
     #to_url = 'http://m.nidepuzi.com/rest/v1/users/weixin_login/?next=/mama_shop/html/personal.html'
     event = WeixinPushEvent(customer_id=customer_id,mama_id=mama_id,uni_key=uni_key,tid=tid,
                             event_type=event_type,date_field=date_field,params=params)
     event.save()
-    
 
-    
+
+
 @app.task(max_retries=3, default_retry_delay=5)
 def task_weixinfans_create_fans_awardcarry(referal_from_mama_id, referal_to_unionid):
     if referal_from_mama_id < 1:
@@ -404,15 +404,15 @@ def task_weixinfans_create_fans_awardcarry(referal_from_mama_id, referal_to_unio
     mama_id = referal_from_mama_id
 
     date_field = datetime.date.today()
-    today_invites = AwardCarry.objects.filter(mama_id=mama_id,carry_type=carry_type,date_field=date_field).count() + 1        
-    
+    today_invites = AwardCarry.objects.filter(mama_id=mama_id,carry_type=carry_type,date_field=date_field).count() + 1
+
     max_today_fans_invites = get_max_today_fans_invites(mama_id)
     if today_invites > max_today_fans_invites:
         return
-    
+
     try:
         # We get here too fast that WeixinUserInfo or referal XiaoluMama objects have not
-        # been created yet, and when we try to access , error comes.        
+        # been created yet, and when we try to access , error comes.
         referal_to_mama = XiaoluMama.objects.filter(openid=referal_to_unionid).first()
         userinfo = WeixinUserInfo.objects.filter(unionid=referal_to_unionid).first()
         # 20170330试用3取消，关注公众号或扫码没有新增妈妈记录，那么就没有1块的奖励了，成为正式妈妈后还是有
@@ -429,14 +429,14 @@ def task_weixinfans_create_fans_awardcarry(referal_from_mama_id, referal_to_unio
             return
 
         carry_description = u'恭喜，又增加一名粉丝！'
-        carry_plan_name = u'小鹿千万粉丝计划'
+        carry_plan_name = u'你的铺子千万粉丝计划'
         contributor_mama_id = referal_to_mama.id
         contributor_nick = userinfo.nick
         contributor_img = userinfo.thumbnail
 
         # send weixin push
         create_push_event_invite_fans(mama_id, contributor_nick, contributor_mama_id, date_field, today_invites)
-        
+
         ac = AwardCarry(mama_id=mama_id,carry_num=carry_num, carry_type=carry_type, carry_description=carry_description,
                         contributor_nick=contributor_nick, contributor_img=contributor_img,
                         contributor_mama_id=contributor_mama_id, carry_plan_name=carry_plan_name,
@@ -494,7 +494,7 @@ def get_or_create_weixin_xiaolumm(wxpubId, openid, event, eventKey):
         )
         profile.save()
 
-    # 创建小鹿妈妈记录
+    # 创建你的铺子妈妈记录
     referal_from_mama_obj = XiaoluMama.objects.filter(id=referal_from_mama).first()
     referal_from_mama_id  = referal_from_mama_obj and referal_from_mama_obj.id or 0
     xiaolumm = XiaoluMama.objects.filter(openid=unionid).first()
@@ -521,7 +521,7 @@ def get_or_create_weixin_xiaolumm(wxpubId, openid, event, eventKey):
         #         last_renew_type=XiaoluMama.SCAN,
         #         uni_key=PotentialMama.gen_uni_key(xiaolumm.id, referal_from_mama_id))
         #     protentialmama.save()
-        #  修改该小鹿妈妈的接管状态
+        #  修改该你的铺子妈妈的接管状态
         xiaolumm.chargemama()
         xiaolumm.update_renew_day(XiaoluMama.SCAN)
 
@@ -532,10 +532,10 @@ def task_create_mama_referal_qrcode_and_response_weixin(wxpubId, openid, event, 
     """ to_username: 公众号id, from_username: 关注用户id """
     if XiaoluSwitch.is_switch_open(3):
         return
-    
+
     try:
         #xiaolumm = get_or_create_weixin_xiaolumm(wxpubId, openid, event, eventKey)
-        
+
         userinfo = get_or_fetch_userinfo(openid, wxpubId)
         unionid = userinfo['unionid']
         if not userinfo:
@@ -546,7 +546,7 @@ def task_create_mama_referal_qrcode_and_response_weixin(wxpubId, openid, event, 
             # raise XiaoluMama.DoesNotExist()
             return
 
-        # 获取创建用户小鹿妈妈信息,
+        # 获取创建用户你的铺子妈妈信息,
         media_id = fetch_wxpub_mama_custom_qrcode_media_id(mama.id, userinfo, wxpubId)
 
         wx_api = WeiXinAPI(wxpubId=wxpubId)
@@ -580,7 +580,7 @@ def task_create_mama_and_response_manager_qrcode(wxpubId, openid, event, eventKe
             # raise task_create_mama_and_response_manager_qrcode.retry()
             return
 
-        # 获取创建用户小鹿妈妈信息,
+        # 获取创建用户你的铺子妈妈信息,
         media_id = fetch_wxpub_mama_manager_qrcode_media_id(mama.id, wxpubId)
 
         wx_api = WeiXinAPI(wxpubId=wxpubId)

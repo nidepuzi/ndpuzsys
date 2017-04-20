@@ -31,8 +31,8 @@ class XlmmEffectScore(BaseModel):
         db_table = 'xiaolumm_xlmmeffectscore'
         unique_together = ('mama_id', 'stat_time')
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿妈妈真实性个人评分'
-        verbose_name_plural = u'小鹿妈妈真实性个人评分列表'
+        verbose_name = u'你的铺子妈妈真实性个人评分'
+        verbose_name_plural = u'你的铺子妈妈真实性个人评分列表'
 
     @staticmethod
     def generate(mama_dict, stat_time=None):
@@ -96,8 +96,8 @@ class XlmmTeamEffScore(BaseModel):
         db_table = 'xiaolumm_xlmmteameffscore'
         unique_together = ('mama_id', 'stat_time')
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿妈妈真实性团队评分'
-        verbose_name_plural = u'小鹿妈妈真实性团队评分列表'
+        verbose_name = u'你的铺子妈妈真实性团队评分'
+        verbose_name_plural = u'你的铺子妈妈真实性团队评分列表'
 
     @staticmethod
     def generate(mama_ids, stat_time=None):

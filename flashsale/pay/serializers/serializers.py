@@ -221,13 +221,13 @@ class SaleRefundSerializer(serializers.ModelSerializer):
     def get_refund_fee_message(self, obj):
         trade = obj.sale_trade
         if obj.is_fastrefund:  # 如果是极速退款
-            return "[1]退回小鹿钱包 %.2f 元 实付余额%.2f" % (
+            return "[1]退回你的铺子钱包 %.2f 元 实付余额%.2f" % (
                 obj.refund_fee,
                 trade.payment > 0 and (obj.refund_fee / trade.payment) * (obj.payment - trade.pay_cash) or 0)
         budget_logs = obj.get_refund_budget_logs()
         if budget_logs:
             log_money = sum([budget_log.flow_amount for budget_log in budget_logs]) / 100.0
-            return '退回小鹿钱包%.2f元 实付金额%.2f'%(log_money, obj.payment)
+            return '退回你的铺子钱包%.2f元 实付金额%.2f'%(log_money, obj.payment)
         return "[2]退回%s %.2f元" % (trade.get_channel_display(), obj.refund_fee)
 
     def get_manual_refund(self, obj):

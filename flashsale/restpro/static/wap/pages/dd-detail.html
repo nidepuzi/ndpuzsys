@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>小鹿美美</title>
+<title>你的铺子</title>
 <meta charset="utf-8">
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" id="viewport">
@@ -20,7 +20,7 @@
 <!-- 订单信息 start -->
 <div class="panel basic">
   <div class="panel-top">
-      
+
   </div>
   <div class="panel-bottom">
 
@@ -50,7 +50,7 @@
     <h2>费用详情</h2>
   </div>
   <div class="panel-bottom">
-  
+
   </div>
 </div>
 <!-- 费用详情 end -->
@@ -147,7 +147,7 @@
   //返回顶部
   $('#js-scroll-top').on('touchend',function(e){
     e.preventDefault();
-    $('body').animate({scrollTop:0},400);  
+    $('body').animate({scrollTop:0},400);
   });
 
   var startY;
@@ -165,7 +165,7 @@
       $('#js-fixed-nav').show();
     }
   }, false);
-  
+
   var urlConf = {'trade_id':getUrlParam('id')};
   var order_url = GLConfig.get_trade_details_url.template(urlConf);
 

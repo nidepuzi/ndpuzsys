@@ -405,7 +405,7 @@ class ChangeDetailExportView(View):
 
         receiver_address = '广州市白云区太和镇永兴村龙归路口悦博大酒店对面龙门公寓3楼' if order_list.ware_by == WARE_GZ else \
             '上海市佘山镇吉业路245号5号楼'
-        receiver_name = '小鹿美美%d号工作人员' % order_list.id
+        receiver_name = '你的铺子%d号工作人员' % order_list.id
         receiver_contact = '15023333762' if order_list.p_district == '3' else '021-37698479, 15026869609'
         if order_details:
             supplier = None

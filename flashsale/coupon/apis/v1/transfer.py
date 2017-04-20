@@ -27,7 +27,7 @@ __ALL__ = [
 
 def get_elite_score_by_templateid(templateid, mama):
     # type: (int, XiaoluMama) -> Tuple[int, int, float]
-    """通过优惠券模板ID　和　小鹿妈妈 获取　精品券商品id　积分　和　价格
+    """通过优惠券模板ID　和　你的铺子妈妈 获取　精品券商品id　积分　和　价格
     """
     from flashsale.pay.models.product import ModelProduct
 
@@ -504,7 +504,7 @@ def elite_mama_recharge(customer_id, order_id, order_oid, product_id):
     from flashsale.xiaolumm.models.models import XiaoluMama
     to_mama = customer.get_xiaolumm()
     if (not to_mama) and customer.unionid:
-        # 是微信登录的就创建小鹿妈妈账号，用手机号登录的那只能找管理员了
+        # 是微信登录的就创建你的铺子妈妈账号，用手机号登录的那只能找管理员了
         to_mama = XiaoluMama.objects.create(
             mobile=customer.mobile,
             progress=XiaoluMama.PROFILE,
@@ -780,7 +780,7 @@ def saleorder_return_coupon_exchange(salerefund, payment):
 
 def transfer_record_return_coupon_exchange(coupons, transfer_record):
     """
-    小鹿妈妈用钱或用小鹿币购买精品券后退券场景，这个买券订单可能已经被上级妈妈兑换收益走了，现在退券需要把上级妈妈的兑换收益扣掉
+    你的铺子妈妈用钱或用你的铺子币购买精品券后退券场景，这个买券订单可能已经被上级妈妈兑换收益走了，现在退券需要把上级妈妈的兑换收益扣掉
     买券订单可能上级妈妈还没有兑换，那么还是扣上级妈妈收益，她再兑换就补上了
     """
     # 从coupon unikey找到saleorder，再找到ordercarry，再找到上级妈妈，只能这样找，因为买券后可能升级sp了或跳级或换上级，这个订单
@@ -1001,7 +1001,7 @@ def apply_pending_return_transfer_coupon_2_sys(coupon_ids, customer):
     product_img = template.extras.get("product_img") or ''
     coupon_value = int(template.value)
 
-    # now，需要区分出来小鹿币买的和钱买的退法不一样，需要分开成2条记录处理
+    # now，需要区分出来你的铺子币买的和钱买的退法不一样，需要分开成2条记录处理
     cash_buy_coupon_ids = []
     coin_buy_coupon_ids = []
     for one_coupon in coupons:
@@ -1135,13 +1135,13 @@ def agree_apply_transfer_record_2_sys(record):
     if not coupons:
         raise Exception('优惠券没有找到')
 
-    #  用户退的券比如有3张，根据buy_coupon_type，有可能是2张用钱买的，有可能1张是用小鹿币买的，那么用钱的要退到个人零钱，用币的退到小鹿币
+    #  用户退的券比如有3张，根据buy_coupon_type，有可能是2张用钱买的，有可能1张是用你的铺子币买的，那么用钱的要退到个人零钱，用币的退到你的铺子币
     from flashsale.xiaolumm.models import XiaoluMama
     xlmm = XiaoluMama.objects.filter(
         id=record.coupon_from_mama_id, status=XiaoluMama.EFFECT,
         charge_status=XiaoluMama.CHARGED).first()
     if not xlmm:
-        raise Exception('小鹿妈妈账号不正常，请联系客服或管理员1')
+        raise Exception('你的铺子妈妈账号不正常，请联系客服或管理员1')
     product_id, elite_score, agent_price = get_elite_score_by_templateid(record.template_id, xlmm)
     return_budget_amount = 0
     return_coin_amount = 0
@@ -1166,7 +1166,7 @@ def agree_apply_transfer_record_2_sys(record):
             xiaolucoin = XiaoluCoin.get_or_create(xlmm.id)
             xiaolucoin.refund(round(return_coin_amount * 100), record.id)
         else:
-            raise Exception('小鹿妈妈账号不正常，请联系客服或管理员2')
+            raise Exception('你的铺子妈妈账号不正常，请联系客服或管理员2')
 
     record.transfer_status = CouponTransferRecord.DELIVERED
     record.save(update_fields=['transfer_status', 'modified'])  # 完成流通记录

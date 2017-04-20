@@ -144,7 +144,7 @@ td {
 	-pdf-frame-border: 1;
     -pdf-level: 0;
     -pdf-open: false;
-    size:100mm 100mm portrait; 
+    size:100mm 100mm portrait;
     /**
      -pdf-page-size: doubleten;
 	 border:1; */
@@ -153,8 +153,8 @@ td {
         -pdf-frame-border: 0;
         left: 10pt; width: 274pt; top: 10pt; height: 15pt;
     }
-    /*@frame content_frame {           Content Frame height: 650pt; 
-        left: 10pt; width: 770pt; top: 35pt; 
+    /*@frame content_frame {           Content Frame height: 650pt;
+        left: 10pt; width: 770pt; top: 35pt;
     }*/
     @frame footer_frame {           /* Static frame */
         -pdf-frame-content: footer_content;
@@ -168,7 +168,7 @@ td {
 
 <body>
 	<div id="header_content" class="header">
-      <p>小鹿美美-外贸原单限时特卖</p> 
+      <p>你的铺子-外贸原单限时特卖</p>
 	</div>
 	<div id="footer_content" class="footer">
       NO：<pdf:pagenumber>
@@ -179,7 +179,7 @@ td {
 		<div class="baseInfo">
 			<div class="seller-nick">
 				<p>{{ trade.ins.user.nick }} [发货单]</p>
-			</div> 
+			</div>
 		</div>
 		<div  class="content">
 		<div class='seller-info'>
@@ -240,7 +240,7 @@ td {
 		</div>
 		</div>
 	</div>
-	
+
 	{% if not forloop.last %}
 	<pdf:nextpage>
 	{% endif %}

@@ -484,8 +484,8 @@ class SaleOrderViewSet(viewsets.ModelViewSet):
         return queryset
 
     def list(self, request, pk, *args, **kwargs):
-        """ 
-        获取用户订单列表 
+        """
+        获取用户订单列表
         """
         queryset = self.filter_queryset(self.get_queryset(saletrade_id=pk))
         page = self.paginate_queryset(queryset)
@@ -544,7 +544,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
     - {path}/{pk}/charge[.formt]:支付待支付订单;
     - {path}/{pk}/details[.formt]:获取订单及明细；
     - {path}/shoppingcart_create[.formt]:pingpp创建订单接口
-    > - cart_ids：购物车明细ID，如 `100,101,...` 
+    > - cart_ids：购物车明细ID，如 `100,101,...`
     > - addr_id:客户地址ID
     > - channel:支付方式
     > - payment：付款金额
@@ -554,7 +554,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
     > - pay_extras：附加支付参数，pid:1:value:2;pid:2:value:3:couponid:2
     > - uuid：系统分配唯一ID
     - {path}/buynow_create[.formt]:立即支付订单接口
-    > - item_id：商品ID，如 `100,101,...` 
+    > - item_id：商品ID，如 `100,101,...`
     > - sku_id:规格ID
     > - num:购买数量
     > - pay_extras：附加支付参数，pid:1:value:2;pid:2:value:3:couponid:2
@@ -667,7 +667,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
     @rest_exception(errmsg='')
     @transaction.atomic
     def budget_charge(self, sale_trade):
-        """ 小鹿钱包支付实现 """
+        """ 你的铺子钱包支付实现 """
 
         buyer = Customer.objects.get(pk=sale_trade.buyer_id)
         payment = round(sale_trade.payment * 100)
@@ -676,7 +676,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
 
         urows = UserBudget.objects.filter(user=buyer, amount__gte=payment)
         if not urows.exists():
-            return {'channel': channel, 'success': False, 'id': sale_trade.id, 'info': u'小鹿钱包余额不足'}
+            return {'channel': channel, 'success': False, 'id': sale_trade.id, 'info': u'你的铺子钱包余额不足'}
         BudgetLog.create(customer_id=buyer.id,
                          budget_type=BudgetLog.BUDGET_OUT,
                          flow_amount=payment,
@@ -726,7 +726,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
                   'currency': 'cny',
                   'amount': '%d' % payment,
                   'client_ip': settings.PINGPP_CLENTIP,
-                  'subject': u'小鹿美美平台交易',
+                  'subject': u'你的铺子平台交易',
                   'body': u'用户订单金额[%s, %s, %.2f]' % (
                       sale_trade.buyer_id,
                       sale_trade.id,
@@ -765,7 +765,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
             'receiver_mobile': address.receiver_mobile,
             'user_address_id': address.id
         }
-        
+
         buyer_openid = options.get_openid_by_unionid(customer.unionid, settings.WX_PUB_APPID)
         buyer_openid = buyer_openid or customer.openid
         payment = float(form.get('payment'))
@@ -899,12 +899,12 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
         cookies = dict([(k, v) for k, v in request.COOKIES.items() if k in ('mm_linkid', 'ufrom')])
         logger.info({
             'code': 0,
-            'info': u'付款请求v1', 
+            'info': u'付款请求v1',
             'channel': data.get('channel'),
             'http_referal': request.META.get('HTTP_REFERER'),
-            'user_agent':request.META.get('HTTP_USER_AGENT'), 
-            'action': 'trade_create', 
-            'order_no': data.get('uuid'), 
+            'user_agent':request.META.get('HTTP_USER_AGENT'),
+            'action': 'trade_create',
+            'order_no': data.get('uuid'),
             'data': str(data),
             'cookies':cookies,
         })
@@ -994,7 +994,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
                 # 妈妈钱包支付
                 response_charge = self.wallet_charge(sale_trade)
             elif channel == SaleTrade.BUDGET:
-                # 小鹿钱包
+                # 你的铺子钱包
                 response_charge = self.budget_charge(sale_trade)
             else:
                 # pingpp 支付
@@ -1079,7 +1079,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
             # 妈妈钱包支付
             response_charge = self.wallet_charge(sale_trade)
         elif channel == SaleTrade.BUDGET:
-            # 小鹿钱包
+            # 你的铺子钱包
             response_charge = self.budget_charge(sale_trade)
         else:
             # pingpp 支付
@@ -1102,10 +1102,10 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
 
         try:
             if instance.channel == SaleTrade.WALLET:
-                # 小鹿钱包支付
+                # 你的铺子钱包支付
                 response_charge = self.wallet_charge(instance)
             elif instance.channel == SaleTrade.BUDGET:
-                # 小鹿钱包
+                # 你的铺子钱包
                 response_charge = self.budget_charge(instance)
             else:
                 # pingpp 支付

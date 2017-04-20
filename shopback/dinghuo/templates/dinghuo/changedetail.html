@@ -404,16 +404,16 @@ function handleXlsFile(e) {
             <strong>订货仓:{{orderlist.get_ware_by_display}}</strong>
             {% if orderlist.third_package %}
                 <p>商家代发</p>
-                <p>小鹿美美{{ orderlist.id }}号工作人员</p>
+                <p>你的铺子{{ orderlist.id }}号工作人员</p>
                 <p>021-37698479, 15026869609</p>
             {%else%}
                 {% ifequal orderlist.ware_by 2 %}
                 <p>广州市白云区太和镇永兴村龙归路口悦博大酒店对面龙门公寓3楼</p>
-                <p>小鹿美美{{ orderlist.id }}号工作人员< /p>
+                <p>你的铺子{{ orderlist.id }}号工作人员< /p>
                 <p>15023333762</p>
                 {% else %}
                 <p>上海市松江区佘山镇吉业路245号5号楼</p>
-                <p>小鹿美美{{ orderlist.id }}号工作人员</p>
+                <p>你的铺子{{ orderlist.id }}号工作人员</p>
                 <p>021-37698479, 15026869609</p>
                 {% endifequal %}
             {%endif%}
@@ -1165,7 +1165,7 @@ $(function () {
     $("#pay_chioces").change(function(event){
             $("#pay_information1").hide();
             $("#pay_information").hide();
-            $("#pay_information2").hide();          
+            $("#pay_information2").hide();
             $("#self_pay").hide();
         var val = $(this).val();
         if (val == 1){

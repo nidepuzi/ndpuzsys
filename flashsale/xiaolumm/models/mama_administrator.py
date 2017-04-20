@@ -16,8 +16,8 @@ class MamaAdministrator(BaseModel):
     class Meta:
         db_table = 'xiaolumm_mamaadministrator'
         app_label = 'xiaolumm'
-        verbose_name = u'小鹿妈妈管理员'
-        verbose_name_plural = u'小鹿妈妈管理员列表'
+        verbose_name = u'你的铺子妈妈管理员'
+        verbose_name_plural = u'你的铺子妈妈管理员列表'
 
     @classmethod
     def get_or_create_by_mama(cls, mama):

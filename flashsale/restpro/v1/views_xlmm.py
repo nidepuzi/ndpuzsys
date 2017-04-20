@@ -86,7 +86,7 @@ def validate_customer_budget(customer):
 
 class XiaoluMamaViewSet(viewsets.ModelViewSet, PayInfoMethodMixin):
     """
-    ### 特卖平台－小鹿妈妈代理API:
+    ### 特卖平台－你的铺子妈妈代理API:
     - {prefix}[.format] method:get : 获取登陆用户的代理基本信息
     - {prefix}/list_base_data　method:get : 获取代理推荐人信息
     - {prefix}/agency_info　method:get : 代理整理数据
@@ -138,10 +138,10 @@ class XiaoluMamaViewSet(viewsets.ModelViewSet, PayInfoMethodMixin):
         try:
             pk = int(pk)
         except:
-            raise exceptions.ValidationError(u'需要提供正确的小鹿妈妈ID')
+            raise exceptions.ValidationError(u'需要提供正确的你的铺子妈妈ID')
         mama = get_object_or_404(XiaoluMama, pk=pk)
         if not mama:
-            raise exceptions.ValidationError(u'此用户并非小鹿妈妈')
+            raise exceptions.ValidationError(u'此用户并非你的铺子妈妈')
         customer = mama.get_customer()
         if not customer:
             raise exceptions.ValidationError(u'此用户账号异常，请关注公众号联系管理员')
@@ -232,7 +232,7 @@ class XiaoluMamaViewSet(viewsets.ModelViewSet, PayInfoMethodMixin):
 
     @list_route(methods=['get'])
     def get_fans_list(self, request):
-        """ 获取小鹿妈妈的粉丝列表 """
+        """ 获取你的铺子妈妈的粉丝列表 """
         if not request.user or not request.user.is_authenticated():
             raise exceptions.PermissionDenied()
         customer = get_object_or_404(Customer, user=request.user)
@@ -337,7 +337,7 @@ class XiaoluMamaViewSet(viewsets.ModelViewSet, PayInfoMethodMixin):
         # if xlmm.mobile is None or (not xlmm.mobile.strip()):
         # referal_from = ''  # referal_mama.mobile if referal_mama else ''
         # self.bind_xlmm_info(xlmm, mama_mobile, referal_from)
-        if not xlmm:  # 创建小鹿妈妈
+        if not xlmm:  # 创建你的铺子妈妈
             if customer.unionid and customer.unionid.strip():
                 xlmm = XiaoluMama(openid=customer.unionid)
                 if validate_mobile(mama_mobile):
@@ -475,7 +475,7 @@ class XiaoluMamaViewSet(viewsets.ModelViewSet, PayInfoMethodMixin):
         try:
             xlmm = request.user.customer.get_xiaolumm()
         except Exception, e:
-            raise exceptions.ValidationError(u'用户不是小鹿妈妈或者未登录')
+            raise exceptions.ValidationError(u'用户不是你的铺子妈妈或者未登录')
         from flashsale.xiaolumm.models.rank import WeekMamaCarryTotal, WEEK_RANK_REDIS
         res = []
         mm_ids = xlmm.get_team_member_ids()
@@ -502,7 +502,7 @@ class XiaoluMamaViewSet(viewsets.ModelViewSet, PayInfoMethodMixin):
         try:
             xlmm = request.user.customer.get_xiaolumm()
         except Exception, e:
-            raise exceptions.ValidationError(u'用户不是小鹿妈妈或者未登录')
+            raise exceptions.ValidationError(u'用户不是你的铺子妈妈或者未登录')
         from flashsale.xiaolumm.models.rank import WeekMamaCarryTotal, WEEK_RANK_REDIS
         res = []
         mm_ids = xlmm.get_team_member_ids()
@@ -535,9 +535,9 @@ class XiaoluMamaViewSet(viewsets.ModelViewSet, PayInfoMethodMixin):
         try:
             xlmm = request.user.customer.get_xiaolumm()
         except Exception, e:
-            raise exceptions.ValidationError(u'用户不是小鹿妈妈或者未登录')
+            raise exceptions.ValidationError(u'用户不是你的铺子妈妈或者未登录')
         if not xlmm:
-            raise exceptions.ValidationError(u'用户不是小鹿妈妈')
+            raise exceptions.ValidationError(u'用户不是你的铺子妈妈')
 
         mama = None
         r = ReferalRelationship.objects.filter(referal_to_mama_id=xlmm.id).first()
@@ -586,7 +586,7 @@ class XiaoluMamaViewSet(viewsets.ModelViewSet, PayInfoMethodMixin):
 
 class CarryLogViewSet(viewsets.ModelViewSet):
     """
-    ## 特卖平台－小鹿妈妈收支记录API:
+    ## 特卖平台－你的铺子妈妈收支记录API:
     - {prefix}[.format] : 获取登陆用户的收支记录信息
         - log_type:
             `rebeta`: 订单返利
@@ -723,7 +723,7 @@ class CarryLogViewSet(viewsets.ModelViewSet):
 
 class ClickCountViewSet(viewsets.ModelViewSet):
     """
-    ## 特卖平台－小鹿妈妈点击API:
+    ## 特卖平台－你的铺子妈妈点击API:
     - {prefix}[.format]: 获取登陆用户的点击记录
     - {prefix}/list_base_data　method:get : 当天的点击统计记录
     """
@@ -761,7 +761,7 @@ class ClickCountViewSet(viewsets.ModelViewSet):
 
 class StatisticsShoppingViewSet(viewsets.ModelViewSet):
     """
-    ## 特卖平台－小鹿妈妈购买统计API:
+    ## 特卖平台－你的铺子妈妈购买统计API:
     - {prefix}[.format]: 获取登陆用户的购买统计记录
     - {prefix}/today_shops　method:get : 当天的购买统计记录
     - {prefix}/days_num?days=[days] method: get : 过去days天每天的推广交易数量
@@ -847,7 +847,7 @@ class StatisticsShoppingViewSet(viewsets.ModelViewSet):
 
 class CashOutViewSet(viewsets.ModelViewSet, PayInfoMethodMixin):
     """
-    ### 特卖平台－小鹿妈妈购提现记录API:
+    ### 特卖平台－你的铺子妈妈购提现记录API:
     - {prefix}[.format]: 获取登陆用户的提现记录
     - {prefix} method[post][arg:choice("c1":80,"c2":200)]: 创建提现记录
         :return `code`
@@ -951,7 +951,7 @@ class CashOutViewSet(viewsets.ModelViewSet, PayInfoMethodMixin):
             return Response({"code": 10, "info": info})
 
         if not xlmm.is_cashoutable():
-            return Response({"code": 5, 'info': '只有正式小鹿妈妈会员才可大额提现！'})
+            return Response({"code": 5, 'info': '只有正式你的铺子妈妈会员才可大额提现！'})
 
         if not validate_customer_budget(customer):
             return Response({"code": 12, "info": "您的个人账户金额异常，无法提现，请联系管理员或客服！"})
@@ -1092,7 +1092,7 @@ class CashOutViewSet(viewsets.ModelViewSet, PayInfoMethodMixin):
             return Response({"code": 6, "info": info})
 
         wx_union = WeixinUnionID.objects.get(app_key=settings.WX_PUB_APPID, unionid=mama.openid)
-        mama_memo = u"小鹿妈妈编号:{mama_id},提现前:{pre_cash}".format(mama_id=mama_id, pre_cash=pre_cash)
+        mama_memo = u"你的铺子妈妈编号:{mama_id},提现前:{pre_cash}".format(mama_id=mama_id, pre_cash=pre_cash)
         body = u'一份耕耘，一份收获，谢谢你的努力！'
 
         with transaction.atomic():

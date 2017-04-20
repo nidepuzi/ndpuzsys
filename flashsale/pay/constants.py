@@ -11,7 +11,7 @@ WALLET = 'wallet'
 BUDGET = 'budget'
 
 CHANNEL_CHOICES = (
-    (BUDGET, u'小鹿钱包'),
+    (BUDGET, u'你的铺子钱包'),
     (WALLET, u'妈妈钱包'),
     (WX, u'微信APP'),
     (ALIPAY, u'支付宝APP'),

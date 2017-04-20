@@ -12,12 +12,12 @@ class DailyStat(models.Model):
     total_visiter_num = models.IntegerField(default=0, verbose_name=u'日访客数')
     total_new_visiter_num = models.IntegerField(default=0, verbose_name=u'新访客数')
 
-    total_payment = models.IntegerField(default=0, verbose_name=u'日成交额', help_text=u'现金+小鹿币+钱包')
+    total_payment = models.IntegerField(default=0, verbose_name=u'日成交额', help_text=u'现金+你的铺子币+钱包')
     total_paycash = models.IntegerField(default=0, verbose_name=u'实付现金', help_text=u'所有订单支付现金')
     total_coupon  = models.IntegerField(default=0, verbose_name=u'券支付额')
-    total_coin    = models.IntegerField(default=0, verbose_name=u'币支付额', help_text=u'小鹿币支付')
+    total_coin    = models.IntegerField(default=0, verbose_name=u'币支付额', help_text=u'你的铺子币支付')
     total_budget  = models.IntegerField(default=0, verbose_name=u'钱包余额')
-    total_boutique = models.IntegerField(default=0, verbose_name=u'购券&充值', help_text=u'包含小鹿币充值')
+    total_boutique = models.IntegerField(default=0, verbose_name=u'购券&充值', help_text=u'包含你的铺子币充值')
     total_deposite  = models.IntegerField(default=0, verbose_name=u'支付押金')
 
     total_order_num = models.IntegerField(default=0, verbose_name=u'日订单数')
@@ -60,13 +60,13 @@ class DailyStat(models.Model):
         return self.total_charge / 100.0
 
     get_total_charge_display.allow_tags = True
-    get_total_charge_display.short_description = u"小鹿币充值"
+    get_total_charge_display.short_description = u"你的铺子币充值"
 
     def get_total_coin_display(self):
         return self.total_coin / 100.0
 
     get_total_coin_display.allow_tags = True
-    get_total_coin_display.short_description = u"小鹿币支付"
+    get_total_coin_display.short_description = u"你的铺子币支付"
 
     @property
     def price_per_customer(self):
@@ -154,6 +154,6 @@ class DaystatCalcResult(BaseModel):
     class Meta:
         db_table = 'flashsale_daystat_result_cache'
         app_label = 'daystats'
-        verbose_name = u'小鹿妈妈/数据统计暂存结果'
-        verbose_name_plural = u'小鹿妈妈/数据统计暂存结果'
+        verbose_name = u'你的铺子妈妈/数据统计暂存结果'
+        verbose_name_plural = u'你的铺子妈妈/数据统计暂存结果'
 

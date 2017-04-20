@@ -3,7 +3,7 @@
 {% block title %} 补贴详情 {% endblock %}
 
 {% block head_script %}
-<link href='{{ STATIC_URL }}jquery/jquery-ui-1.10.1.css' rel='stylesheet'  />	
+<link href='{{ STATIC_URL }}jquery/jquery-ui-1.10.1.css' rel='stylesheet'  />
 <link href='{{ STATIC_URL }}css/mama_profile.css' rel='stylesheet' />
     <style type="text/css">
         .col-xs-4 {
@@ -84,7 +84,7 @@ var NTKF_PARAM = {
   	<div class="tab-content" >
 	<div id="id-cashout-list" role="tabpanel" class="tab-pane active">
 	  <p style="color:orange">&nbsp;您的待提现金额为￥<span style="font-size:26px">{{ could_cash_out }}</span>。</p>
-	  <p style="color:#428bca">提现将由小鹿美美公众号向当前提交申请的微信号发送<span style="font-size:20px">微信红包</span>方式完成，请确认后再申请。</p>
+	  <p style="color:#428bca">提现将由你的铺子公众号向当前提交申请的微信号发送<span style="font-size:20px">微信红包</span>方式完成，请确认后再申请。</p>
 	  <div id="id-cashout-area" {% if cashout > 0 %} style="display:none" {% endif %}>
       <div class="alert alert-danger">钱包提现需在APP上申请<a href="/sale/promotion/appdownload/">点击下载>></a></div>
 {#	    <p>&nbsp;提现需100元或者200元,请选择提现金额：</p>#}
@@ -101,8 +101,8 @@ var NTKF_PARAM = {
 	    <p id="id-submit-message" style="color:red"></p>
 	  </div>
 	  <ul id="id-cashout-notice" style="color:red;margin-top:6px;{% if cashout < 1 %}display:none{% endif %}" class="list-group">
-	    <li class="list-group-item">提现申请已提交！<br/>请关注公众号:小鹿美美;我们将在48小时内将提现金额以微信红包方式发送,超过48小时未收到红包请联系微信号({{kefu_mobile}}).</li>
-		<!-- <a class="btn btn-info btn-service" href="javascript:void(0);"><i class="glyphicon glyphicon-headphones"></i>小鹿客服</a> -->	 
+	    <li class="list-group-item">提现申请已提交！<br/>请关注公众号:你的铺子;我们将在48小时内将提现金额以微信红包方式发送,超过48小时未收到红包请联系微信号({{kefu_mobile}}).</li>
+		<!-- <a class="btn btn-info btn-service" href="javascript:void(0);"><i class="glyphicon glyphicon-headphones"></i>你的铺子客服</a> -->
 	 </ul>
 	  <div style="margin-top:20px">
 	    <h5>最近提现记录：</h5>
@@ -129,7 +129,7 @@ var NTKF_PARAM = {
 		</nav>
 	 </div>
 	</div>
-	
+
 	<div id="id-carry-list" role="tabpanel" class="tab-pane">
 	  <div style="margin-top:20px">
 	  <h5>我的收支记录：</h5>
@@ -156,7 +156,7 @@ var NTKF_PARAM = {
 		</nav>
 	 </div>
 	</div>
-	
+
 	<div id="id-referal-list" role="tabpanel" class="tab-pane">
 	  <div style="margin-top:20px">
 	  <h5>我推荐的代理：</h5>
@@ -184,7 +184,7 @@ var NTKF_PARAM = {
     get_cashout_list(cashout_url);
     var carry_url = "/m/carrylist/?xlmm={{ xlmm.pk }}";
     get_carry_list(carry_url);
-    
+
   });
 
   $("#id-cashout-prev").click(function () {
@@ -318,7 +318,7 @@ var NTKF_PARAM = {
     }
     $(document).ready(function(){
     	$('.btn-service').click(function(){
-    		//对应小鹿妈妈提现接待组
+    		//对应你的铺子妈妈提现接待组
             NTKF.im_openInPageChat("kf_9645_1445414087979");
     	});
     });

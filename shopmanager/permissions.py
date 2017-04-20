@@ -22,7 +22,7 @@ permission_trades = [
     ('manage_transfer_coupondetail', ('coupon', 'transfercoupondetail'), 'manage transfer coupondetail', u'特卖/精品券流通记录'),
     ('manage_ninepicadver', ('xiaolumm', 'ninepicadver'), 'manage ninepicadver', u'设置9张图'),
     ('manage_mall_activity', ('pay', 'activityentry'), 'manage mall activity', u'管理商城活动'),
-    ('manage_xiaolu_coin', ('xiaolumm', 'xiaolucoin'), 'manage xiaolu coin', u'管理小鹿币')
+    ('manage_xiaolu_coin', ('xiaolumm', 'xiaolucoin'), 'manage xiaolu coin', u'管理你的铺子币')
 ]
 
 permissions = []
@@ -100,7 +100,7 @@ def update_salesupplier_permissions():  #管理供应商
 #     content_type = ContentType.objects.get(app_label="pay", model="activityentry")
 #     Permission.objects.get_or_create(name="manage mall activity", content_type=content_type,codename="manage_mall_activity")
 
-    
+
 
 
 

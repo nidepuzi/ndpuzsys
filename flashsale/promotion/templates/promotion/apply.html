@@ -15,11 +15,11 @@
         .submit-apply {
             margin-top: 30px;
         }
-	
+
 	.choice {
           padding: 0px 2px;
 	}
-	
+
 	.choice span{
 	  display: block;
 	  font-size: 14px;
@@ -77,7 +77,7 @@
 	  background-repeat:no-repeat;
 	  margin-top:20px;
 	}
-	
+
 	.bg-body {
 	  background-image:url(http://7xogkj.com2.z0.glb.qiniucdn.com/222-bg-body.png);
 	  #background-size:100%;
@@ -168,7 +168,7 @@
 	  color: white;
 	  background-image:url(http://7xogkj.com2.z0.glb.qiniucdn.com/222-unselected.png);
 	  background-repeat:no-repeat;
-	  background-size:100%;	
+	  background-size:100%;
 	}
 	.highlight-border {
 	  color: #220a3d;
@@ -213,7 +213,7 @@
       <div class="row">
 	<div class="col-xs-12 mix-head-image-bg">
 	  <img {% if referal %} src="{{ referal.thumbnail }}" {% else %} src="http://7xogkj.com2.z0.glb.qiniucdn.com/1181123466.jpg"{% endif %} alt="..." class="img-circle mama-profile-image"/>
-	  <span class="mama-label">{% if referal %}{{ referal.nick }}{% else %}小鹿妈妈{% endif %}</span>
+	  <span class="mama-label">{% if referal %}{{ referal.nick }}{% else %}你的铺子妈妈{% endif %}</span>
 	</div>
       </div>
       <div class="row">
@@ -292,12 +292,12 @@
 	            <a class="download-button" href="/sale/promotion/appdownload/" value="" type="button"></a>
 	            {% endif %}
 	          </form>
-	
+
 		  {% endif %}
 		</div>
       </div>
     </div>
-    
+
     <!-- start 中奖列表 -->
     <div class="zhongjiang-section">
       <div class="row">
@@ -360,14 +360,14 @@
 
 	var selectedColorElement = $("#id-color-yellow");
 	var selectedSizeElement = $("#id-size-3");
-	
+
 	var bluebag = "http://7xogkj.com2.z0.glb.qiniucdn.com/222-bag-blue.png";
 	var pinkbag = "http://7xogkj.com2.z0.glb.qiniucdn.com/222-bag-pink.png";
 	var yellowbag = "http://7xogkj.com2.z0.glb.qiniucdn.com/222-bag-yellow.png";
 	var bagimage = $("#id-bag");
 	var sku = $("#id-sku");
-	
-	
+
+
 	function clearColorSelection() {
           selectedColorElement.removeClass("highlight-border");
 	  selectedColorElement.addClass("visible-border");
@@ -377,7 +377,7 @@
           selectedSizeElement.removeClass("highlight-border");
 	  selectedSizeElement.addClass("visible-border");
 	}
-	
+
 	$("#id-color-yellow").click(function () {
 	  var target = $("#id-color-yellow");
 	  if (target != selectedColorElement) {
@@ -440,7 +440,7 @@
 	  var reg = /^1[34578]\d{9}$/;
 	  return reg.test(mobile);
 	}
-	
+
 	function check() {
 	  var mobile = $("#id-mobile").val();
 	  if (!validateMobile(mobile)) {
@@ -450,6 +450,6 @@
 	  }
 	  return true;
 	}
-	
+
     </script>
 {% endblock %}

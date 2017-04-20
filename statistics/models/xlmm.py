@@ -24,8 +24,8 @@ class XlmmDailyStat(BaseModel):
     class Meta:
         db_table = 'statistics_xlmm_daily_stat'
         app_label = 'statistics'
-        verbose_name = u'小鹿妈妈日统计表'
-        verbose_name_plural = u'小鹿妈妈日统计表'
+        verbose_name = u'你的铺子妈妈日统计表'
+        verbose_name_plural = u'你的铺子妈妈日统计表'
 
     @staticmethod
     def create(daytime):

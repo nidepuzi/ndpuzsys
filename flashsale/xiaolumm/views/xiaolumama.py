@@ -15,7 +15,7 @@ from .permission import IsAccessChangeUpperMama
 
 
 class SetMamaManager(APIView):
-    """设置小鹿妈妈的管理员
+    """设置你的铺子妈妈的管理员
     """
     queryset = XiaoluMama.objects.all()
     renderer_classes = (JSONRenderer,)

@@ -11,7 +11,7 @@
   <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
   <script src="http://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
   <script src="http://cdn.bootcss.com/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
-  
+
   <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
   <script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   <script src="http://cdn.bootcss.com/fullPage.js/2.5.2/vendors/jquery.easings.min.js"></script>
@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}style/style_other.css">
   <link rel="stylesheet" href="{{ STATIC_URL }}style/animation.css">
 
-  <title>小鹿美美-外贸原单正品热卖</title>
+  <title>你的铺子-外贸原单正品热卖</title>
 </head>
 <body>
 
@@ -51,8 +51,8 @@
     </div>
   {% endfor %}
   </div>
-  
-  <div id="no_more" next="{% if products.next %}{{ products.next }}&format=json{% endif %}">小鹿特卖每天10点上新</div>
+
+  <div id="no_more" next="{% if products.next %}{{ products.next }}&format=json{% endif %}">你的铺子特卖每天10点上新</div>
 
   <nav id="main-nav" class="navbar navbar-default navbar-fixed-bottom">
   <div class="container">
@@ -67,7 +67,7 @@
   var from_top  = 80;
   var nav_fix   = from_top;
   var page_height = 800;
-  
+
   $(document).ready(function(){
     $('.ui-loader').remove();
 	var width = $('#p_list').width()/2-8;
@@ -75,7 +75,7 @@
     $.each($('.holder .image'),function(index,entry){
     	$(entry).css('height',width);
     })
-    
+
     $(document).on('scroll touchmove',function(){
       var h = $('body').scrollTop();
 
@@ -83,7 +83,7 @@
         if (!$('#no_more').hasClass('loading')){
         	Ctrl_list_write();
         	from_top += page_height;
-        } 
+        }
       }
 
       if (h > nav_fix){
@@ -100,16 +100,16 @@
 
   //商品列表信息引入，使用JSON文件引入数据
   function Ctrl_list_write(){
-  
+
     $('#no_more').addClass('loading');
 	var list_url = $('#no_more').attr('next');
 	if (!list_url){return;}
-	
+
     //实际JSON引入部分，可根据实际情况调整
     $.getJSON(list_url,function(resp){
-      
+
       var data = resp.products;
-      
+
       $.each(data.results,function(index,entry){
         View_list_wrapper_write(entry);
       });
@@ -117,14 +117,14 @@
       if( data.next != ''||data.next != 'undifine' ){
       	$('#no_more').attr('next',data.next).html('努力加载中...');
       };
-      
+
       if( data.next == '' && data.next == 'undifine' ){
       	$('#no_more').attr('next','').html('没有更多了');
       };
       $('#no_more').removeClass('loading');
     });
   }
-  
+
   //列表中单个商品写入 object中包含商品的相关信息进行替换
   function View_list_wrapper_write(object){
     var id = object.id;//商品ID，可用以跳转到对应页面

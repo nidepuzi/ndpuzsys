@@ -632,7 +632,7 @@ def get_mama_id(obj):
         return mama.id if mama else ''
     else:
         return ''
-get_mama_id.short_description = '小鹿妈妈ID'
+get_mama_id.short_description = '你的铺子妈妈ID'
 
 def get_customer_id(obj):
     unionid = WeixinUnionID.objects.filter(openid=obj.recipient).first()
@@ -651,7 +651,7 @@ def get_mama_created(obj):
         return mama.created if mama else ''
     else:
         return ''
-get_mama_created.short_description = '小鹿妈妈创建时间'
+get_mama_created.short_description = '你的铺子妈妈创建时间'
 
 
 class EnvelopAdmin(admin.ModelAdmin):

@@ -41,7 +41,7 @@ def task_push_mission_state_msg_to_weixin_user(mission_record_id, state):
 
             params = {
                 'header': head_title,
-                'footer': u'小鹿妈妈在截止日期前完成任务可获取额外奖励 (本周业绩越好，下周可获取额外奖励越高，点击查看奖励规则).',
+                'footer': u'你的铺子妈妈在截止日期前完成任务可获取额外奖励 (本周业绩越好，下周可获取额外奖励越高，点击查看奖励规则).',
                 'task_name': mama_mission.get_mission_name(),
                 'award_amount': u'￥%.2f' % mama_mission.get_award_amount(),
                 'deadline': u'%s' % week_end_time.strftime('%Y-%m-%d'),
@@ -57,8 +57,8 @@ def task_push_mission_state_msg_to_weixin_user(mission_record_id, state):
 
         elif state == MamaMissionRecord.FINISHED:
             params  = {
-                'header': u'女王，本周有一任务已完成，奖励已生成，请到小鹿美美app任务列表查看吧！',
-                'footer': u'小鹿妈妈在截止日期前完成任务可获取额外奖励 (妈妈销售奖励预计收益，需７天后变成确认收益，退款会影响收益到账哦).',
+                'header': u'女王，本周有一任务已完成，奖励已生成，请到你的铺子app任务列表查看吧！',
+                'footer': u'你的铺子妈妈在截止日期前完成任务可获取额外奖励 (妈妈销售奖励预计收益，需７天后变成确认收益，退款会影响收益到账哦).',
                 'task_name': u'%s, 赏￥%.2f元' % (mama_mission.get_mission_name(), mama_mission.get_award_amount()),
                 'task_type': base_mission.get_cat_type_display(),
                 'finish_time': mama_mission.finish_time
@@ -68,8 +68,8 @@ def task_push_mission_state_msg_to_weixin_user(mission_record_id, state):
 
         elif state == MamaMissionRecord.CONFIRM:
             params = {
-                'header': u'女王，(%s)周任务奖励已到账，请到小鹿美美app任务列表查看吧！' %mama_mission.year_week,
-                'footer': u'小鹿妈妈在截止日期前完成任务可获取额外奖励 (本周业绩越好，下周可获取额外奖励越高，点击查看奖励规则).',
+                'header': u'女王，(%s)周任务奖励已到账，请到你的铺子app任务列表查看吧！' %mama_mission.year_week,
+                'footer': u'你的铺子妈妈在截止日期前完成任务可获取额外奖励 (本周业绩越好，下周可获取额外奖励越高，点击查看奖励规则).',
                 'task_name': u'%s, 赏￥%.2f元' % (mama_mission.get_mission_name(), mama_mission.get_award_amount()),
                 'task_type': base_mission.get_cat_type_display(),
                 'finish_time': mama_mission.finish_time
@@ -81,7 +81,7 @@ def task_push_mission_state_msg_to_weixin_user(mission_record_id, state):
             week_end_time = datetime.datetime.strptime('%s-0' % mama_mission.year_week, '%Y-%W-%w')
             mission_kpi_unit = base_mission.kpi_type == MamaMission.KPI_COUNT and u'个' or u'元'
             params = {
-                'header': u'女王，您有笔交易退款，导致(%s)周销售任务未达预期奖励取消，请到小鹿美美app任务列表查看吧！'%mama_mission.year_week,
+                'header': u'女王，您有笔交易退款，导致(%s)周销售任务未达预期奖励取消，请到你的铺子app任务列表查看吧！'%mama_mission.year_week,
                 'footer': u'妈妈销售奖励预计收益，需７天后变成确认收益，退款会影响收益到账哦( 如有疑问请咨询客服热线: 400-823-5355，点击查看奖励规则)',
                 'task_name': mama_mission.get_mission_name(),
                 'award_amount': u'￥%.2f' % mama_mission.get_award_amount(),

@@ -243,7 +243,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
 
     def budget_charge(self, sale_trade, check_coupon=True, **kwargs):
         """
-        小鹿钱包/小鹿币支付实现
+        你的铺子钱包/你的铺子币支付实现
         """
         st = SaleTrade.objects.get(id=sale_trade.id)
         if st.status != SaleTrade.WAIT_BUYER_PAY:
@@ -267,13 +267,13 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
                         if xiaolucoin and xiaolucoin.amount >= sale_trade.coin_payment:
                             xiaolucoin.consume(sale_trade.coin_payment, strade_id)
                         else:
-                            raise Exception(u'小鹿币余额不足')
+                            raise Exception(u'你的铺子币余额不足')
                     else:
-                        raise Exception(u'不是正常的小鹿妈妈账号，无法使用小鹿币，请联系客服或管理员')
+                        raise Exception(u'不是正常的你的铺子妈妈账号，无法使用你的铺子币，请联系客服或管理员')
                 else:
                     user_budget = UserBudget.objects.select_for_update().filter(user=buyer, amount__gte=payment).first()
                     if not user_budget:
-                        raise Exception(u'小鹿钱包余额不足')
+                        raise Exception(u'你的铺子钱包余额不足')
                     try:
                         BudgetLog.create(
                             customer_id=buyer.id,
@@ -354,9 +354,9 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
                     if xiaolucoin and xiaolucoin.amount >= sale_trade.coin_payment:
                         xiaolucoin.consume(sale_trade.coin_payment , sale_trade.id)
                     else:
-                        raise Exception(u'小鹿币不足')
+                        raise Exception(u'你的铺子币不足')
                 else:
-                    raise Exception('您还不是小鹿妈妈')
+                    raise Exception('您还不是你的铺子妈妈')
 
         extra = {}
         if channel in (SaleTrade.WX_PUB, SaleTrade.WEAPP):
@@ -373,7 +373,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
             'currency': 'cny',
             'amount': '%d' % payment,
             'client_ip': settings.PINGPP_CLENTIP,
-            'subject': u'小鹿美美平台交易',
+            'subject': u'你的铺子平台交易',
             'body': u'用户订单金额[%s, %s, %.2f]' % (
                 sale_trade.buyer_id,
                 sale_trade.id,
@@ -483,7 +483,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
         xiaolucoin_payment = budget_dicts.get(CONS.ETS_XIAOLUCOIN) or 0
 
         if xiaolucoin_payment > 0 and not (is_boutique and order_type == SaleTrade.ELECTRONIC_GOODS_ORDER):
-            raise Exception(u'小鹿币只可用于购买精品券')
+            raise Exception(u'你的铺子币只可用于购买精品券')
 
         if not coupon_ids:
             coupon_id = form.get('coupon_id', None)
@@ -670,12 +670,12 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
         cookies = dict([(k, v) for k, v in request.COOKIES.items() if k in ('mm_linkid', 'ufrom')])
         logger.info({
             'code': 0,
-            'info': u'付款请求v2', 
+            'info': u'付款请求v2',
             'channel': data.get('channel'),
             'http_referal': request.META.get('HTTP_REFERER'),
-            'user_agent':request.META.get('HTTP_USER_AGENT'), 
-            'action': 'trade_create', 
-            'order_no': data.get('uuid'), 
+            'user_agent':request.META.get('HTTP_USER_AGENT'),
+            'action': 'trade_create',
+            'order_no': data.get('uuid'),
             'data': str(data),
             'cookies':cookies,
         })
@@ -702,7 +702,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
 
     def check_virtual_goods(self, product, sku_num, customer, pay_extras, payment):
         """
-        bunow检测非精品券不能使用小鹿币购买，参数是否异常
+        bunow检测非精品券不能使用你的铺子币购买，参数是否异常
         direct indirect购买虚拟商品还有一些积分等限制
         """
         budget_dicts = self.calc_extra_budget(pay_extras, type_list=[CONS.BUDGET, CONS.XIAOLUCOIN])
@@ -716,7 +716,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
         from flashsale.pay.models.product import ModelProduct
         if mp and (mp.product_type != ModelProduct.VIRTUAL_TYPE):
             if xiaolucoin_payment > 0:
-                return Response({'code': 29, 'info': u'只有精品券才能使用小鹿币购买，您的购买商品中没有精品券，请重新加入购物车再购买'})
+                return Response({'code': 29, 'info': u'只有精品券才能使用你的铺子币购买，您的购买商品中没有精品券，请重新加入购物车再购买'})
             else:
                 return False
 
@@ -724,12 +724,12 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
         if mm and (mm.referal_from == XiaoluMama.INDIRECT):
             # 排除充值mp
             if mp.id != 25339 and (pay_cash > 0 or budget_payment > 0):
-                # return Response({'code': 25, 'info': u'您的精英妈妈账号只能使用小鹿币直接购券，没有现金购券权限，请减少购券数量或充值小鹿币 '})  2017-3-9 indirect can buy coupon
+                # return Response({'code': 25, 'info': u'您的精英妈妈账号只能使用你的铺子币直接购券，没有现金购券权限，请减少购券数量或充值你的铺子币 '})  2017-3-9 indirect can buy coupon
                 pass
         elif mm and (mm.referal_from == XiaoluMama.DIRECT):
             if xiaolucoin_payment > 0:
                 if (pay_cash > 0 or budget_payment > 0) and (mm.elite_level != 'Associate') and (goods_num < 5) and (elite_score < 30):
-                    return Response({'code': 27, 'info': u'购买精品券最低购买5张或者30积分，您本次购买没有达到要求，请在购物车重新添加精品券,全部使用小鹿币无此限制'})
+                    return Response({'code': 27, 'info': u'购买精品券最低购买5张或者30积分，您本次购买没有达到要求，请在购物车重新添加精品券,全部使用你的铺子币无此限制'})
             else:
                 if (mm.elite_level != 'Associate') and (goods_num < 5) and (elite_score < 30):
                     return Response({'code': 28, 'info': u'购买精品券最低购买5张或者30积分，您本次购买没有达到要求，请在购物车重新添加精品券'})
@@ -795,18 +795,18 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
                 return Response({'code': 30, 'info': u'购买精品券或虚拟商品时，妈妈等级和价格不匹配，您的等级价格%s，实际支付价格%s' % (mm_level_payment, round(payment / 100.0))})
             if mm and (mm.referal_from == XiaoluMama.INDIRECT):
                 if pay_cash > 0 or budget_payment > 0:
-                    # return Response({'code': 25, 'info': u'您的精英妈妈账号只能使用小鹿币直接购券，没有现金购券权限，请减少购券数量或充值小鹿币 '}) 2017-3-9 indirect can buy coupon
+                    # return Response({'code': 25, 'info': u'您的精英妈妈账号只能使用你的铺子币直接购券，没有现金购券权限，请减少购券数量或充值你的铺子币 '}) 2017-3-9 indirect can buy coupon
                     pass
             elif mm and (mm.referal_from == XiaoluMama.DIRECT):
                 if xiaolucoin_payment > 0:
                     if (pay_cash > 0 or budget_payment > 0) and (mm.elite_level != 'Associate') and (goods_num < 5) and (elite_score < 30):
-                        return Response({'code': 27, 'info': u'购买精品券最低购买5张或者30积分，您本次购买没有达到要求，请在购物车重新添加精品券,全部使用小鹿币无此限制'})
+                        return Response({'code': 27, 'info': u'购买精品券最低购买5张或者30积分，您本次购买没有达到要求，请在购物车重新添加精品券,全部使用你的铺子币无此限制'})
                 else:
                     if (mm.elite_level != 'Associate') and (goods_num < 5) and (elite_score < 30):
                         return Response({'code': 28, 'info': u'购买精品券最低购买5张或者30积分，您本次购买没有达到要求，请在购物车重新添加精品券'})
         else:
             if xiaolucoin_payment > 0:
-                return Response({'code': 29, 'info': u'只有精品券才能使用小鹿币购买，您的购买商品中没有精品券，请重新加入购物车再购买'})
+                return Response({'code': 29, 'info': u'只有精品券才能使用你的铺子币购买，您的购买商品中没有精品券，请重新加入购物车再购买'})
         return False
 
     @list_route(methods=['post'])
@@ -920,7 +920,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
             })
             return Response({'code': 11, 'info': u'付款金额异常'})
 
-        # 检测组合虚拟商品购买时，不能跟普通商品搭配,小鹿币只能跟虚拟商品搭配
+        # 检测组合虚拟商品购买时，不能跟普通商品搭配,你的铺子币只能跟虚拟商品搭配
         error = self.check_mixed_virtual_goods(cart_qs, customer, pay_extras, payment)
         if error:
             return error
@@ -1051,7 +1051,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
                 return Response({'code': 10, 'info': u'妈妈钱包支付功能已取消'})
                 # response_charge = self.wallet_charge(sale_trade)
             elif channel == SaleTrade.BUDGET:
-                # 小鹿钱包
+                # 你的铺子钱包
                 response_charge = self.budget_charge(sale_trade)
             else:
                 # pingpp 支付
@@ -1206,7 +1206,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
             })
             return Response({'code': 11, 'info': u'付款金额异常'})
 
-        # 检测小鹿币不能购买非精品券商品
+        # 检测你的铺子币不能购买非精品券商品
         error = self.check_virtual_goods(product, sku_num, customer, pay_extras, payment)
         if error:
             return error
@@ -1332,7 +1332,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
                 return Response({'code': 10, 'info': u'妈妈钱包支付功能已取消'})
                 # response_charge = self.wallet_charge(sale_trade)
             elif channel == SaleTrade.BUDGET:
-                #小鹿钱包/xiaolucoin
+                #你的铺子钱包/xiaolucoin
                 response_charge = self.budget_charge(sale_trade)
             else:
                 #pingpp 支付
@@ -1432,10 +1432,10 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
         sale_trade = instance
         try:
             if instance.channel == SaleTrade.WALLET:
-                # 小鹿钱包支付
+                # 你的铺子钱包支付
                 response_charge = self.wallet_charge(instance, check_coupon=False)
             elif instance.channel == SaleTrade.BUDGET:
-                # 小鹿钱包
+                # 你的铺子钱包
                 response_charge = self.budget_charge(instance, check_coupon=False)
             else:
                 # pingpp 支付
@@ -1488,7 +1488,7 @@ class SaleTradeViewSet(viewsets.ModelViewSet):
                 'order_no': instance.tid,
             })
             if instance.pay_status != SaleTrade.SALE_TRADE_PAY_FINISHED:
-                return Response({"code": 2, "info": u'您的订单已经提交小鹿支付系统，正在结算中，为了您的交易安全，暂时不能取消，请等待支付流程完成再尝试'})
+                return Response({"code": 2, "info": u'您的订单已经提交你的铺子支付系统，正在结算中，为了您的交易安全，暂时不能取消，请等待支付流程完成再尝试'})
             self.perform_destroy(instance)
             log_action(request.user.id, instance, CHANGE, u'user v2取消订单')
             return Response({"code": 0, "info": u'订单已取消'})

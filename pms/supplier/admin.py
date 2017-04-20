@@ -467,13 +467,13 @@ class SaleProductAdmin(ApproxAdmin):
 
     def get_user_librarians(self):
         if not hasattr(self, '_librarians_'):
-            users = User.objects.filter(is_staff=True, groups__name__in=(u'小鹿买手资料员', ))
+            users = User.objects.filter(is_staff=True, groups__name__in=(u'你的铺子买手资料员', ))
             self._librarians_ = [u.get_full_name() for u in users]
         return self._librarians_
 
     def get_buyers(self):
         if not hasattr(self, '_buyers_'):
-            users = User.objects.filter(is_staff=True, groups__name__in=(u'小鹿采购管理员', u'小鹿采购员'))
+            users = User.objects.filter(is_staff=True, groups__name__in=(u'你的铺子采购管理员', u'你的铺子采购员'))
             self._buyers_ = [u.get_full_name() for u in users]
         return self._buyers_
 

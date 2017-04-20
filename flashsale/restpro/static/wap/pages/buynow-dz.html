@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>小鹿美美</title>
+<title>你的铺子</title>
 <meta charset="UTF-8">
 <meta name="format-detection" content="telephone=no"/>
 <meta name="format-detection" content="email=no"/>
@@ -121,7 +121,7 @@ $(document).ready(function(){
   //获取购买信息
   var urlParams = window.location.href.split('?')[1];
   Set_dzorder_info(GLConfig.get_now_payinfo_url+'?'+urlParams);
-  
+
   //显示优惠券并绑定付款事件
   $(document).on({
   	tap:Confirm_charge,

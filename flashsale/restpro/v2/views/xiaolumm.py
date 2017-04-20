@@ -283,7 +283,7 @@ class OrderCarryViewSet(viewsets.ModelViewSet):
     ```
     [
          {
-        "content": "子飞@小鹿美美收到一笔收益0.81元",
+        "content": "子飞@你的铺子收到一笔收益0.81元",
         "avatar": "http://wx.qlogo.cn/m"
         },
     ]
@@ -530,7 +530,7 @@ class ReferalRelationshipViewSet(viewsets.ModelViewSet):
         serializer = serializers.ReferalRelationshipSerializer(datalist, many=True)
         return self.get_paginated_response(serializer.data)
 
-    
+
 class GroupRelationshipViewSet(viewsets.ModelViewSet):
     """
     """
@@ -660,7 +660,7 @@ class XlmmFansViewSet(viewsets.ModelViewSet):
             except Exception, e0:
                 raise exceptions.ValidationError(make_response(e0.message))
         if new_mama.id == fans.xlmm:
-            raise exceptions.ValidationError(make_response(u'更换的新妈妈ID与原小鹿妈妈ID必须不一致'))
+            raise exceptions.ValidationError(make_response(u'更换的新妈妈ID与原你的铺子妈妈ID必须不一致'))
         fans.change_mama(new_mama)
         return Response(SUCCESS_RESPONSE)
 
@@ -1127,7 +1127,7 @@ class RecruitEliteMamaView(APIView):
         if rr and rr.referal_type >= XiaoluMama.ELITE:
             res = {"code": 3, "info": u"该用户似乎已加入精英妈妈，请联系管理员处理！"}
             return Response(res)
-        
+
         if not rr:
             customer = Customer.objects.filter(unionid=mama.unionid).first()
             rr = ReferalRelationship(referal_from_mama_id=referal_from_mama_id,referal_to_mama_id=mama_id,
@@ -1137,7 +1137,7 @@ class RecruitEliteMamaView(APIView):
         else:
             rr.referal_type = XiaoluMama.ELITE
             rr.save()
-        
+
         charge_time = datetime.datetime.now()
         renew_time = charge_time
         # renew_time = charge_time + datetime.timedelta(days=3)
@@ -1149,7 +1149,7 @@ class RecruitEliteMamaView(APIView):
         mama.renew_time = renew_time
         mama.agencylevel = XiaoluMama.A_LEVEL
         mama.save()
-        
+
         info = u"精英妈妈帐户开启成功，请立即转入5张精品券！"
         res = {"code": 0, "info":info}
         return Response(res)
@@ -1162,7 +1162,7 @@ class EnableEliteCouponView(APIView):
     """
     authentication_classes = (authentication.SessionAuthentication, WeAppAuthentication, authentication.BasicAuthentication)
     permission_classes = (permissions.IsAuthenticated,)
-    
+
     def post(self, request, *args, **kwargs):
         content = request.POST
 
@@ -1194,7 +1194,7 @@ class EnableEliteCouponView(APIView):
         ct.extras["scopes"].update({"product_ids":product_ids})
         ct.extras.update({"product_model_id":int(coupon_product_model_id),"product_img":product_img})
         ct.save()
-        
+
         # 3. Dealing with coupon_product
         coupon_products = Product.objects.filter(model_id=coupon_product_model_id)
         for p in coupon_products:
@@ -1218,5 +1218,5 @@ class EnableEliteCouponView(APIView):
         mp.shelf_status = ModelProduct.OFF_SHELF
         mp.product_type = 1
         mp.save()
-        
+
         return Response({"code":0, "info":u"完成！"})

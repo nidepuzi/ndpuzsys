@@ -13,7 +13,7 @@ class SMSPush(object):
 
     def push_mama_ordercarry(self, customer, money):
         """
-        有新的订单收益推送给小鹿妈妈
+        有新的订单收益推送给你的铺子妈妈
         """
         to_mobile = customer.mobile
         params = {
@@ -23,7 +23,7 @@ class SMSPush(object):
 
     def push_mama_update_app(self, customer):
         """
-        app更新通知小鹿妈妈
+        app更新通知你的铺子妈妈
         """
         to_mobile = customer.mobile
         params = {
@@ -33,7 +33,7 @@ class SMSPush(object):
 
     def push_mama_subscribe_weixin(self, customer):
         """
-        引导一元妈妈关注小鹿美美
+        引导一元妈妈关注你的铺子
         """
         to_mobile = customer.mobile
         params = {

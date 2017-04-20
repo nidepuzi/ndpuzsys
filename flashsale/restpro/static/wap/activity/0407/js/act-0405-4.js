@@ -12,7 +12,7 @@ $(document).ready(function() {
 			success: function(resp) {
 				var h = [];
 				h.push('<div class="act-0405-4-text">');
-				h.push('<p>通过您的邀请，为小鹿美美带来了36位好友</p>');
+				h.push('<p>通过您的邀请，为你的铺子带来了36位好友</p>');
 				h.push('<p>您完成了拼图，获得了浴巾</p>');
 				h.push('</div>');
 				$('.act-0405-4-end').after(h.join(''));

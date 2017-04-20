@@ -33,7 +33,7 @@ def get_choice_name(choices, val):
 #
 # class CashOut(BaseModel):
 #    STATUS_TYPES = ((1, u'待确定'), (2, u'已确定'), (3, u'取消'),)
-#    mama_id = models.BigIntegerField(default=0, unique=True, verbose_name=u'小鹿妈妈id')
+#    mama_id = models.BigIntegerField(default=0, unique=True, verbose_name=u'你的铺子妈妈id')
 #    amount = models.IntegerField(default=0, verbose_name=u'数额')
 #    status = models.IntegerField(default=0, choices=STATUS_TYPES, verbose_name=u'状态')
 #
@@ -66,7 +66,7 @@ def default_mama_extras():
 
 class MamaFortune(BaseModel):
     MAMA_LEVELS = ((0, u'新手妈妈'), (1, u'金牌妈妈'), (2, u'钻石妈妈'), (3, u'皇冠妈妈'), (4, u'金冠妈妈'))
-    mama_id = models.BigIntegerField(default=0, unique=True, verbose_name=u'小鹿妈妈id')
+    mama_id = models.BigIntegerField(default=0, unique=True, verbose_name=u'你的铺子妈妈id')
     mama_name = models.CharField(max_length=32, blank=True, verbose_name=u'名称')
     mama_level = models.IntegerField(default=0, choices=MAMA_LEVELS, verbose_name=u'级别')
 
@@ -112,7 +112,7 @@ class MamaFortune(BaseModel):
         if fortune:
             return fortune
         if not XiaoluMama.objects.filter(id=mama_id).first():
-            raise Exception(u'提供的小鹿妈妈id不存在：' + str(mama_id))
+            raise Exception(u'提供的你的铺子妈妈id不存在：' + str(mama_id))
         fortune = MamaFortune(mama_id=mama_id)
         fortune.save()
         return fortune
@@ -262,7 +262,7 @@ post_save.connect(update_week_carry_total,
 
 class DailyStats(BaseModel):
     STATUS_TYPES = ((1, u'待确定'), (2, u'已确定'),)
-    mama_id = models.BigIntegerField(default=0, db_index=True, verbose_name=u'小鹿妈妈id')
+    mama_id = models.BigIntegerField(default=0, db_index=True, verbose_name=u'你的铺子妈妈id')
     today_visitor_num = models.IntegerField(default=0, verbose_name=u'今日访客数')
     today_order_num = models.IntegerField(default=0, verbose_name=u'今日订单数')
     today_carry_num = models.IntegerField(default=0, verbose_name=u'今日收益数')
@@ -309,7 +309,7 @@ class CarryRecord(BaseModel):
                    (CR_ORDER, u'佣金'),
                    (CR_RECOMMEND, u'奖金'),)
 
-    mama_id = models.BigIntegerField(default=0, db_index=True, verbose_name=u'小鹿妈妈id')
+    mama_id = models.BigIntegerField(default=0, db_index=True, verbose_name=u'你的铺子妈妈id')
     carry_num = models.IntegerField(default=0, verbose_name=u'收益数(分)')
     carry_type = models.IntegerField(default=0, choices=CARRY_TYPES, verbose_name=u'收益类型')  # 返/佣/奖
     carry_description = models.CharField(max_length=64, blank=True, verbose_name=u'描述')
@@ -554,7 +554,7 @@ class OrderCarry(BaseModel):
     CANCEL  = 3
     STATUS_TYPES = ((STAGING, u'待付款'), (ESTIMATE, u'预计收益'), (CONFIRM, u'确定收益'), (CANCEL, u'买家取消'),)
 
-    mama_id = models.BigIntegerField(default=0, db_index=True, verbose_name=u'小鹿妈妈id')
+    mama_id = models.BigIntegerField(default=0, db_index=True, verbose_name=u'你的铺子妈妈id')
     order_id = models.CharField(max_length=64, db_index=True, blank=True, verbose_name=u'订单ID')
     order_value = models.IntegerField(default=0, verbose_name=u'订单金额')
     carry_num = models.IntegerField(default=0, verbose_name=u'提成金额')
@@ -762,7 +762,7 @@ class AwardCarry(BaseModel):
     CANCEL = 3
     STATUS_TYPES = ((1, u'预计收益'), (2, u'确定收益'), (3, u'已取消'),)
 
-    mama_id = models.BigIntegerField(default=0, db_index=True, verbose_name=u'小鹿妈妈id')
+    mama_id = models.BigIntegerField(default=0, db_index=True, verbose_name=u'你的铺子妈妈id')
     carry_num = models.IntegerField(default=0, verbose_name=u'奖励金额')
     carry_type = models.IntegerField(default=0, db_index=True, choices=AWARD_TYPES, verbose_name=u'奖励类型')  # 直接推荐奖励/团队成员奖励
     carry_description = models.CharField(max_length=64, blank=True, verbose_name=u'描述')
@@ -899,7 +899,7 @@ class ClickPlan(BaseModel):
 class ClickCarry(BaseModel):
     STATUS_TYPES = ((1, u'预计收益'), (2, u'确定收益'), (3, u'已取消'),)
 
-    mama_id = models.BigIntegerField(default=0, db_index=True, verbose_name=u'小鹿妈妈id')
+    mama_id = models.BigIntegerField(default=0, db_index=True, verbose_name=u'你的铺子妈妈id')
     click_num = models.IntegerField(default=0, verbose_name=u'初始点击数')
     init_order_num = models.IntegerField(default=0, verbose_name=u'初始订单人数')
     init_click_price = models.IntegerField(default=0, verbose_name=u'初始点击价')
@@ -993,7 +993,7 @@ class ActiveValue(BaseModel):
     VALUE_TYPES = ((1, u'点击'), (2, u'订单'), (3, u'推荐'), (4, u'粉丝'),)
     STATUS_TYPES = ((1, u'待确定'), (2, u'已确定'), (3, u'已取消'), (4, u'已过期'),)
 
-    mama_id = models.BigIntegerField(default=0, db_index=True, verbose_name=u'小鹿妈妈id')
+    mama_id = models.BigIntegerField(default=0, db_index=True, verbose_name=u'你的铺子妈妈id')
     value_num = models.IntegerField(default=0, verbose_name=u'活跃值')
     value_type = models.IntegerField(default=0, choices=VALUE_TYPES, verbose_name=u'类型')  # 点击/订单/推荐/粉丝
     value_description = models.CharField(max_length=64, blank=True, verbose_name=u'描述')

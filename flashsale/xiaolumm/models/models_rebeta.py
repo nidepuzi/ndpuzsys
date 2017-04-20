@@ -82,7 +82,7 @@ class AgencyOrderRebetaScheme(models.Model):
         return cls.get_default_scheme()
 
     def get_scheme_rebeta(self, agencylevel=None, payment=None):
-        """ 根据订单支付金额，商品价格，小鹿妈妈等级，获取返利金额 """
+        """ 根据订单支付金额，商品价格，你的铺子妈妈等级，获取返利金额 """
         agency_level = '%d' % (agencylevel or 0)
         payment = payment or 0
         rebeta_rate = self.agency_rebetas.get(agency_level, 0)

@@ -116,11 +116,11 @@ REST_FRAMEWORK.update({
 WX_NOTIFY_URL = 'http://api.nidepuzi.com/rest/notify/{channel}/'
 WX_JS_API_CALL_URL ='http://i.nidepuzi.com/pay/?showwxpaytitle=1'
 
-# ================ 小鹿美美特卖[公众号] ==================
+# ================ 你的铺子特卖[公众号] ==================
 WEIXIN_SECRET = 'dbd2103bb55c46c7a019ae1c1089f2fa'
 WEIXIN_APPID = 'wx3f91056a2928ad2d'
 
-# ================ 小鹿美美[公众号] ==================
+# ================ 你的铺子[公众号] ==================
 WX_PUB_APPID = "wx3f91056a2928ad2d"
 WX_PUB_APPSECRET = "dbd2103bb55c46c7a019ae1c1089f2fa"
 
@@ -130,7 +130,7 @@ WX_PUB_KEY   = "t5UXHfwR7QEv2jMLFuZm8DdqnAT0ON9a" #支付密钥
 WX_PUB_CERT_PEM_PATH = '/data/certs/wx_pub/apiclient_cert.pem'
 WX_PUB_KEY_PEM_PATH = '/data/certs/wx_pub/apiclient_key.pem'
 
-# ================ 小鹿美美[ APP客户端] ==================
+# ================ 你的铺子[ APP客户端] ==================
 WX_APPID = "wx25fcb32689872499"
 WX_APPSECRET = "3c7b4e3eb5ae4cfb132b2ac060a872ee"
 
@@ -140,7 +140,7 @@ WX_KEY   = "t5UXHfwR7QEv2jMLFuZm8DdqnAT0ON9a" #支付密钥
 WX_CERT_PEM_PATH = '/data/certs/wx/apiclient_cert.pem'
 WX_KEY_PEM_PATH  = '/data/certs/wx/apiclient_key.pem'
 
-# ================ 小鹿美美[微信小程序] ==================
+# ================ 你的铺子[微信小程序] ==================
 WEAPP_APPID  = 'wxea4fd45c52e4a20e'
 WEAPP_SECRET = '1246301cdb41c6336d82a12600189283'
 

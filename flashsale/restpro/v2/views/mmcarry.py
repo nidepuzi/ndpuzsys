@@ -52,7 +52,7 @@ class MMCarryViewSet(viewsets.GenericViewSet):
         """
         GET /rest/v2/mmcarry
 
-        小鹿妈妈累计收益(只计算返点和兑换订单利润)
+        你的铺子妈妈累计收益(只计算返点和兑换订单利润)
         """
         customer = Customer.getCustomerByUser(user=request.user)
         mama = customer.getXiaolumm()

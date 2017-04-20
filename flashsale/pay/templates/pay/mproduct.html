@@ -1,6 +1,6 @@
 {% extends "pay/base_pay.html" %}
 
-{% block title %}小鹿美美-商品详情{% endblock %}
+{% block title %}你的铺子-商品详情{% endblock %}
 
 {% block style %}
 <link rel="stylesheet" href="{{ STATIC_URL }}jquery/jquery.mobile-1.4.5.min.css"/>
@@ -24,7 +24,7 @@
 {% block preload_script %}
 
 {% endblock %}
-   
+
 
 {% block container %}
 {% csrf_token %}
@@ -35,7 +35,7 @@
         {% for img in details.head_imgs %}
         <div class="img_holder"><img src="{{ img }}"/></div>
         {% endfor %}
- 
+
     </div>
     <div class="tags"></div>
     <div class="mark"><img src="{{ STATIC_URL }}images/watermark_white.png"></div>
@@ -45,7 +45,7 @@
         {{ name }}
     </div>
     <!--<div class="detail">
-         商品详情 
+         商品详情
         {{ memo }}
     </div>-->
     <div class="price">
@@ -58,7 +58,7 @@
     <!--<div class="sale">
         销量：{{ wait_post_num }}
         <span>
-             商品销量 
+             商品销量
         </span>
     </div>-->
 </div>
@@ -101,7 +101,7 @@
             <div class="name">尺码选择</div>
             <div class="choose">
               {% for sku in prod_skus %}
-              <a id="{{ sku.id }}"  class="{% if sku.sale_out %}none{% endif %}" 
+              <a id="{{ sku.id }}"  class="{% if sku.sale_out %}none{% endif %}"
               	origin-price='{{ sku.std_sale_price }}' sale-price='{{ sku.agent_price }}'>{{ sku.properties_alias }}</a>
               {% endfor %}
             </div>
@@ -162,23 +162,23 @@ function hideLoader()
 
         //选项选择
         $('.chooser.single').on('tap','.choose a',function(){
-        
+
         	$('.chooser.info .price span').html($(this).attr('sale-price'));
-        	
+
         	if(!$(this).hasClass('none')){
 	            $(this).closest('.choose').find('a').removeClass('active');
 	            $(this).addClass('active');
 	        }
 	        $('#amount .error_msg').html('');
-	        $('.amount').html(1); 
+	        $('.amount').html(1);
         });
 
         //数量+1/-1
         $('#amount').on('tap','.counter a',function(){
-        
+
             if ($(this).hasClass('add')){
             	$(this).removeClass('add');
-            	
+
                 var n = parseInt($('.amount').html())+1;
                 var product_id = $('#id_product').val();
 				var sku_id = $('.chooser .choose .active').attr('id');
@@ -186,12 +186,12 @@ function hideLoader()
 				if (sku_id === 'undifined' || sku_id == null){
 					alert('请选择正确的尺寸');
 					$(this).addClass('add');
-					return 
+					return
 				}
 
 				showLoader();
 				var csrf_token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
-				
+
 				var that = $(this);
 				var callback = function(resp){
 					try{
@@ -207,7 +207,7 @@ function hideLoader()
 					}
 					that.addClass('add');
 				};
-				
+
 				$.post('{% url 'skuquantity_lock' %}',
 						{ "product_id":product_id, "sku_id":sku_id,"num":n,"csrfmiddlewaretoken":csrf_token},
 						callback,
@@ -392,12 +392,12 @@ function hideLoader()
         var size = $('#size a.active').attr('id');//尺寸
         var amount = parseInt($('.amount').html());//数量
         var csrf_token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
-        
+
         if (size === 'undifined' || size == null){
 			alert('请选择正确的尺寸');
-			return 
+			return
 		}
-        
+
         var params = {"pid":$('#id_product').val(),
                       "sid":size,
                       "format":"html",

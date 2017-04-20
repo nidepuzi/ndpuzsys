@@ -122,8 +122,8 @@ class AppDownloadRecord(BaseModel):
              (SINAWB, u'新浪微博'),
              (WAP, u'WAP'),
              (QQSPA, u'QQ空间'),
-             (APP, u'小鹿美美app'),
-             (LESSON, u'小鹿大学'),)
+             (APP, u'你的铺子app'),
+             (LESSON, u'你的铺子大学'),)
 
     UNUSE = False
     USED = True
@@ -175,7 +175,7 @@ class AppDownloadRecord(BaseModel):
             if m:
                 return m.id
         return 0
-            
+
     @property
     def fans_customer(self):
         from flashsale.pay.models import Customer
@@ -227,7 +227,7 @@ class XLSampleApply(BaseModel):
         (FROM_QQ, u'QQ'),
         (FROM_WB, u'新浪微博'),
         (FROM_WEB, u'外部网页'),
-        (XLMM_APP, u'小鹿美美APP')
+        (XLMM_APP, u'你的铺子APP')
     )
 
     outer_id = models.CharField(max_length=32, null=False, blank=True, verbose_name=u'商品编码')

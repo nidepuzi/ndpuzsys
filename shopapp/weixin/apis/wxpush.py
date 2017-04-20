@@ -35,7 +35,7 @@ class WeixinPush(object):
 
     def need_sms_push(self, customer):
         """
-        如果两个公众账号（小鹿美美，小鹿美美特卖）都没关注，需要发短信
+        如果两个公众账号（你的铺子，你的铺子特卖）都没关注，需要发短信
         """
         if not (customer and customer.mobile):
             return False
@@ -101,7 +101,7 @@ class WeixinPush(object):
         if not template:
             return
 
-        # 购买小鹿全球精品会员注册礼包
+        # 购买你的铺子全球精品会员注册礼包
         is_boutique_register_product = False
         saleorders = saletrade.sale_orders.all()
         for order in saleorders:
@@ -111,7 +111,7 @@ class WeixinPush(object):
                 break
 
         if is_boutique_register_product:
-            footer = u'恭喜你开通小鹿精品代理！活动期间，推荐新代理奖励30元！请点击【详情】查看新手教程如何赚钱！'
+            footer = u'恭喜你开通你的铺子精品代理！活动期间，推荐新代理奖励30元！请点击【详情】查看新手教程如何赚钱！'
             to_url = 'http://m.nidepuzi.com/mama_shop/html/intro_march.html'
         else:
             footer = template.footer.decode('string_escape')
@@ -282,7 +282,7 @@ class WeixinPush(object):
         }
         template_data = {
             'first': {
-                'value': u'报！公主殿下, 您的小鹿美美App奖金又来啦！',
+                'value': u'报！公主殿下, 您的你的铺子App奖金又来啦！',
                 'color': '#F87217',
             },
             'keyword1': {
@@ -307,7 +307,7 @@ class WeixinPush(object):
 
     def push_mama_invite_award(self, mama, buy_customer, amount, level_1_customer=None):
         """
-        购买小鹿全球精品会员注册礼包,给推荐人发推送
+        购买你的铺子全球精品会员注册礼包,给推荐人发推送
 
         {{first.DATA}}
         任务名称：{{keyword1.DATA}}
@@ -651,7 +651,7 @@ class WeixinPush(object):
             if delta.seconds < 60*60*3 and clickcarry.click_num < clickcarry.init_click_limit:
                 return
             if carry_count < 0 or carry_money < 0:
-                return 
+                return
         else:
             carry_count = clickcarry.click_num
             carry_money = clickcarry.total_value

@@ -1,4 +1,4 @@
-# coding:utf8 
+# coding:utf8
 from __future__ import division, absolute_import, unicode_literals
 
 import datetime
@@ -249,7 +249,7 @@ from statistics.daystats.models import DaystatCalcResult
 
 @app.task(max_retries=3, default_retry_delay=5)
 def task_calc_xlmm(start_time_str, end_time_str):
-    """计算某个月内所有购买的人数和小鹿妈妈数量，重复购买"""
+    """计算某个月内所有购买的人数和你的铺子妈妈数量，重复购买"""
     try:
         calc_key = 'task_calc_xlmm_%s_%s' % (start_time_str, end_time_str)
 

@@ -208,7 +208,7 @@ function Cancel_order(suffix) {
         var cid = $(this).attr('cid');
         var mess = "取消的产品可能被别人抢走哦～ \n要取消么";
         swal({
-            title: "小鹿美美",
+            title: "你的铺子",
             text: mess,
             type: "",
             showCancelButton: true,

@@ -1,10 +1,10 @@
 {% extends "mama_base.html" %}
 
-{% block title %} 小鹿妈妈-订单收益列表 {% endblock %}
+{% block title %} 你的铺子妈妈-订单收益列表 {% endblock %}
 
 {% block head_script %}
-<link href='{{ STATIC_URL }}jquery/jquery-ui-1.10.1.css' rel='stylesheet'  />	
-<link href='{{ STATIC_URL }}css/mama_profile.css' rel='stylesheet' />	
+<link href='{{ STATIC_URL }}jquery/jquery-ui-1.10.1.css' rel='stylesheet'  />
+<link href='{{ STATIC_URL }}css/mama_profile.css' rel='stylesheet' />
 
 {% endblock %}
 
@@ -36,7 +36,7 @@
   </ul>
 </nav>
 </div>
-  
+
 <ul class="list-group">
 <li class="list-group-item"><lable>妈妈编号：</label> <b>{{ pk }}</b></li>
 <li class="list-group-item"><span style="color:orange">点击人数： {{ click_num }}</span></li>

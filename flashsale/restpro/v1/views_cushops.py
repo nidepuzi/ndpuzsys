@@ -67,7 +67,7 @@ class CustomerShopsViewSet(viewsets.ModelViewSet):
                     mm_linkid = xlmm.id
                     from flashsale.xiaolumm.tasks import task_mama_daily_tab_visit_stats
                     task_mama_daily_tab_visit_stats.delay(xlmm.id, MamaTabVisitStats.TAB_MAMA_SHOP)
-                    
+
             shop_info = model_to_dict(shop)
 
             link = '/mall/?mm_linkid={0}'.format(mm_linkid)
@@ -91,20 +91,20 @@ class CustomerShopsViewSet(viewsets.ModelViewSet):
 
 class CuShopProsViewSet(viewsets.ModelViewSet):
     """
-    ### 特卖用户店铺产品接口  
-    - {prefix} 获取用户店铺产品的信息  
-        `id`: 产品id  
-        `status`: 店铺产品状态　1　表示上架　0 表示没有上架  
-        `name`: 产品名称  
-    - {prefix}/add_pro_to_shop [method:post] 添加商品到店铺  
-        `product`: 要添加的产品id  
-        :return 0 添加成功  
-                1 参数缺失  
-                2 添加错误  
-    - {prefix}/remove_pro_from_shop [method:post] 下架我的店铺商品  
-        `product`: 要下架的产品id  
-        :return 0 下架成功  
-                1 参数缺失  
+    ### 特卖用户店铺产品接口
+    - {prefix} 获取用户店铺产品的信息
+        `id`: 产品id
+        `status`: 店铺产品状态　1　表示上架　0 表示没有上架
+        `name`: 产品名称
+    - {prefix}/add_pro_to_shop [method:post] 添加商品到店铺
+        `product`: 要添加的产品id
+        :return 0 添加成功
+                1 参数缺失
+                2 添加错误
+    - {prefix}/remove_pro_from_shop [method:post] 下架我的店铺商品
+        `product`: 要下架的产品id
+        :return 0 下架成功
+                1 参数缺失
     """
     queryset = CuShopPros.objects.all()
     child_queryset = CuShopPros.objects.child_query()
@@ -151,7 +151,7 @@ class CuShopProsViewSet(viewsets.ModelViewSet):
         try:
             xlmm = XiaoluMama.objects.get(openid=customer.unionid)
         except XiaoluMama.DoesNotExist:
-            raise exceptions.APIException(u'请先申请成为小鹿妈妈')
+            raise exceptions.APIException(u'请先申请成为你的铺子妈妈')
         for shop_pro in shop_pros:
             pro = Product.objects.get(id=shop_pro.product)  # 产品信息
             if pro.status == Product.NORMAL and pro.shelf_status == Product.UP_SHELF:  # 正常使用状态和上架状态的产品
