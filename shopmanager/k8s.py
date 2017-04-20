@@ -196,7 +196,7 @@ MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
 
 ########################### DOGSLOW FOR PROMETHEUS ################################
 # Watchdog is enabled by default, to temporarily disable, set to False:
-DOGSLOW = True
+DOGSLOW = False
 
 # By default, Watchdog will create log files with the backtraces.
 # You can also set the location of where it stores them:

@@ -159,22 +159,6 @@ STATSD_PORT = 9125
 # STATSD_CELERY_SIGNALS = True
 
 
-INSTALLED_APPS.extend([
-    'django_prometheus',
-])
-
-MIDDLEWARE_CLASSES = (
-    'django_prometheus.middleware.PrometheusBeforeMiddleware',
-    'django_statsd.middleware.GraphiteRequestTimingMiddleware',
-    'django_statsd.middleware.GraphiteMiddleware',
-) + MIDDLEWARE_CLASSES
-
-MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
-    'django_prometheus.middleware.PrometheusAfterMiddleware',
-    # 'dogslow.WatchdogMiddleware',
-)
-
-
 #################### TAOBAO SETTINGS ###################
 APPKEY = '12545735'  # app name guanyi erp ,younishijie
 APPSECRET = '5d845250d49aea44c3a07d8c1d513db5'
