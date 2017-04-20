@@ -10,5 +10,12 @@ node {
   }
   sh("docker tag ndpuzsys:latest registry.aliyuncs.com/ndpuz-img/ndpuzsys:`git rev-parse HEAD`")
   sh("docker push registry.aliyuncs.com/ndpuz-img/ndpuzsys:`git rev-parse HEAD`")
+
+  if (env.BRANCH_NAME == "staging") {
+    stage('Deploy to kubenetes:'){
+      gitCommit = sh(returnStdout: true, script: 'git rev-parse HEAD').trim()
+      build job: 'ndpuzsys-deployment/staging', parameters: [[$class: 'StringParameterValue', name: 'commit_id', value: gitCommit]]
+    }
+  }
 }
 
