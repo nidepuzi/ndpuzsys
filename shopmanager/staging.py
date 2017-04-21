@@ -117,8 +117,8 @@ WEIXIN_SECRET = 'bc41b3a535b095afc55cd40d2e808d9c'
 WEIXIN_APPID = 'wxc2848fa1e1aa94b5'
 
 # ================ 你的铺子[公众号] ==================
-WX_PUB_APPID = "wx3f91056a2928ad2d"
-WX_PUB_APPSECRET = "bc41b3a535b095afc55cd40d2e808d9c"
+WX_PUB_APPID = "wxda1c561964d173cc"
+WX_PUB_APPSECRET = "a95e2ab3da3a1f8538b112ec96bf86d3"
 
 WX_PUB_MCHID = "1236482102" #受理商ID，身份标识
 WX_PUB_KEY   = "t5UXHfwR7QEv2jMLFuZm8DdqnAT0ON9a" #支付密钥

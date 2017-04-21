@@ -122,8 +122,8 @@ WEIXIN_SECRET = ''
 WEIXIN_APPID = ''
 
 # ================ 你的铺子[公众号] ==================
-WX_PUB_APPID = ""
-WX_PUB_APPSECRET = ""
+WX_PUB_APPID = "wxda1c561964d173cc"
+WX_PUB_APPSECRET = "a95e2ab3da3a1f8538b112ec96bf86d3"
 
 WX_PUB_MCHID = "" #受理商ID，身份标识
 WX_PUB_KEY   = "" #支付密钥
