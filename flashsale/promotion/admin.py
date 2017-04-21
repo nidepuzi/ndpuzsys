@@ -66,7 +66,7 @@ class XLFreeSampleAdmin(admin.ModelAdmin):
     list_per_page = 40
 
 
-admin.site.register(XLFreeSample, XLFreeSampleAdmin)
+# admin.site.register(XLFreeSample, XLFreeSampleAdmin)
 
 
 class XLSampleApplyAdmin(admin.ModelAdmin):
@@ -79,7 +79,7 @@ class XLSampleApplyAdmin(admin.ModelAdmin):
     list_per_page = 40
 
 
-admin.site.register(XLSampleApply, XLSampleApplyAdmin)
+# admin.site.register(XLSampleApply, XLSampleApplyAdmin)
 
 
 class XLSampleOrderAdmin(admin.ModelAdmin):
@@ -92,7 +92,7 @@ class XLSampleOrderAdmin(admin.ModelAdmin):
     list_per_page = 40
 
 
-admin.site.register(XLSampleOrder, XLSampleOrderAdmin)
+# admin.site.register(XLSampleOrder, XLSampleOrderAdmin)
 
 
 class XLSampleSkuAdmin(admin.ModelAdmin):
@@ -102,7 +102,7 @@ class XLSampleSkuAdmin(admin.ModelAdmin):
     list_per_page = 40
 
 
-admin.site.register(XLSampleSku, XLSampleSkuAdmin)
+# admin.site.register(XLSampleSku, XLSampleSkuAdmin)
 
 
 class XLInviteCodeAdmin(admin.ModelAdmin):
@@ -113,7 +113,7 @@ class XLInviteCodeAdmin(admin.ModelAdmin):
     list_per_page = 40
 
 
-admin.site.register(XLInviteCode, XLInviteCodeAdmin)
+# admin.site.register(XLInviteCode, XLInviteCodeAdmin)
 
 
 class XLInviteCountAdmin(admin.ModelAdmin):
@@ -127,7 +127,7 @@ class XLInviteCountAdmin(admin.ModelAdmin):
         return self.readonly_fields
 
 
-admin.site.register(XLInviteCount, XLInviteCountAdmin)
+# admin.site.register(XLInviteCount, XLInviteCountAdmin)
 
 
 class XLReferalRelationshipAdmin(admin.ModelAdmin):
@@ -137,7 +137,7 @@ class XLReferalRelationshipAdmin(admin.ModelAdmin):
     list_per_page = 40
 
 
-admin.site.register(XLReferalRelationship, XLReferalRelationshipAdmin)
+# admin.site.register(XLReferalRelationship, XLReferalRelationshipAdmin)
 
 
 class ReadPacketAdmin(admin.ModelAdmin):
@@ -148,7 +148,7 @@ class ReadPacketAdmin(admin.ModelAdmin):
     list_per_page = 40
 
 
-admin.site.register(ReadPacket, ReadPacketAdmin)
+# admin.site.register(ReadPacket, ReadPacketAdmin)
 
 
 class AppDownloadRecordAdmin(admin.ModelAdmin):
@@ -159,7 +159,7 @@ class AppDownloadRecordAdmin(admin.ModelAdmin):
     list_per_page = 40
 
 
-admin.site.register(AppDownloadRecord, AppDownloadRecordAdmin)
+# admin.site.register(AppDownloadRecord, AppDownloadRecordAdmin)
 
 
 class RedEnvelopeAdmin(admin.ModelAdmin):
@@ -193,7 +193,7 @@ class DownloadMobileRecordAdmin(admin.ModelAdmin):
     search_fields = ('from_customer', 'mobile')
 
 
-admin.site.register(DownloadMobileRecord, DownloadMobileRecordAdmin)
+# admin.site.register(DownloadMobileRecord, DownloadMobileRecordAdmin)
 
 
 class DownloadUnionidRecordAdmin(admin.ModelAdmin):
@@ -209,7 +209,7 @@ class DownloadUnionidRecordAdmin(admin.ModelAdmin):
     search_fields = ('from_customer', 'unionid')
 
 
-admin.site.register(DownloadUnionidRecord, DownloadUnionidRecordAdmin)
+# admin.site.register(DownloadUnionidRecord, DownloadUnionidRecordAdmin)
 
 
 class StockSaleAdmin(admin.ModelAdmin):

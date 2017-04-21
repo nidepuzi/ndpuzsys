@@ -34,14 +34,14 @@ class SampleProductAdmin(admin.ModelAdmin):
                  }),)
 
 
-admin.site.register(SampleProduct, SampleProductAdmin)
+# admin.site.register(SampleProduct, SampleProductAdmin)
 
 
 class ScanLinShiAdmin(admin.ModelAdmin):
     list_display = ('title', 'sku_name', 'bar_code', 'scan_num', 'scan_type', 'status')
 
 
-admin.site.register(ScanLinShi)
+# admin.site.register(ScanLinShi)
 
 
 class SampleScanAdmin(admin.ModelAdmin):
@@ -60,4 +60,4 @@ class SampleScanAdmin(admin.ModelAdmin):
             return qs.filter(status=1)
 
 
-admin.site.register(SampleScan, SampleScanAdmin)
+# admin.site.register(SampleScan, SampleScanAdmin)

@@ -40,4 +40,4 @@ class JoinerAdmin(admin.ModelAdmin):
                ]
 
 
-admin.site.register(Joiner, JoinerAdmin)
+# admin.site.register(Joiner, JoinerAdmin)

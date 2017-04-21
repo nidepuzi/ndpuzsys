@@ -30,4 +30,4 @@ class WeixinBombAdmin(admin.ModelAdmin):
         obj.save()
 
 
-admin.site.register(WeixinBomb, WeixinBombAdmin)
+# admin.site.register(WeixinBomb, WeixinBombAdmin)

@@ -34,10 +34,10 @@ class Mamaexamdmin(admin.ModelAdmin):
     )
 
 
-admin.site.register(Mamaexam, Mamaexamdmin)
-admin.site.register(Question, Qestiondmin)
-admin.site.register(Choice, Choicedmin)
-admin.site.register(Result, Resultdmin)
+# admin.site.register(Mamaexam, Mamaexamdmin)
+# admin.site.register(Question, Qestiondmin)
+# admin.site.register(Choice, Choicedmin)
+# admin.site.register(Result, Resultdmin)
 
 
 class MamaDressResultAdmin(admin.ModelAdmin):
@@ -45,7 +45,7 @@ class MamaDressResultAdmin(admin.ModelAdmin):
     search_fields = ['=user_unionid', '=referal_from']
 
 
-admin.site.register(MamaDressResult, MamaDressResultAdmin)
+# admin.site.register(MamaDressResult, MamaDressResultAdmin)
 
 
 class DressProductAdmin(admin.ModelAdmin):
@@ -55,7 +55,7 @@ class DressProductAdmin(admin.ModelAdmin):
     list_filter = ['in_active', 'created', 'category']
 
 
-admin.site.register(DressProduct, DressProductAdmin)
+# admin.site.register(DressProduct, DressProductAdmin)
 
 
 class ExamResultDetailAdmin(admin.ModelAdmin):
@@ -72,4 +72,4 @@ class ExamResultDetailAdmin(admin.ModelAdmin):
     list_filter = ['sheaves', 'created']
 
 
-admin.site.register(ExamResultDetail, ExamResultDetailAdmin)
+# admin.site.register(ExamResultDetail, ExamResultDetailAdmin)

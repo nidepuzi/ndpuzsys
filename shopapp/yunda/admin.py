@@ -34,7 +34,7 @@ class ClassifyZoneAdmin(admin.ModelAdmin):
     search_fields = ['state', 'city', 'district']
 
 
-admin.site.register(ClassifyZone, ClassifyZoneAdmin)
+# admin.site.register(ClassifyZone, ClassifyZoneAdmin)
 
 
 class BranchZoneAdmin(admin.ModelAdmin):
@@ -70,7 +70,7 @@ class BranchZoneAdmin(admin.ModelAdmin):
     actions = ['export_branch_zone', ]
 
 
-admin.site.register(BranchZone, BranchZoneAdmin)
+# admin.site.register(BranchZone, BranchZoneAdmin)
 
 
 class YundaCustomerAdmin(admin.ModelAdmin):
@@ -111,7 +111,7 @@ class YundaCustomerAdmin(admin.ModelAdmin):
                  )
 
 
-admin.site.register(YundaCustomer, YundaCustomerAdmin)
+# admin.site.register(YundaCustomer, YundaCustomerAdmin)
 
 
 class ParentPackageWeightAdmin(admin.ModelAdmin):
@@ -127,7 +127,7 @@ class ParentPackageWeightAdmin(admin.ModelAdmin):
     search_fields = ['parent_package_id', 'destinate']
 
 
-admin.site.register(ParentPackageWeight, ParentPackageWeightAdmin)
+# admin.site.register(ParentPackageWeight, ParentPackageWeightAdmin)
 
 
 class TodaySmallPackageWeightAdmin(admin.ModelAdmin):
@@ -190,7 +190,7 @@ class TodaySmallPackageWeightAdmin(admin.ModelAdmin):
     actions = ['calcPackageWeightAction', 'uploadPackageWeightAction']
 
 
-admin.site.register(TodaySmallPackageWeight, TodaySmallPackageWeightAdmin)
+# admin.site.register(TodaySmallPackageWeight, TodaySmallPackageWeightAdmin)
 
 
 class TodayParentPackageWeightAdmin(admin.ModelAdmin):
@@ -249,7 +249,7 @@ class TodayParentPackageWeightAdmin(admin.ModelAdmin):
     actions = ['calcPackageWeightAction', 'uploadPackageWeightAction']
 
 
-admin.site.register(TodayParentPackageWeight, TodayParentPackageWeightAdmin)
+# admin.site.register(TodayParentPackageWeight, TodayParentPackageWeightAdmin)
 
 
 class LogisticOrderAdmin(admin.ModelAdmin):
@@ -299,4 +299,4 @@ class LogisticOrderAdmin(admin.ModelAdmin):
     actions = ['pushPackageWeightAction', ]
 
 
-admin.site.register(LogisticOrder, LogisticOrderAdmin)
+# admin.site.register(LogisticOrder, LogisticOrderAdmin)

@@ -11,7 +11,7 @@ class CategoryAdmin(admin.ModelAdmin):
     search_fields = ['cid', 'parent_cid', 'name']
 
 
-admin.site.register(Category, CategoryAdmin)
+# admin.site.register(Category, CategoryAdmin)
 
 
 class ProductCategoryAdmin(admin.ModelAdmin):

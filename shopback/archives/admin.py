@@ -76,7 +76,7 @@ class DepositeAdmin(CustomAdmin):
     search_fields = ['id', 'deposite_name', 'location']
 
 
-admin.site.register(Deposite, DepositeAdmin)
+# admin.site.register(Deposite, DepositeAdmin)
 
 
 class DepositeDistrictAdmin(admin.ModelAdmin):
@@ -89,7 +89,7 @@ class DepositeDistrictAdmin(admin.ModelAdmin):
     search_fields = ['id', 'parent_no', 'district_no', 'location']
 
 
-admin.site.register(DepositeDistrict, DepositeDistrictAdmin)
+# admin.site.register(DepositeDistrict, DepositeDistrictAdmin)
 
 
 class SupplierTypeAdmin(CustomAdmin):
@@ -136,4 +136,4 @@ class PurchaseTypeAdmin(CustomAdmin):
     search_fields = ['id', 'type_name']
 
 
-admin.site.register(PurchaseType, PurchaseTypeAdmin)
+# admin.site.register(PurchaseType, PurchaseTypeAdmin)

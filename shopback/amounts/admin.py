@@ -13,7 +13,7 @@ class TradeAmountAdmin(admin.ModelAdmin):
     search_fields = ['tid', 'alipay_no']
 
 
-admin.site.register(TradeAmount, TradeAmountAdmin)
+# admin.site.register(TradeAmount, TradeAmountAdmin)
 
 
 class OrderAmountAdmin(admin.ModelAdmin):
@@ -25,4 +25,4 @@ class OrderAmountAdmin(admin.ModelAdmin):
     search_fields = ['oid', 'num_iid', 'title', 'sku_properties_name', '']
 
 
-admin.site.register(OrderAmount, OrderAmountAdmin)
+# admin.site.register(OrderAmount, OrderAmountAdmin)

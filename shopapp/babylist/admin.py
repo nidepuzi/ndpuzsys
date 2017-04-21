@@ -12,4 +12,4 @@ class BabyPhoneAdmin(admin.ModelAdmin):
     search_fields = ['father', 'mather', 'id', 'ma_mobile', 'fa_mobile']
 
 
-admin.site.register(BabyPhone, BabyPhoneAdmin)
+# admin.site.register(BabyPhone, BabyPhoneAdmin)

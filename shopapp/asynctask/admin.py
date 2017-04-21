@@ -12,7 +12,7 @@ class TaobaoAsyncTaskModelAdmin(admin.ModelAdmin):
     search_fields = ['task_id', 'task', 'top_task_id']
 
 
-admin.site.register(TaobaoAsyncTaskModel, TaobaoAsyncTaskModelAdmin)
+# admin.site.register(TaobaoAsyncTaskModel, TaobaoAsyncTaskModelAdmin)
 
 
 class PrintAsyncTaskModelAdmin(admin.ModelAdmin):
@@ -23,4 +23,4 @@ class PrintAsyncTaskModelAdmin(admin.ModelAdmin):
     search_fields = ['task_id', 'operator']
 
 
-admin.site.register(PrintAsyncTaskModel, PrintAsyncTaskModelAdmin)
+# admin.site.register(PrintAsyncTaskModel, PrintAsyncTaskModelAdmin)

@@ -230,7 +230,7 @@ class ComposeRuleAdmin(admin.ModelAdmin):
     actions = ['batch_activerule_action', 'batch_disactiverule_action', 'export_compose_rule']
 
 
-admin.site.register(ComposeRule, ComposeRuleAdmin)
+# admin.site.register(ComposeRule, ComposeRuleAdmin)
 
 
 class ComposeItemAdmin(admin.ModelAdmin):
@@ -244,4 +244,4 @@ class ComposeItemAdmin(admin.ModelAdmin):
     search_fields = ['id', 'outer_id']
 
 
-admin.site.register(ComposeItem, ComposeItemAdmin)
+# admin.site.register(ComposeItem, ComposeItemAdmin)

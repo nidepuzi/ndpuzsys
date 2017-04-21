@@ -129,4 +129,4 @@ class InterceptTradeAdmin(admin.ModelAdmin):
     actions = ['intercept_trade_action', 'export_tradeinfo_action', 'export_orderdetail_action']
 
 
-admin.site.register(InterceptTrade, InterceptTradeAdmin)
+# admin.site.register(InterceptTrade, InterceptTradeAdmin)

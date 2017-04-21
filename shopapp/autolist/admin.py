@@ -6,7 +6,7 @@ class TimeSlotsAdmin(admin.ModelAdmin):
     list_display = ('timeslot',)
 
 
-admin.site.register(TimeSlots, TimeSlotsAdmin)
+# admin.site.register(TimeSlots, TimeSlotsAdmin)
 
 
 class ItemListTaskAdmin(admin.ModelAdmin):
@@ -26,7 +26,7 @@ class ItemListTaskAdmin(admin.ModelAdmin):
     cancleExecute.short_description = "Cancle Task!"
 
 
-admin.site.register(ItemListTask, ItemListTaskAdmin)
+# admin.site.register(ItemListTask, ItemListTaskAdmin)
 
 
 class ListLogsAdmin(admin.ModelAdmin):
@@ -38,4 +38,4 @@ class ListLogsAdmin(admin.ModelAdmin):
     search_fields = ['cat_name', 'cat_id', 'num_iid', 'list_time']
 
 
-admin.site.register(Logs, ListLogsAdmin)
+# admin.site.register(Logs, ListLogsAdmin)
