@@ -15,7 +15,7 @@ class JDShopAdmin(admin.ModelAdmin):
     search_fields = ['shop_id', 'vender_id', 'shop_name']
 
 
-admin.site.register(JDShop, JDShopAdmin)
+# admin.site.register(JDShop, JDShopAdmin)
 
 
 class JDLogisticAdmin(admin.ModelAdmin):
@@ -27,7 +27,7 @@ class JDLogisticAdmin(admin.ModelAdmin):
     search_fields = ['logistics_id', 'logistics_name']
 
 
-admin.site.register(JDLogistic, JDLogisticAdmin)
+# admin.site.register(JDLogistic, JDLogisticAdmin)
 
 
 class JDProductAdmin(admin.ModelAdmin):
@@ -40,7 +40,7 @@ class JDProductAdmin(admin.ModelAdmin):
     search_fields = ['ware_id', 'item_num', 'outer_id', 'title']
 
 
-admin.site.register(JDProduct, JDProductAdmin)
+# admin.site.register(JDProduct, JDProductAdmin)
 
 
 class JDOrderAdmin(admin.ModelAdmin):
@@ -53,4 +53,4 @@ class JDOrderAdmin(admin.ModelAdmin):
     search_fields = ['order_id', 'pin']
 
 
-admin.site.register(JDOrder, JDOrderAdmin)
+# admin.site.register(JDOrder, JDOrderAdmin)

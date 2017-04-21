@@ -11,4 +11,4 @@ class PinPaiTuanAdmin(admin.ModelAdmin):
     search_fields = ['outer_id', 'id', 'outer_sku_id']
 
 
-admin.site.register(PinPaiTuan, PinPaiTuanAdmin)
+# admin.site.register(PinPaiTuan, PinPaiTuanAdmin)

@@ -39,7 +39,7 @@ class TradeAdmin(admin.ModelAdmin):
     }
 
 
-admin.site.register(Trade, TradeAdmin)
+# admin.site.register(Trade, TradeAdmin)
 
 
 class OrderAdmin(admin.ModelAdmin):
@@ -55,4 +55,4 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ['oid', 'buyer_nick', 'num_iid', 'sku_properties_name']
 
 
-admin.site.register(Order, OrderAdmin)
+# admin.site.register(Order, OrderAdmin)

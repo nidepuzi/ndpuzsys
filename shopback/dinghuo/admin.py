@@ -922,7 +922,7 @@ class PurchaseOrderAdmin(BaseModelAdmin):
     search_fields = ('=supplier_id', '=supplier_name', '=uni_key')
 
 
-admin.site.register(PurchaseOrder, PurchaseOrderAdmin)
+# admin.site.register(PurchaseOrder, PurchaseOrderAdmin)
 
 
 class LackGoodOrderAdmin(BaseModelAdmin):

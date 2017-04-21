@@ -30,7 +30,7 @@ class FenxiaoProductAdmin(admin.ModelAdmin):
     search_fields = ['pid', 'name', 'outer_id']
 
 
-admin.site.register(FenxiaoProduct, FenxiaoProductAdmin)
+# admin.site.register(FenxiaoProduct, FenxiaoProductAdmin)
 
 
 class PurchaseOrderAdmin(admin.ModelAdmin):
@@ -65,4 +65,4 @@ class SubPurchaseOrderAdmin(admin.ModelAdmin):
     search_fields = ['fenxiao_id', 'purchase_order__fenxiao_id', 'sku_id', 'tc_order_id', 'title']
 
 
-admin.site.register(SubPurchaseOrder, SubPurchaseOrderAdmin)
+# admin.site.register(SubPurchaseOrder, SubPurchaseOrderAdmin)

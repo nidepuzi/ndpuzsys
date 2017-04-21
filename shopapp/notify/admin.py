@@ -19,7 +19,7 @@ class ItemNotifyAdmin(admin.ModelAdmin):
     search_fields = ['id', 'num_iid', 'nick', 'title']
 
 
-admin.site.register(ItemNotify, ItemNotifyAdmin)
+# admin.site.register(ItemNotify, ItemNotifyAdmin)
 
 
 class TradeNotifyAdmin(admin.ModelAdmin):
@@ -38,7 +38,7 @@ class TradeNotifyAdmin(admin.ModelAdmin):
     search_fields = ['id', 'tid', 'oid', 'nick', 'buyer_nick']
 
 
-admin.site.register(TradeNotify, TradeNotifyAdmin)
+# admin.site.register(TradeNotify, TradeNotifyAdmin)
 
 
 class RefundNotifyAdmin(admin.ModelAdmin):
@@ -57,4 +57,4 @@ class RefundNotifyAdmin(admin.ModelAdmin):
     search_fields = ['id', 'tid', 'oid', 'rid', 'nick', 'buyer_nick']
 
 
-admin.site.register(RefundNotify, RefundNotifyAdmin)
+# admin.site.register(RefundNotify, RefundNotifyAdmin)

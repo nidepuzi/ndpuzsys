@@ -62,7 +62,7 @@ class CommentAdmin(admin.ModelAdmin):
               "comments/js/comment.js")
 
 
-admin.site.register(Comment, CommentAdmin)
+# admin.site.register(Comment, CommentAdmin)
 
 
 class CommentItemAdmin(admin.ModelAdmin):
@@ -79,11 +79,11 @@ class CommentItemAdmin(admin.ModelAdmin):
     }
 
 
-admin.site.register(CommentItem, CommentItemAdmin)
+# admin.site.register(CommentItem, CommentItemAdmin)
 
 
 class CommentGradeAdmin(admin.ModelAdmin):
     list_display = ('oid', 'reply', 'replayer', 'grade', 'grader', 'created', 'replay_at')
 
 
-admin.site.register(CommentGrade, CommentGradeAdmin)
+# admin.site.register(CommentGrade, CommentGradeAdmin)

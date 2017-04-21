@@ -11,4 +11,4 @@ class PaintAccountAdmin(admin.ModelAdmin):
     list_filter = ('province', 'creater_id', 'status')
 
 
-admin.site.register(PaintAccount, PaintAccountAdmin)
+# admin.site.register(PaintAccount, PaintAccountAdmin)

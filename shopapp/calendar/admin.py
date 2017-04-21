@@ -15,4 +15,4 @@ class StaffEventAdmin(admin.ModelAdmin):
     search_fields = ['executor__username', 'id', 'title']
 
 
-admin.site.register(StaffEvent, StaffEventAdmin)
+# admin.site.register(StaffEvent, StaffEventAdmin)
