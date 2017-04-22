@@ -50,6 +50,14 @@ def productlist_redirect(request):
     return HttpResponseRedirect(urljoin(settings.M_SITE_URL, reverse('rest_v1:weixin-login')))
 
 
+def weixin_login_origin(request):
+    next_url = request.get_full_path()
+    index = next_url.find('rest')
+    s = next_url[:index] + 'mp/' + next_url[index:]
+    s = s.replace('/weixin_login/', '/weixin_login_redirect/')
+    response = HttpResponseRedirect(s)
+    return response
+
 @weixin_xlmm_auth(redirecto=urljoin(settings.M_SITE_URL, '/pages/denglu.html'))
 def weixin_login(request):
     next_url = request.GET.get('next', '/')

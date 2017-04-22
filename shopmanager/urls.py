@@ -89,6 +89,7 @@ urlpatterns = [
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url('', include('django_prometheus.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^mp/rest/', include('flashsale.restpro.urls')),
 ]
 
 if settings.DEBUG == True:
