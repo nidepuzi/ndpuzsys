@@ -11,7 +11,7 @@ SESSION_COOKIE_AGE = 24 * 30 * 60 * 60
 # WEB DNS
 SITE_URL = 'http://admin.nidepuzi.com/'
 #######################  WAP AND WEIXIN CONFIG ########################
-M_SITE_URL = 'https://m.nidepuzi.com'
+M_SITE_URL = 'http://m.nidepuzi.com'
 
 MYSQL_HOST = 'rm-uf632p729ho32369e.mysql.rds.aliyuncs.com'
 MYSQL_AUTH = os.environ.get('MYSQL_AUTH')
