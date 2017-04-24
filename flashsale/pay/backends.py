@@ -110,7 +110,6 @@ class WeixinPubBackend(object):
                     if not profile.user.is_active:
                         profile.user.is_active = True
                         profile.user.save()
-                    logger.error('weixin authenticate:exist customer=%s' % profile.user)
                     return profile.user
                 else:
                     user, state = User.objects.get_or_create(username=unionid, is_active=True)
