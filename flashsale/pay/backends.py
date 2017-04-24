@@ -79,6 +79,7 @@ class WeixinPubBackend(object):
             or kwargs.get('username')
             or kwargs.get('unionid')
             or content.get('unionid')):
+            logger.error('weixin authenticate:request.path=%s' % request.path)
             return None
 
         code = content.get('code')
@@ -95,6 +96,7 @@ class WeixinPubBackend(object):
             unionid = self.get_unoinid(openid, settings.WX_PUB_APPID)
 
         if not valid_openid(unionid):
+            logger.error('weixin authenticate:unionid=%s' % unionid)
             return AnonymousUser()
 
         try:
@@ -108,6 +110,7 @@ class WeixinPubBackend(object):
                     if not profile.user.is_active:
                         profile.user.is_active = True
                         profile.user.save()
+                    logger.error('weixin authenticate:exist customer=%s' % profile.user)
                     return profile.user
                 else:
                     user, state = User.objects.get_or_create(username=unionid, is_active=True)
@@ -116,12 +119,14 @@ class WeixinPubBackend(object):
 
         except Customer.DoesNotExist:
             if not self.create_unknown_user or not unionid:
+                logger.error('weixin authenticate:not exist customer, unionid=%s' % unionid)
                 return AnonymousUser()
 
             user, state = User.objects.get_or_create(username=unionid, is_active=True)
             profile, state = Customer.objects.get_or_create(unionid=unionid, openid=openid, user=user)
             # if not normal user ,no login allowed
             if profile.status != Customer.NORMAL:
+                logger.error('weixin authenticate:not exist customer, status not normal, profile=%s' % profile)
                 return AnonymousUser()
             task_Refresh_Sale_Customer.delay(userinfo, app_key=settings.WX_PUB_APPID)
 
