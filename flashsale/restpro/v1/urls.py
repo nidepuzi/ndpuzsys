@@ -25,7 +25,7 @@ from flashsale.restpro.v1 import views_login_v2
 from flashsale.restpro.v1 import views_faqs
 from flashsale.restpro.v1 import views_mmexams
 from flashsale.restpro.v1 import views_favorites
-from flashsale.pay.views import weixin_login, weixin_test, weixin_auth_and_redirect, weixin_login_origin
+from flashsale.pay.views import weixin_login, weixin_test, weixin_auth_and_redirect
 from flashsale.complain.views import ComplainViewSet
 from flashsale.push import views as views_push
 
@@ -90,8 +90,7 @@ router_urls = router.urls
 router_urls_promotion = promotion_router.urls
 
 router_urls += format_suffix_patterns([
-    url(r'^users/weixin_login/$', weixin_login_origin, name='weixin-login-origin'),
-    url(r'^users/weixin_login_redirect/$', weixin_login, name='weixin-login'),
+    url(r'^users/weixin_login/$', weixin_login, name='weixin-login'),
     url(r'^users/weixin_test/$', weixin_test, name='weixin-test'),
     url(r'^users/weixin_auth/$', weixin_auth_and_redirect, name='xlmm-wxauth'),
 
