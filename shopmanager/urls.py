@@ -94,7 +94,6 @@ urlpatterns = [
     url(r'^MP_verify_(?P<verify_string>.*).txt', weixin_mpverify, name="weixin_mpverify"),
     url('', include('django_prometheus.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^mp/rest/', include('flashsale.restpro.urls')),
 ]
 
 if settings.DEBUG == True:

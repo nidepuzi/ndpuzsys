@@ -2,7 +2,7 @@ from .charge import PINGPPCallbackView, PayResultView, WXPayWarnView
 from .envelop import EnvelopConfirmSendView, SendBudgetEnvelopAPIView
 from .aggregate import AggregateProductView, ModelProductView, CheckModelExistView, \
     AggregateProductCheckView, ChuanTuAPIView, ModelChangeAPIView
-from .login import flashsale_login, productlist_redirect, weixin_login, weixin_test, weixin_auth_and_redirect, weixin_login_origin
+from .login import flashsale_login, productlist_redirect, weixin_login, weixin_test, weixin_auth_and_redirect
 from .address import AddressList, UserAddressDetail, DistrictList
 from .refund import RefundReason
 from .product import productsku_quantity_view, ProductDetailView
