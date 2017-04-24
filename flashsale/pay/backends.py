@@ -96,7 +96,7 @@ class WeixinPubBackend(object):
             unionid = self.get_unoinid(openid, settings.WX_PUB_APPID)
 
         if not valid_openid(unionid):
-            logger.error('weixin authenticate:unionid=%s' % unionid)
+            logger.error('weixin authenticate:unionid=%s code=%s' % (unionid, code))
             return AnonymousUser()
 
         try:

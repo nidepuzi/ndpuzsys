@@ -5,6 +5,9 @@ import json
 import urllib
 import urllib2
 from django.conf import settings
+import logging
+
+logger = logging.getLogger('django.request')
 
 OPENID_RE = '^[a-zA-Z0-9-_]{28}$'
 AUTHCODE_RE = '^[a-zA-Z0-9]{20,40}$'
@@ -79,30 +82,36 @@ def get_auth_userinfo(code, appid='', secret='', request=None):
     if debug_m:
         userinfo.update(openid=content.get('sopenid','oMt59uE55lLOV2KS6vYZ_d0dOl5c'))
         userinfo.update(unionid=content.get('sunionid','o29cQs9QlfWpL0v0ZV_b2nyTOM-4'))
+        logger.error('weixin get_auth_userinfo:debug=%s' % debug_m)
         return userinfo
 
     if state and not code:
+        logger.error('weixin get_auth_userinfo:errcode state=%s' % state)
         return {'errcode':9999,'msg':'The user cancel authorized!'}
 
     if not code or not re.compile(AUTHCODE_RE).match(code):
+        logger.error('weixin get_auth_userinfo:errcode code=%s' % code)
         return userinfo
 
     r = get_weixin_userbaseinfo(code, appid, secret)
     if r.has_key("errcode"):
+        logger.error('weixin get_auth_userinfo:errcode r=%s' % r)
         return r
 
     openid = r.get('openid')
     if r.has_key('unionid') and r.has_key('access_token'):
         rs = get_weixin_snsuserinfo(openid, r.get('access_token'))
         if rs.has_key("errcode"):
+            logger.error('weixin get_auth_userinfo:rs errcode rs=%s' % rs)
             return r
 
         # Here we should trigger a task to save userinfo.
         from shopapp.weixin.tasks import task_snsauth_update_weixin_userinfo
         task_snsauth_update_weixin_userinfo(rs, appid)
 
+        logger.error('weixin get_auth_userinfo:succ rs code=%s' % rs)
         return rs
-
+    logger.error('weixin get_auth_userinfo:succ r=%s' % r)
     return r
 
 def get_user_unionid(code, appid='', secret='', request=None):
