@@ -14,7 +14,7 @@ def gen_vendor_code(start=None):
         start = SaleSupplier.objects.count() + 1
     # fuck, supplier can delete, so count+1 maybe the same with exist vendor code, 20170425
     supplier = SaleSupplier.objects.all().order_by('-created').first()
-    if supplier and supplier.id > start:
+    if supplier and supplier.id + 1 > start:
         start = supplier.id + 1
     return 'GYS%06d' % start
 
