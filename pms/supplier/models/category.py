@@ -52,7 +52,7 @@ class SaleCategory(BaseModel):
     DELETE = 'delete'
 
     CAT_STATUS = ((NORMAL, u'正常'),
-                  (DELETE, u'未使用'))
+                  (DELETE, u'作废'))
 
     FIRST_GRADE = 1
     CACHE_TIME = 24 * 60 * 60
@@ -113,6 +113,11 @@ class SaleCategory(BaseModel):
     @property
     def full_name(self):
         return self.__unicode__()
+
+    def set_invalid(self):
+        """ 作废类目 """
+        self.status = SaleCategory.DELETE
+        self.save()
 
     @classmethod
     def get_category_names(cls, cid):

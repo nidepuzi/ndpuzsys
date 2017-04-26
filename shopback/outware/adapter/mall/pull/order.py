@@ -1,6 +1,8 @@
 # coding: utf8
 from __future__ import absolute_import, unicode_literals
 
+import datetime
+
 from flashsale.pay.models import SaleTrade, SaleOrder, SaleRefund
 from ....models import OutwareOrder, OutwareOrderSku
 from shopback.outware import constants
@@ -77,8 +79,11 @@ def update_refundproduct_by_outware_inbound(order_code, dict_obj):
     if s_refund.refund_num == inbound_sku.pull_good_qty:
         s_refund.refund_confirm()
     else:
-        feedback = '仓库确认入仓正品{0}件，次品{1}件,与退款申请数{2}件有差异，不能自动确认退款，请联系在线客服,谢谢!'
-        feedback = feedback.format([inbound_sku.pull_good_qty, inbound_sku.pull_bad_qty, s_refund.refund_num])
+        feedback = 'sys@{0}:仓库确认入仓正品{1}件，次品{2}件,与退款申请数{3}件有差异，不能自动确认退款，请联系在线客服,谢谢!'
+        feedback = feedback.format(datetime.datetime.now().strftime('%Y.%m.%d'),
+                                   inbound_sku.pull_good_qty,
+                                   inbound_sku.pull_bad_qty,
+                                   s_refund.refund_num)
         s_refund.refund_refuse(feedback)
 
 

@@ -277,9 +277,9 @@ class SaleCategoryViewSet(viewsets.ModelViewSet):
     def destroy(self, request, pk, format=None):
         salecategory = SaleCategory.objects.filter(cid=pk).first()
         if salecategory:
-            salecategory.delete()
+            salecategory.set_invalid()
             cache.delete(SaleCategory.CACHE_KEY)
-            log_action(request.user, salecategory, DELETION, u'删除分类')
+            log_action(request.user, salecategory, CHANGE, u'作废分类')
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     def update(self, request, pk, format=None):
