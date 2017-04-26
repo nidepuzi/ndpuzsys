@@ -110,8 +110,8 @@ WX_PUB_KEY_PEM_PATH = '/data/certs/wxpub_key.pem'
 WX_PUB_CERT_PEM_PATH = '/data/certs/wxpub.pem'
 
 # ================ 你的铺子[ APP客户端] ==================
-WX_APPID = ""
-WX_APPSECRET = ""
+WX_APPID = "wxa6e8010fa0b31eb3"
+WX_APPSECRET = "a894a72567440fa7317843d76dd7bf03"
 
 WX_MCHID = "" #受理商ID，身份标识
 WX_KEY   = "" #支付密钥
@@ -131,7 +131,7 @@ WEAPP_KEY_PEM_PATH  = '/data/certs/weapp_key.pem'
 
 ################### ALIPAY SETTINGS ##################
 ALIPAY_MCHID     = ''
-ALIAPY_APPID     = ''
+ALIAPY_APPID     = '2017042206893641'
 
 ALIPAY_GATEWAY_URL = 'https://openapi.alipay.com/gateway.do'
 ALIPAY_NOTIFY_URL = 'http://api.nidepuzi.com/rest/notify/alipay/'
