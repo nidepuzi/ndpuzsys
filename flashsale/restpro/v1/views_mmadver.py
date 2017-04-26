@@ -232,10 +232,12 @@ class NinePicViewSet(viewsets.GenericViewSet):
             end_time = start_time + datetime.timedelta(hours=1)
 
             queryset = ActivityEntry.objects.filter(start_time__gte=start_time, start_time__lt=end_time,
-                                                    act_type = ActivityEntry.ACT_FOCUS)
+                                                    act_type=ActivityEntry.ACT_FOCUS)
         else:
-            queryset = ActivityEntry.objects.filter(start_time__lt=today, end_time__gt=today,
-                                                    act_type = ActivityEntry.ACT_FOCUS)
+            start_time = datetime.datetime(today.year, today.month, today.day, 0)
+            end_time = start_time + datetime.timedelta(hours=24)
+            queryset = ActivityEntry.objects.filter(start_time__gte=start_time, start_time__lt=end_time,
+                                                    act_type=ActivityEntry.ACT_FOCUS)
 
         items = []
         for activity in queryset:
