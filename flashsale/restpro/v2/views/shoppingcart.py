@@ -108,9 +108,9 @@ class ShoppingCartViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         """列出购物车中所有的状态为正常的数据"""
         try:
-            type = int(request.GET.get('type', 5))
+            type = int(request.GET.get('type', ShoppingCart.FLASHSALE))
         except:
-            type = ShoppingCart.BOUTIQUEBUY
+            type = ShoppingCart.FLASHSALE
 
         queryset = self.filter_queryset(self.get_owner_queryset(request).filter(type=type))
         serializers = self.get_serializer(queryset, many=True)
@@ -153,7 +153,7 @@ class ShoppingCartViewSet(viewsets.ModelViewSet):
             s_temp = ShoppingCart.objects.filter(item_id=product_id, sku_id=sku_id,
                                                  status=ShoppingCart.CANCEL, buyer_id=customer.id)
             s_temp.delete()
-        type = data.get("type", 5)
+        type = data.get("type", ShoppingCart.FLASHSALE)
         try:
             type = int(type)
         except:
@@ -166,7 +166,7 @@ class ShoppingCartViewSet(viewsets.ModelViewSet):
         lockable = Product.objects.isQuantityLockable(sku, sku_num + user_skunum)
         if not lockable:
             return Response({"code": 4, "info": u'该商品已限购'})
-        if (type == 0) or (type == ShoppingCart.BOUTIQUEBUY) or (type == ShoppingCart.VIRTUALBUY):
+        if (type == ShoppingCart.FLASHSALE) or (type == ShoppingCart.BOUTIQUEBUY) or (type == ShoppingCart.VIRTUALBUY):
             shop_cart = ShoppingCart.objects.filter(item_id=product_id, buyer_id=customer.id,
                                                     sku_id=sku_id, status=ShoppingCart.NORMAL, type=type).first()
             if shop_cart:
@@ -217,9 +217,9 @@ class ShoppingCartViewSet(viewsets.ModelViewSet):
     def show_carts_num(self, request, *args, **kwargs):
         """显示购物车的数量和保留时间"""
         try:
-            type = int(request.GET.get('type', 5))
+            type = int(request.GET.get('type', ShoppingCart.FLASHSALE))
         except:
-            type = ShoppingCart.BOUTIQUEBUY
+            type = ShoppingCart.FLASHSALE
 
         queryset = self.filter_queryset(self.get_owner_queryset(request).filter(type=type))
         queryset = queryset.order_by('-created')
@@ -236,9 +236,9 @@ class ShoppingCartViewSet(viewsets.ModelViewSet):
     def show_carts_history(self, request, *args, **kwargs):
         """显示该用户28个小时内购物清单历史 """
         try:
-            type = int(request.GET.get('type', 5))
+            type = int(request.GET.get('type', ShoppingCart.FLASHSALE))
         except:
-            type = ShoppingCart.BOUTIQUEBUY
+            type = ShoppingCart.FLASHSALE
         before = datetime.datetime.now() - datetime.timedelta(hours=28)
         customer = get_object_or_404(Customer, user=request.user)
         queryset = ShoppingCart.objects.filter(
