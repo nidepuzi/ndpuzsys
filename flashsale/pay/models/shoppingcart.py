@@ -52,6 +52,7 @@ class ShoppingCart(BaseModel):
 
     status = models.IntegerField(choices=STATUS_CHOICE, default=NORMAL,
                                  db_index=True, blank=True, verbose_name=u'订单状态')
+    FLASHSALE = 0
     TEAMBUY = 3
     SECONDBUY = 4
     BOUTIQUEBUY = 5
