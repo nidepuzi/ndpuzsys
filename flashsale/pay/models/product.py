@@ -246,9 +246,12 @@ class ModelProduct(BaseTagModel):
 
     @property
     def head_images(self):
-        # head_imgs = []
+        head_imgs = []
         # for product in self.productobj_list:
         #     head_imgs.append(product.PIC_PATH)
+        if self.title_imgs:
+            head_imgs = self.title_imgs.values()
+            return head_imgs
         return list(self.products.values_list('pic_path', flat=True))
 
     @property
