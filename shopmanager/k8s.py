@@ -135,8 +135,8 @@ WX_PUB_CERT_PEM_PATH = '/data/certs/wxpub.pem'
 WX_APPID = "wxa6e8010fa0b31eb3"
 WX_APPSECRET = "a894a72567440fa7317843d76dd7bf03"
 
-WX_MCHID = "" #受理商ID，身份标识
-WX_KEY   = "" #支付密钥
+WX_MCHID = "1461964902" #受理商ID，身份标识
+WX_KEY   = "wxpubdanlai201786788764237282186" #支付密钥
 
 WX_CERT_PEM_PATH = '/data/certs/wxapp.pem'
 WX_KEY_PEM_PATH  = '/data/certs/wxapp_key.pem'
