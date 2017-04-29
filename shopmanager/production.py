@@ -30,7 +30,7 @@ M_SITE_URL = 'https://m.nidepuzi.com'
 MYSQL_HOST = 'rm-uf632p729ho32369eo.mysql.rds.aliyuncs.com'
 MYSQL_AUTH = os.environ.get('MYSQL_AUTH')
 
-REDIS_HOST = '121.196.219.80:31838'
+REDIS_HOST = 'r-uf66d18cf4ce3a44.redis.rds.aliyuncs.com:6379'
 REDIS_AUTH = os.environ.get('REDIS_AUTH')
 
 
@@ -92,7 +92,7 @@ CACHES = {
 ##########################CELERY TASK##########################
 CLOSE_CELERY = False
 # CELERY_BROKER_URL = 'redis://:{0}@{1}:6379/9'.format(REDIS_AUTH, REDIS_HOST)
-CELERY_BROKER_URL = 'redis://:%s@121.196.219.80:31838/9' % REDIS_AUTH
+CELERY_BROKER_URL = 'redis://:{0}@{1}/9'.format(REDIS_AUTH, REDIS_HOST)
 CELERY_RESULT_BACKEND = 'django-db'
 
 ##########################SENTRY RAVEN##########################
