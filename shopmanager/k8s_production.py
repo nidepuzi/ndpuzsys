@@ -167,7 +167,6 @@ APPSECRET = '5d845250d49aea44c3a07d8c1d513db5'
 JD_APP_KEY = 'F9653439C316A32BF49DFFDE8381CBC9'
 JD_APP_SECRET = 'f4fe333676af4f4eaeaa00ed20c82086'
 
-
 ################### QINIU SETTINGS ##################
 # inherit from base
 
@@ -175,4 +174,10 @@ JD_APP_SECRET = 'f4fe333676af4f4eaeaa00ed20c82086'
 ALIYUN_APPCODE = '6dc0d0df019d4e83a704b434391e42b1'
 IDCARD_OCR_URL = 'https://dm-51.data.aliyun.com/rest/160601/ocr/ocr_idcard.json'
 
-
+######################## 蜂巢 CONFIG ########################
+FENGCHAO_SLYC_VENDOR_CODE  = 'SLYC_FC'  # 十里洋场vendor_code
+FENGCHAO_SLYC_CHANNEL_CODE = 'slyc' # 十里洋场的订单channel
+FENGCHAO_DEFAULT_CHANNEL_CODE = 'zdpz'
+FENGCHAO_API_GETWAY = 'https://api.fcgylapp.cn/omsapi'
+FENGCHAO_APPID  = 'fc936892-227d-403d-974d-ad6d7a02f829'
+FENGCHAO_SECRET = 'e475e2d6-5ab3-421e-a607-9768741cedc8'

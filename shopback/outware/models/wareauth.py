@@ -42,7 +42,7 @@ class OutwareAccount(BaseWareModel):
         key_pairs = '&'.join(sorted(['%s=%s'%(k, v) for k, v in dict_params.iteritems()]))
         if self.sign_method == 'md5':
             ow_sign = hashlib.md5(key_pairs + self.app_secret).hexdigest()
-            logger.info('你的铺子sign:%s'%ow_sign)
+            logger.info('小鹿sign:%s'%ow_sign)
             return ow_sign == sign
 
         return False

@@ -29,12 +29,11 @@ def create_order(order_code, store_code, order_type, dict_obj):
         raise Exception('缺少收货地址信息/商品SKU信息:order_no=%s'%order_code)
 
     action_code = constants.ACTION_ORDER_CREATE['code']
-    if order_type == constants.ORDER_TYPE_CROSSBOADER['code']:
+    if order_type == constants.SOURCE_TYPE_CROSSBOADER['code']:
         action_code = constants.ACTION_CROSSORDER_CREATE['code']
         if not all([dict_obj.declare_type,
                    dict_obj.order_person_idname,
                    dict_obj.order_person_idcard]):
-
             raise Exception('跨境订单需要传入报关方式以及用户身份信息:order_no=%s'%order_code)
     else:
         dict_obj.order_type = order_type
@@ -48,7 +47,7 @@ def create_order(order_code, store_code, order_type, dict_obj):
                     store_code=store_code,
                     union_order_code=order_code,
                     order_type=order_type,
-                    source_type=constants.ORDER_SALE['code'],
+                    order_source=constants.ORDER_SALE['code'],
                     extras={'data': dict(dict_obj)},
                     uni_key=OutwareOrder.generate_unikey(ware_account.id, order_code, order_type),
                 )

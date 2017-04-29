@@ -37,32 +37,30 @@ def push_outware_order_by_package(package):
         source_type_set.add(model_product.source_type)
 
     vendor_codes = OutwareSku.objects.filter(sku_code__in=sku_codes)\
-        .values_list('outware_supplier__vendor_code', flat=True)
+        .values_list('outware_supplier__vendor_code', flat=True).distinct()
     stocking_modes = SaleSupplier.objects.filter(vendor_code__in=vendor_codes).values_list('stocking_mode', flat=True)
     channel_maps = sdks.get_channelid_by_vendor_codes(vendor_codes)
     if not channel_maps or len(set(channel_maps.values())) > 1:
         raise Exception('同一订单只能有且只有一个channelid属性:packageorder=%s'%order_code)
 
+    order_channel = channel_maps.values()[0]
     if not source_type_set or len(source_type_set) > 1:
         raise Exception('商品对应货源来源类型不唯一：package: %s, source_types: [%s]'%(package.pid, ','.join(source_type_set)))
 
-    order_type = constants.ORDER_TYPE_USUAL['code']
+    order_type = constants.SOURCE_TYPE_USUAL['code']
     source_type = list(source_type_set)[0]
     if source_type == SaleProduct.SOURCE_BONDED:
-        order_type = constants.ORDER_TYPE_CROSSBOADER['code']
+        order_type = constants.SOURCE_TYPE_CROSSBOADER['code']
 
     if source_type == SaleProduct.SOURCE_OUTSIDE:
         raise Exception('直邮模式暂不支持: package=%s'% package.pid)
-
-    if source_type == SaleProduct.SOURCE_TTP and not any(stocking_modes) and len(set(vendor_codes)) > 1:
-        raise Exception('直发供应商之间不能混单: package=%s'% package.pid)
 
     params = {
         'order_number': '{}'.format(package.pid),
         'order_create_time': package_skus.order_by('pay_time').first().created.strftime('%Y-%m-%d %H:%M:%S'),
         'pay_time': package_skus.order_by('-pay_time').first().created.strftime('%Y-%m-%d %H:%M:%S'),
         # 'order_type': order_type, # TODO@MERON　跨境订单不需要此字段，默认不接口内条件补填
-        'channel_id': channel_maps.values()[0],
+        'channel_id': order_channel,
         'receiver_info': {
             'receiver_country': '中国',
             'receiver_province': address.receiver_state,
@@ -78,16 +76,21 @@ def push_outware_order_by_package(package):
         'object': 'OutwareOrder',
     }
     # TODO@MERON, 2017.4.19 ,跨境订单默认只支持保税报关方式
-    if order_type == constants.ORDER_TYPE_CROSSBOADER['code']:
+    if order_type == constants.SOURCE_TYPE_CROSSBOADER['code']:
         params['declare_type'] = constants.DECLARE_TYPE_BOUND['code']
         params['order_person_idname'] = address.receiver_name
         params['order_person_idcard'] = address.idcard_no
         # params['receiver_info']['receiver_identity']   = address.idcard_no
-        params['receiver_info']['receiver_identity']   = address.idcard_no
 
+    # 如果是十里洋场的订单, 需要添加　"vendor_to_customer":"1","vendor_code":"fengchao_slyc"
+    if sdks.if_is_slyc_vendor(vendor_codes):
+        params['vendor_to_customer'] = '1'
+        params['vendor_code'] = sdks.FENGCHAO_SLYC_VENDOR_CODE
 
-    # TODO#MENTION,处理直发供应订单,不同直发供应不能合单　直发条件(三方仓, 供应商直发，并且不能合单)
+    # TODO#MENTION,处理直发供应订单,不同直发供应商不能合单　直发条件(三方仓, 供应商直发，并且不能合单)
     elif source_type == SaleProduct.SOURCE_TTP and not any(stocking_modes):
+        if len(set(vendor_codes)) > 1:
+            raise Exception('直发供应商之间不能混单: package=%s' % package.pid)
         params['vendor_to_customer'] = '1'
         params['vendor_code'] = vendor_codes[0]
 
@@ -127,12 +130,13 @@ def push_outware_order_by_sale_trade(sale_trade):
     if not channel_maps or len(set(channel_maps.values())) > 1:
         raise Exception('同一订单只能有且只有一个channelid属性')
 
+    order_channel = channel_maps.values()[0]
     if not source_type_set or len(source_type_set) > 1:
         raise Exception('商品对应货源来源类型不唯一：trade: %s, source_types: [%s]' % (sale_trade.tid, ','.join(source_type_set)))
-    print 'source_type_set:', source_type_set
-    order_type = constants.ORDER_TYPE_USUAL['code']
+
+    order_type = constants.SOURCE_TYPE_USUAL['code']
     if list(source_type_set)[0] == SaleProduct.SOURCE_BONDED:
-        order_type = constants.ORDER_TYPE_CROSSBOADER['code']
+        order_type = constants.SOURCE_TYPE_CROSSBOADER['code']
 
     if list(source_type_set)[0] == SaleProduct.SOURCE_OUTSIDE:
         raise Exception('直邮模式暂不支持')
@@ -143,7 +147,7 @@ def push_outware_order_by_sale_trade(sale_trade):
         'order_create_time': sale_trade.created.strftime('%Y-%m-%d %H:%M:%S'),
         'pay_time': sale_trade.pay_time.strftime('%Y-%m-%d %H:%M:%S'),
         # 'order_type': order_type, # TODO@MERON　跨境订单不需要此字段，默认不接口内条件补填
-        'channel_id': channel_maps.values()[0],
+        'channel_id': order_channel,
         'receiver_info': {
             'receiver_country': '中国',
             'receiver_province': address.receiver_state,
@@ -161,11 +165,16 @@ def push_outware_order_by_sale_trade(sale_trade):
     }
 
     # TODO@MERON, 2017.4.19 ,跨境订单默认只支持保税报关方式
-    if order_type == constants.ORDER_TYPE_CROSSBOADER['code']:
+    if order_type == constants.SOURCE_TYPE_CROSSBOADER['code']:
         params['declare_type'] = constants.DECLARE_TYPE_BOUND['code']
         params['order_person_idname'] = address.receiver_name
         params['order_person_idcard'] = address.idcard_no
         # params['receiver_info']['receiver_identity']   = address.idcard_no
+
+    # 如果是十里洋场的订单, 需要添加　"vendor_to_customer":"1","vendor_code":"fengchao_slyc"
+    if sdks.if_is_slyc_vendor(order_channel):
+        params['vendor_to_customer'] = '1'
+        params['vendor_code'] = sdks.FENGCHAO_SLYC_VENDOR_CODE
 
     dict_obj = DictObject().fresh_form_data(params)
     response = oms.create_order(order_code, store_code, order_type, dict_obj)
