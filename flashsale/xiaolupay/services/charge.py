@@ -97,6 +97,7 @@ def create_credential(
 
             credential.update({
                 "timeStamp": '%s' % get_time_number(),
+                "appId": wxpay.app_id,
                 'package': 'prepay_id=%s' % resp['prepay_id']
             })
             sign_dict = {
