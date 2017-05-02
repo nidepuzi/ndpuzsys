@@ -125,8 +125,8 @@ WEIXIN_APPID = ''
 WX_PUB_APPID = "wxda1c561964d173cc"
 WX_PUB_APPSECRET = "a95e2ab3da3a1f8538b112ec96bf86d3"
 
-WX_PUB_MCHID = "" #受理商ID，身份标识
-WX_PUB_KEY   = "" #支付密钥
+WX_PUB_MCHID = "1461964902" #受理商ID，身份标识
+WX_PUB_KEY   = "wxpubdanlai201786788764237282186" #支付密钥
 
 WX_PUB_KEY_PEM_PATH = '/data/certs/wxpub_key.pem'
 WX_PUB_CERT_PEM_PATH = '/data/certs/wxpub.pem'
@@ -135,8 +135,8 @@ WX_PUB_CERT_PEM_PATH = '/data/certs/wxpub.pem'
 WX_APPID = "wxa6e8010fa0b31eb3"
 WX_APPSECRET = "a894a72567440fa7317843d76dd7bf03"
 
-WX_MCHID = "1461964902" #受理商ID，身份标识
-WX_KEY   = "wxpubdanlai201786788764237282186" #支付密钥
+WX_MCHID = "1466508202" #受理商ID，身份标识
+WX_KEY   = "wxdanlai201769jiyf78h3j9ekid78dh" #支付密钥
 
 WX_CERT_PEM_PATH = '/data/certs/wxapp.pem'
 WX_KEY_PEM_PATH  = '/data/certs/wxapp_key.pem'
