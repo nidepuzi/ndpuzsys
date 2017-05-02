@@ -459,6 +459,33 @@ class ModelProduct(BaseTagModel):
             'elite_score': product.elite_score
         }
 
+    def product_sku_simplejson(self, product, skus):
+        sku_list = []
+        sku = None
+        for sku in skus:
+            sku_list.append({
+                'type':'size',
+                'sku_id':sku.id,
+                'name':sku.size,
+                'free_num':sku.free_num,
+                'is_saleout': sku.free_num <= 0,
+                'std_sale_price':sku.std_sale_price,
+                'agent_price':sku.agent_price,
+            })
+        return {
+            'type':'color',
+            'product_id':product.id,
+            'name':sku and sku.color,
+            'product_img': product.pic_path,
+            'outer_id': product.outer_id,
+            'is_saleout': product.is_sale_out(),
+            'std_sale_price':product.std_sale_price,
+            'agent_price':product.agent_price,
+            'lowest_price': product.lowest_price(),
+            'sku_items': sku_list,
+            'elite_score': product.elite_score
+        }
+
     @property
     def detail_content(self):
         head_imgs = [i for i in self.head_imgs.split() if i.strip()]
