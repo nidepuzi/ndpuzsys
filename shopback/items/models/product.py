@@ -252,7 +252,13 @@ class Product(models.Model):
         return self.eskus.count() == 1
 
     def get_sale_category_id(self):
-        return 
+        return
+
+    def get_skus_by_color(self, color):
+        if color == self.properties_name:
+            return self.normal_skus
+        else:
+            return self.normal_skus.filter(properties_name__startswith=color)
 
     def get_product_link(self):
         return SaleProduct.objects.get(id=self.sale_product).product_link
@@ -357,7 +363,7 @@ class Product(models.Model):
     @property
     def property_name(self):
         keys = self.name.split('/')
-        return len(keys) > 1 and keys[1] or keys[0]
+        return len(keys) > 1 and keys[1] or u'统一规格'
 
     @property
     def stats(self):
@@ -512,9 +518,9 @@ class Product(models.Model):
     @cached_property
     def properties_name(self):
         try:
-            res = self.name.split('\\')[1]
+            res = self.name.split('/')[1]
         except:
-            res = self.name
+            res = u'统一规格'
         return res
 
     @property
@@ -1508,6 +1514,25 @@ class ProductSku(models.Model):
         })
         return model_dict
 
+    @cached_property
+    def color(self):
+        color = ''
+        if '|' in self.properties_name:
+            color, size = self.properties_name.split('|')
+        if color == '':
+            # return u'统一规格' 处理老商品properties_name表达颜色的情况
+            return self.product.properties_name
+        return color
+
+    @cached_property
+    def size(self):
+        size = self.properties_name
+        if '|' in self.properties_name:
+            color, size = self.properties_name.split('|')
+        if size == '':
+            return u'经典'
+        return size
+
     def update_quantity(self, num, full_update=False, dec_update=False):
         """ 更新规格库存 """
         if full_update:
@@ -1577,6 +1602,12 @@ class ProductSku(models.Model):
 
         self.update_quantity(real_update_num)
         self.update_reduce_num(real_reduct_num, full_update=True)
+
+        def update_model_product(self):
+            if self.model_id:
+                mp = self.get_product_model()
+                mp.set_lowest_price()
+                mp.save()
 
     @property
     def is_stock_warn(self):
@@ -1664,6 +1695,8 @@ class ProductSku(models.Model):
             'type': 'size',
             'id': self.id,
             'name': self.name,
+            'color': self.color,
+            'size': self.size,
             'free_num': self.free_num,
             'is_saleout': self.free_num <= 0,
             'std_sale_price': self.std_sale_price,

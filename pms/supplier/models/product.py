@@ -4,7 +4,7 @@ import time
 import hashlib
 from django.core.cache import cache
 from django.db import models, transaction
-from django.db.models import Sum
+from django.db.models import Sum, Q
 from django.db.models.signals import pre_save, post_save
 
 from core.models import BaseTagModel, BaseModel
@@ -305,6 +305,16 @@ class SaleProduct(BaseTagModel):
             self.outer_id = hashlib.md5(self.product_link).hexdigest()
         else:
             self.outer_id = 'OO%d' % time.time()
+        outer_base_num = 0
+        outer_base = self.outer_id
+        while SaleProduct.objects.filter(outer_id=self.outer_id, platform=self.platform).exists():
+            if '-' in self.outer_id:
+                outer_base = self.outer_id.split('-')[0]
+                try:
+                    outer_base_num = int(self.outer_id.split('-')[1])
+                except:
+                    outer_base_num = 0
+            self.outer_id = outer_base + '-' + str(outer_base_num + 1)
 
     @staticmethod
     def get_by_product(product):
@@ -336,7 +346,6 @@ class SaleProduct(BaseTagModel):
         sp.sale_category = product.category.get_sale_category()
         sp.save()
         SaleProductRelation.create(sale_product=sp, product=product)
-        # SaleProductRelation(sale_product=sp, product_id=product.id).save()
         return sp
 
     def delete(self):
@@ -454,3 +463,9 @@ class SaleProductRelation(BaseModel):
             product.sale_product = sale_product.id
             product.save()
         return
+
+    @staticmethod
+    def get_products(sale_product_ids):
+        from shopback.items.models import Product
+        product_ids = list(SaleProductRelation.objects.filter(sale_product_id__in=sale_product_ids).values_list('product_id', flat=True))
+        return Product.objects.filter(Q(sale_product__in=sale_product_ids) or Q(id__in=product_ids))

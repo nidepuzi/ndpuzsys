@@ -40,6 +40,7 @@ import perms
 from pms.supplier import serializers
 from pms.basic import fetch_urls
 from pms.supplier.constants import STOCKING_MODE_CHOICES
+from flashsale.pay.models import ModelProduct
 import logging
 
 logger = logging.getLogger(__name__)
@@ -434,10 +435,13 @@ class SaleProductViewSet(viewsets.ModelViewSet):
             raise exceptions.APIException(u'请先设置供应商所属仓库!')
         serializer = serializers.ModifySaleProductSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        self.set_instance_special_fields(serializer)
-        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        try:
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            self.set_instance_special_fields(serializer)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        except Exception, e:
+            raise exceptions.APIException(e.message)
 
     @list_route(methods=["post"])
     def batch_create(self,request, *args, **kwargs):
@@ -471,9 +475,12 @@ class SaleProductViewSet(viewsets.ModelViewSet):
     def new_create(self, request, *args, **kwargs):
         serializer = serializers.CreateSaleProductSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        sale_product = serializer.save(serializer.data, request.user)
-        serializer = serializers.SimpleSaleProductSerializer(sale_product)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        try:
+            sale_product = serializer.save(serializer.data, request.user)
+            serializer = serializers.SimpleSaleProductSerializer(sale_product)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except Exception, e:
+            raise exceptions.ValidationError(e.message)
 
     @detail_route(methods=['post'])
     def set_main_sale_product(self, request, *args, **kwargs):
@@ -681,7 +688,7 @@ class SaleScheduleDetailViewSet(viewsets.ModelViewSet):
             2. `design_complete`: 1 : 平面资料完成
     """
     queryset = SaleProductManageDetail.objects.all()
-    serializer_class = serializers.SaleProductManageDetailSerializer
+    serializer_class = serializers.ScheduleSaleProductSerializer
     authentication_classes = (authentication.SessionAuthentication, authentication.BasicAuthentication)
     # permission_classes = (permissions.IsAuthenticated, permissions.DjangoModelPermissions, permissions.IsAdminUser)
     permission_classes = (perms.IsAccessSaleManageDetail,)
@@ -747,16 +754,17 @@ class SaleScheduleDetailViewSet(viewsets.ModelViewSet):
     @parser_classes(JSONParser)
     @transaction.atomic()
     def create_manage_detail(self, request, schedule_id, *args, **kwargs):
-        sale_product_id = request.data.get('sale_product_id') or None
-        sale_products = SaleProduct.objects.filter(id__in=sale_product_id)
+        model_product_ids = request.data.get('model_product_id') or None
+        mps = ModelProduct.objects.filter(id__in=model_product_ids)
         details = SaleProductManageDetail.objects.filter(schedule_manage_id=schedule_id,
                                                          today_use_status=SaleProductManageDetail.NORMAL)
-        for sale_product in sale_products:
+        for modelproduct in mps:
             order_weight = details.count() + 1
-            modelproduct = sale_product.model_product
+            sale_product = modelproduct.sale_product
             request.data.update({
                 "schedule_manage": schedule_id,
                 "sale_product_id": sale_product.id,
+                "model_product_id": modelproduct.id,
                 "name": sale_product.title,
                 "today_use_status": SaleProductManageDetail.NORMAL,
                 "pic_path": sale_product.pic_url,

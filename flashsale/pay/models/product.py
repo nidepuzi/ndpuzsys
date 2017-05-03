@@ -11,6 +11,7 @@ from django.db.models import F, Sum, Avg
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.core.cache import cache
+from django.utils.functional import cached_property
 from django.forms.models import model_to_dict
 from common.utils import update_model_fields
 from core.fields import JSONCharMyField
@@ -199,10 +200,10 @@ class ModelProduct(BaseTagModel):
     is_flatten   = models.BooleanField(default=False, db_index=True, verbose_name=u'平铺显示')
     is_watermark = models.BooleanField(default=False, db_index=True, verbose_name=u'图片水印')
     is_boutique  = models.BooleanField(default=False, db_index=True, verbose_name=u'精品汇')
-
+    is_outside = models.BooleanField(default=False, db_index=True, verbose_name=u'海外直邮')
     teambuy_price = models.FloatField(default=0, verbose_name=u'团购价')
     teambuy_person_num = models.IntegerField(default=3, verbose_name=u'团购人数')
-
+    charger = models.CharField(default=None, max_length=32, db_index=True, blank=True, null=True, verbose_name=u'负责人')
     shelf_status = models.CharField(max_length=8, choices=SHELF_CHOICES,
                                     default=OFF_SHELF, db_index=True, verbose_name=u'上架状态')
     onshelf_time  = models.DateTimeField(default=None, blank=True, db_index=True, null=True, verbose_name=u'上架时间')
@@ -348,6 +349,56 @@ class ModelProduct(BaseTagModel):
         """ 商品属性 """
         return {}
 
+    def get_properties(self):
+        """
+        商品颜色尺码 支持老商品
+        返回{颜色:[尺码]}
+        识别规则：
+            对单product
+                1、SKU中含有|且分隔了两个字串 表示同时有颜色与尺码
+                2、SKU中含有|且分隔了一个字串 字串在前表达颜色，在后表达尺码
+                3、SKU中含有统一规格 表示没有多种规格
+                4、product中含有/颜色,表示颜色
+            对多product
+                4、从product的properties_name中获取颜色
+                5、从sku中|分隔后个字串获取尺码
+        """
+        UNIQ_COLOR = u'统一规格'
+        UNIQ_SIZE = u'经典'
+        res = {}
+        if self.products.count() == 1:
+            for sku in self.product.prod_skus.filter(status=ProductSku.NORMAL):
+                if '|' in sku.properties_name:
+                    color, size = sku.properties_name.split('|')
+                else:
+                    size = sku.properties_name
+                    color = self.product.properties_name
+                color = color or UNIQ_COLOR
+                if color not in res:
+                    res[color] = []
+                size = size or UNIQ_SIZE
+                if not size in res[color]:
+                    res[color].append(size)
+        else:
+            for p in self.products.all():
+                color = p.properties_name
+                for sku in p.prod_skus.filter(status=ProductSku.NORMAL):
+                    if '|' in sku.properties_name:
+                        _color, size = sku.properties_name.split('|')
+                    else:
+                        size = sku.properties_name
+                        _color = self.product.properties_name
+                    if _color and color == UNIQ_COLOR:
+                        color = _color
+                    if color not in res:
+                        res[color] = []
+                    size = size or UNIQ_SIZE
+                    if not size in res[color]:
+                        res[color].append(size)
+        if not res:
+            res = {UNIQ_COLOR: UNIQ_SIZE}
+        return res
+
     @property
     def attributes(self):
         new_properties = self.extras.get('new_properties')
@@ -383,6 +434,10 @@ class ModelProduct(BaseTagModel):
     def products(self):
         return Product.objects.filter(model_id=self.id, status=pcfg.NORMAL)
 
+    @cached_property
+    def product(self):
+        return Product.objects.filter(model_id=self.id, status=pcfg.NORMAL).first()
+
     @property
     def productobj_list(self):
         if not hasattr(self, '_productobj_list_'):
@@ -401,6 +456,12 @@ class ModelProduct(BaseTagModel):
         res = {p.properties_name: p.pic_path for p in self.products}
         return res
 
+    def set_lowest_price(self):
+        product_ids = self.products.values_list('id', flat=True)
+        skus = ProductSku.objects.filter(product_id__in=product_ids)
+        self.lowest_agent_price = min([sku.agent_price for sku in skus])
+        self.lowest_std_sale_price = min([sku.std_sale_price for sku in skus])
+
     def set_title_imgs_values(self, respective_imgs=None):
         if respective_imgs:
             self.title_imgs = respective_imgs
@@ -408,12 +469,24 @@ class ModelProduct(BaseTagModel):
             self.title_imgs = {p.properties_name: p.pic_path for p in self.products}
 
     def set_title_imgs_key(self):
+        colors = self.get_properties().keys()
+        initial_imgs_dict = dict(zip(colors, [''] * len(colors)))
+        if not self.title_imgs:
+            self.title_imgs = initial_imgs_dict
+        else:
+            for color in colors:
+                self.title_imgs[color] = self.title_imgs.get(color, '')
+
+    def set_title_imgs_key_bak(self):
         # title_imgs同时支持了颜色放在Product(每颜色一种)上和颜色放在ProductSku上的情况。
         # 一般使用颜色或规格名为key，如果该名为空，则使用img为key
         if len(self.products) == 0:
             return
         elif len(self.products) > 1:
-            keys = list(self.products.values_list('properties_name',flat=True).distinct())
+            keys = [pro.property_name for pro in self.products.all()]
+            keys = list(set(keys))
+            if None in keys:
+                keys.remove(None)
         else:
             product_ids = [pro.id for pro in self.products]
             properties_names = list(ProductSku.objects.filter(product_id__in=product_ids).values_list('properties_name',flat=True).distinct())
@@ -522,6 +595,15 @@ class ModelProduct(BaseTagModel):
         for p in self.productobj_list:
             product_list.append(self.product_simplejson(p))
         return product_list
+        if self.products.count() > 1:
+            for p in self.productobj_list:
+                product_list.append(self.product_simplejson(p))
+            return product_list
+        else:
+            for color in self.get_properties():
+                skus = self.product.get_skus_by_color(color)
+                product_list.append(self.product_sku_simplejson(self.product, skus))
+            return product_list
 
     def set_boutique_coupon(self):
         if self.extras.get('template_id'):
@@ -802,6 +884,8 @@ class ModelProduct(BaseTagModel):
         from pms.supplier.models import SaleProduct
         self.extras.setdefault('sources', {'source_type': SaleProduct.SOURCE_SELF})
         self.extras['sources']['source_type'] = source_type
+        if 'saleinfos' not in self.extras:
+            self.extras['saleinfos'] = {}
         self.extras['saleinfos']['is_bonded_goods'] = \
             source_type in (SaleProduct.SOURCE_BONDED, SaleProduct.SOURCE_OUTSIDE)
 
@@ -947,6 +1031,7 @@ class ModelProduct(BaseTagModel):
             'comparison': self.comparison,
             'detail_content': self.detail_content,
             'source_type': self.source_type,
+            'product_type': self.product_type,
         })
         return APIModel(**data)
 
@@ -969,9 +1054,46 @@ class ModelProduct(BaseTagModel):
             return is_coupon_deny
         return False
 
+    @cached_property
+    def sale_product(self):
+        sp = self.product.get_sale_product()
+        if not sp:
+            l = self.products.values_list('sale_product', flat=True).distinct()
+            l = list(set(l))
+            if 0 in l:
+                l.remove(0)
+            if l:
+                from pms.supplier.models import SaleProduct
+                sp = SaleProduct.objects.get(id=l[0])
+            else:
+                from pms.supplier.models.product import SaleProductRelation
+                spr = SaleProductRelation.objects.filter(product_id__in=[p.id for p in self.products]).first()
+                if spr:
+                    sp = spr.sale_product
+            return sp
+        else:
+            return sp
+
+    @cached_property
+    def sale_product_figures(self):
+        from statistics.models import ModelStats
+        return ModelStats.objects.filter(model_id=self.id).first()
+
+    @cached_property
+    def total_sale_product_figures(self):
+        """ 选品总销售额退货率计算 """
+        from statistics.models import ModelStats
+        stats = ModelStats.objects.filter(sale_product=self.id)
+        agg = stats.aggregate(s_p=Sum('pay_num'), s_rg=Sum('return_good_num'), s_pm=Sum('payment'))
+        p_n = agg['s_p']
+        rg = agg['s_rg']
+        payment = agg['s_pm']
+        rat = round(float(rg) / p_n, 4) if p_n > 0 else 0
+        return {'total_pay_num': p_n, 'total_rg_rate': rat, 'total_payment': payment}
+
     @staticmethod
     def create(product, extras=extras, is_onsale=False, is_teambuy=False, is_recommend=False,
-               is_topic=False, is_flatten=False, is_boutique=False):
+               is_topic=False, is_flatten=False, is_boutique=False, is_outside=False):
         """
         :param product:
         :param extras:
@@ -1000,6 +1122,7 @@ class ModelProduct(BaseTagModel):
             model_product.extras = default_modelproduct_extras_tpl()
         else:
             model_product.extras = extras
+        model_product.set_lowest_price()
         model_product.save()
         product.model_id = model_product.id
         product.save()
@@ -1010,6 +1133,26 @@ class ModelProduct(BaseTagModel):
         model_product.save()
         model_product.set_sale_product()
         return model_product
+
+    @staticmethod
+    def get_by_supplier(supplier_id):
+        from pms.supplier.models import SaleProduct, SaleSupplier
+        from pms.supplier.models.product import SaleProductRelation
+        sale_supplier = SaleSupplier.objects.get(id=supplier_id)
+        spids = list(sale_supplier.supplier_products.values_list('id', flat=True))
+        product_ids = list(SaleProductRelation.get_products(spids).values_list('id', flat=True))
+        model_product_ids = Product.objects.filter(id__in=product_ids).values_list('model_id', flat=True)
+        return ModelProduct.objects.filter(id__in=model_product_ids)
+
+    @staticmethod
+    def get_by_suppliers(supplier_ids):
+        from pms.supplier.models import SaleProduct, SaleSupplier
+        from pms.supplier.models.product import SaleProductRelation
+        spids = list(SaleProduct.objects.filter(sale_supplier_id__in=supplier_ids).values_list('id', flat=True))
+        product_ids = list(SaleProductRelation.get_products(spids).values_list('id', flat=True))
+        model_product_ids = Product.objects.filter(id__in=product_ids).values_list('model_id', flat=True)
+        return ModelProduct.objects.filter(id__in=model_product_ids)
+
 
 def invalid_apimodelproduct_cache(sender, instance, *args, **kwargs):
     if hasattr(sender, 'API_CACHE_KEY_TPL'):

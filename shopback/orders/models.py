@@ -298,7 +298,7 @@ class Order(models.Model):
                 if not sku:
                     sku = ProductSku.objects.filter(product__outer_id=self.outer_id, outer_id=self.outer_id + self.outer_sku_id).first()
                 self._sku_ = sku
-        return self._sku_
+        return self._sku_f
 
     @property
     def product(self):

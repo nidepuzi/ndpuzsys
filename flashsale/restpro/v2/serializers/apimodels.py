@@ -30,6 +30,31 @@ class APISKUSerializer(serializers.Serializer):
     def get_agent_price(self, obj):
         return obj.agent_price
 
+class APISKU2Serializer(serializers.Serializer):
+    sku_id = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
+    name = serializers.SerializerMethodField()
+    std_sale_price = serializers.SerializerMethodField()
+    agent_price = serializers.SerializerMethodField()
+
+    class Meta:
+        fields = ('type', 'sku_id', 'name', 'free_num', 'is_saleout', 'std_sale_price', 'agent_price')
+
+    def get_sku_id(self, obj):
+        return obj.id
+
+    def get_type(self, obj):
+        return obj.type
+
+    def get_name(self, obj):
+        return obj.size
+
+    def get_std_sale_price(self, obj):
+        return obj.std_sale_price
+
+    def get_agent_price(self, obj):
+        return obj.agent_price
+
 
 class APIProductSerializer(serializers.Serializer):
     sku_items = serializers.SerializerMethodField()
@@ -106,7 +131,7 @@ class APIModelProductSerializer(serializers.Serializer):
     def get_extras(self, obj):
         return obj.extras.get('saleinfos', {})
 
-    def get_sku_info(self, obj):
+    def get_sku_info_bak(self, obj):
         data = APIProductSerializer(obj.get_products(), many=True).data
         sku_ids = [sku['sku_id'] for product in data for sku in product['sku_items']]
         from apis.v1.products import SkustatCtl
@@ -124,6 +149,43 @@ class APIModelProductSerializer(serializers.Serializer):
 
         obj.detail_content['is_sale_out'] = model_saleout
         return data
+
+    def get_sku_info(self, obj):
+        if obj.product_type == 1:
+            return self.get_sku_info_bak(obj)
+        from apis.v1.products import SkustatCtl
+        res = []
+        product_dict = obj.get_divide_products()
+        sku_dict = obj.get_divide_skus()
+        model_saleout = True
+        for color in sku_dict:
+            sku_items = sku_dict[color]
+            sku_ids = [sku.id for sku in sku_items]
+            product = product_dict[color]
+            stats = SkustatCtl.multiple(sku_ids)
+            stat_map = {stat.id: stat for stat in stats}
+            item = {
+                'sku_items': APISKU2Serializer(sku_items, many=True).data,
+                'product_id': product.id,
+                'type': product.type,
+                'name': sku.color,
+                'product_img': obj.title_imgs.get(color, product.product_img),
+                'outer_id': product.outer_id,
+                'std_sale_price': product.std_sale_price,
+                'agent_price': product.agent_price,
+                'lowest_price': product.lowest_price,
+                'elite_score': product.elite_score,
+            }
+            item['is_saleout'] = True
+            for sku in item['sku_items']:
+                stat = stat_map[sku['sku_id']]
+                sku['free_num'] = stat.get_free_num()
+                sku['is_saleout'] = stat.get_free_num() <= 0
+                item['is_saleout'] &= sku['is_saleout']
+            model_saleout &= item['is_saleout']
+            res.append(item)
+        obj.detail_content['is_sale_out'] = model_saleout
+        return res
 
     def get_custom_info(self, obj):
         request = self.context['request']
