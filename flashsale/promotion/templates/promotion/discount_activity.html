@@ -266,7 +266,7 @@ $(document).ready(function(){
         if (os == 'iOS'){
             setupWebViewJavascriptBridge(function(bridge) {
                 bridge.callHandler('callNativeLoginActivity',
-					{'pageUrl':'http://m.xiaolumeimei.com/sale/promotion/activity/'},
+					{'pageUrl':'http://m.nidepuzi.com/sale/promotion/activity/'},
 					function(response) {
 						alert('sn code:' + response);
 					}
@@ -274,7 +274,7 @@ $(document).ready(function(){
             })
         }else{
             if (window.AndroidBridge) {
-                var data = window.AndroidBridge.callNativeLoginActivity('http://m.xiaolumeimei.com/sale/promotion/activity/');
+                var data = window.AndroidBridge.callNativeLoginActivity('http://m.nidepuzi.com/sale/promotion/activity/');
                 alert('sn code:' + data);
             }
         }

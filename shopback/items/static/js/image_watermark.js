@@ -10,7 +10,7 @@ $(function(){
         container: 'container',
         uptoken_url: '/mm/qiniu/?format=json',
         flash_swf_url: 'js/plupload/Moxie.swf',
-        domain: 'http://img.xiaolumeimei.com',
+        domain: 'http://img.nidepuzi.com',
         max_retires: 3,
         auto_start: true,
         unique_names: true,

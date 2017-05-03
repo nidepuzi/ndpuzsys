@@ -29,7 +29,7 @@ $(document).ready(function () {
     console.log('link', mm_linkid_for_shop);
     if (mm_linkid_for_shop == null) {
         drawToast('店铺信息有误建议去逛逛首页吧～');
-        window.location = 'http://m.xiaolumeimei.com/index.html';
+        window.location = 'http://m.nidepuzi.com/index.html';
         return
     }
     get_mama_shop_info();
