@@ -5,7 +5,7 @@ logger = logging.getLogger(__name__)
 
 
 def kd100_subscription(company, number,query_url = "http://poll.kuaidi100.com/poll",
-                        key='ZIBQxfAP7615',callbackurl="http://admin.nidepuzi.com/rest/v1/wuliu/push_wuliu_data"):
+                        key='adVbDyki3998',callbackurl="http://admin.nidepuzi.com/rest/v1/wuliu/push_wuliu_data"):
     company = str(company)
     number = str(number)
 

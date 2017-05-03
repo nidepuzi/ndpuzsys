@@ -30,7 +30,7 @@ def get_md5_value(src):
 
 
 def kd100_instant_query(company, number,query_url = "http://poll.kuaidi100.com/poll/query.do",
-                        key='ZIBQxfAP7615',customer="8C36E8E2B13783B6F08187AA24D86DBD"):
+                        key='adVbDyki3998',customer="1B27E01D13D70D48A48507CDA0DD8FDC"):
     company = str(company).strip()
     number = str(number).strip()
     param = '{"com":"%s","num":"%s","from":"","to":""}' %(company,number)
