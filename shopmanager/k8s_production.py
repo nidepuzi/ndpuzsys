@@ -130,7 +130,7 @@ WEAPP_CERT_PEM_PATH = '/data/certs/weapp.pem'
 WEAPP_KEY_PEM_PATH  = '/data/certs/weapp_key.pem'
 
 ################### ALIPAY SETTINGS ##################
-ALIPAY_MCHID     = ''
+ALIPAY_MCHID     = '2088621767170676'
 ALIAPY_APPID     = '2017042206893641'
 
 ALIPAY_GATEWAY_URL = 'https://openapi.alipay.com/gateway.do'
