@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	var baseurl = 'http://staging.xiaolumeimei.com';
+	var baseurl = 'http://staging.nidepuzi.com';
 	// var baseurl = 'http://192.168.10.74:8000';
 	var $top = $('.act-0405-3-top')[0];
 	var screenWidth = document.body.clientWidth;

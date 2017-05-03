@@ -195,7 +195,7 @@ QINIU_SECRET_KEY = "8MkzPO_X7KhYQjINrnxsJ2eq5bsxKU1XmE8oMi4x"
 QINIU_PRIVATE_BUCKET = 'invoiceroom'
 QINIU_PRIVATE_DOMAIN = '7xrpt3.com2.z0.glb.qiniucdn.com'
 QINIU_PUBLIC_BUCKET = 'xiaolumm'
-QINIU_PUBLIC_DOMAIN = 'img.xiaolumeimei.com'
+QINIU_PUBLIC_DOMAIN = 'img.nidepuzi.com'
 
 ############### REMOTE MEDIA STORAGE ################
 QINIU_BUCKET_NAME   = 'mediaroom'
