@@ -506,14 +506,10 @@ def task_update_ordercarry(mama_id, order, customer_pk, carry_amount, agency_lev
 def task_referal_update_awardcarry(relationship):
     # print "%s, mama_id: %s" % (get_cur_info(), relationship.referal_from_mama_id)
 
-    if relationship.referal_type == XiaoluMama.ELITE:
-        return
-
     from_mama_id = relationship.referal_from_mama_id
     to_mama_id = relationship.referal_to_mama_id
     carry_type = 1  # 直接推荐
 
-    # uni_key = util_unikey.gen_awardcarry_unikey(from_mama_id, to_mama_id)
     uni_key = AwardCarry.gen_uni_key(to_mama_id, carry_type)
 
     rr_cnt = ReferalRelationship.objects.filter(referal_from_mama_id=from_mama_id,
@@ -521,7 +517,8 @@ def task_referal_update_awardcarry(relationship):
         referal_to_mama_id=to_mama_id).count()
     rr_cnt += 1
 
-    carry_num = utils.get_award_carry_num(rr_cnt, relationship.referal_type)
+    # carry_num = utils.get_award_carry_num(rr_cnt, relationship.referal_type)
+    carry_num = 10000
 
     status = 1
     carry_description = u'加入正式会员，奖金就会确认哦！'
@@ -529,9 +526,6 @@ def task_referal_update_awardcarry(relationship):
     if relationship.is_confirmed():
         status = 2  # confirmed
         carry_description = util_description.get_awardcarry_description(carry_type)
-    else:
-        # 20161229 delete试用3的邀请奖励预计收益，只有正式的才有
-        return
 
     award_carry = AwardCarry.objects.filter(uni_key=uni_key).first()
     if award_carry:
@@ -539,21 +533,12 @@ def task_referal_update_awardcarry(relationship):
         logmsg = 'mama_id:%s->%s|carry_num:%s->%s|status:%s->%s' % (
             award_carry.mama_id, from_mama_id, award_carry.carry_num, carry_num, award_carry.status, status)
         update_fields = []
-        if award_carry.mama_id != from_mama_id:
-            award_carry.mama_id = from_mama_id
-            update_fields.append('mama_id')
-        if award_carry.carry_num != carry_num:
-            award_carry.carry_num = carry_num
-            update_fields.append('carry_num')
         if award_carry.status != status:
             award_carry.status = status
             update_fields.append('status')
             if status == 2:
                 award_carry.date_field = datetime.date.today()
                 update_fields.append('date_field')
-        if award_carry.carry_description != carry_description:
-            award_carry.carry_description = carry_description
-            update_fields.append('carry_description')
         if update_fields:
             update_fields.append('modified')
             award_carry.save(update_fields=update_fields)
@@ -571,6 +556,53 @@ def task_referal_update_awardcarry(relationship):
                                  date_field=date_field, uni_key=uni_key, status=status)
         award_carry.save()
 
+    second_r = ReferalRelationship.objects.filter(referal_to_mama_id=from_mama_id).first()
+    if second_r:
+        second_from_mama_id = second_r.referal_from_mama_id
+        if second_from_mama_id:
+            level_2_mama = XiaoluMama.objects.filter(id=second_from_mama_id).first()
+    if not level_2_mama:
+        return
+    carry_type = 12  # jian接推荐
+
+    uni_key = AwardCarry.gen_uni_key(from_mama_id, carry_type)
+    carry_num = 2500
+
+    status = 1
+    carry_description = u'加入正式会员，奖金就会确认哦！'
+
+    if second_r.is_confirmed():
+        status = 2  # confirmed
+        carry_description = util_description.get_awardcarry_description(carry_type)
+
+    second_award_carry = AwardCarry.objects.filter(uni_key=uni_key).first()
+    if second_award_carry:
+        from core.options import log_action, CHANGE, get_systemoa_user
+        logmsg = 'mama_id:%s->%s|carry_num:%s->%s|status:%s->%s' % (
+            second_award_carry.mama_id, second_from_mama_id, second_award_carry.carry_num, carry_num, second_award_carry.status, status)
+        update_fields = []
+        if award_carry.status != status:
+            award_carry.status = status
+            update_fields.append('status')
+            if status == 2:
+                award_carry.date_field = datetime.date.today()
+                update_fields.append('date_field')
+        if update_fields:
+            update_fields.append('modified')
+            award_carry.save(update_fields=update_fields)
+            sys_oa = get_systemoa_user()
+            log_action(sys_oa, award_carry, CHANGE, logmsg)
+        return
+
+    if not award_carry:
+        date_field = relationship.created.date()
+        award_carry = AwardCarry(mama_id=second_r.referal_from_mama_id, carry_num=carry_num, carry_type=carry_type,
+                                 carry_description=carry_description,
+                                 contributor_nick=second_r.referal_to_mama_nick,
+                                 contributor_img=second_r.referal_to_mama_img,
+                                 contributor_mama_id=second_r.referal_to_mama_id,
+                                 date_field=date_field, uni_key=uni_key, status=status)
+        award_carry.save()
 
 @app.task()
 def task_update_group_awardcarry(relationship):

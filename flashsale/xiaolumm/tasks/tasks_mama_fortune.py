@@ -138,14 +138,14 @@ def task_update_mamafortune_mama_level(relationship):
     total = invite_num + group_num + 1
 
     level = 0
-    if invite_num >= 15 or total >= 50:
-        level = 1
-    if total >= 200:
-        level = 2
-    if total >= 500:
-        level = 3
-    if total >= 1000:
-        level = 4
+    # if invite_num >= 15 or total >= 50:
+    #     level = 1
+    # if total >= 200:
+    #     level = 2
+    # if total >= 500:
+    #     level = 3
+    # if total >= 1000:
+    #     level = 4
 
     mama = MamaFortune.objects.filter(mama_id=from_mama_id).first()
     if mama:
