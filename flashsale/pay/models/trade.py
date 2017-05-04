@@ -916,7 +916,10 @@ def buy_boutique_register_product(sender, obj, **kwargs):
         saleorders = saletrade.sale_orders.all()
         for order in saleorders:
             model_id = order.item_product.model_id
-            if model_id == 20 or model_id == 94:  # 新人礼包
+            if (model_id == 20 or model_id == 94) and (saletrade.status in [SaleTrade.WAIT_SELLER_SEND_GOODS,
+                                                                            SaleTrade.WAIT_BUYER_CONFIRM_GOODS,
+                                                                            SaleTrade.TRADE_BUYER_SIGNED,
+                                                                            SaleTrade.TRADE_FINISHED]):  # 新人礼包
                 with transaction.atomic():
                     do(customer, order)
                     break
