@@ -754,9 +754,10 @@ class AwardCarry(BaseModel):
     AWARD_MAMA_SALE = 9
     AWARD_GROUP_SALE = 10
     AWARD_INVITE_FANS = 11
+    AWARD_INDIRECT_INVITE = 12
     AWARD_TYPES = ((1, u'直荐奖励'),(2, u'团队推荐奖励'),(3, u'授课奖金'),(4, u'新手任务'),
                    (5, u'首单奖励'),(6, u'推荐新手任务'),(7, u'一元邀请'),(8, u'关注公众号'),
-                   (9, u'销售奖励'),(10, u'团队销售奖励') , (11, u'粉丝邀请'))
+                   (9, u'销售奖励'),(10, u'团队销售奖励'),(11, u'粉丝邀请'),(12, u'间接推荐奖励'))
     STAGING = 1
     CONFIRMED = 2
     CANCEL = 3
@@ -1246,26 +1247,26 @@ class ReferalRelationship(BaseModel):
         return False
 
 
-def referalrelationship_xlmm_newtask(sender, instance, **kwargs):
-    """
-    检测新手任务：发展第一个代理　
-    """
-    from flashsale.xiaolumm.tasks import task_push_new_mama_task
-    from flashsale.xiaolumm.models.new_mama_task import NewMamaTask
-    from flashsale.xiaolumm.models.models import PotentialMama, XiaoluMama
-
-    referal_relationship = instance
-    xlmm_id = referal_relationship.referal_from_mama_id
-    xlmm = XiaoluMama.objects.filter(id=xlmm_id).first()
-
-    item = PotentialMama.objects.filter(referal_mama=xlmm_id).exists() or \
-        ReferalRelationship.objects.filter(referal_from_mama_id=xlmm_id).exists()
-
-    if not item:
-        task_push_new_mama_task.delay(xlmm, NewMamaTask.TASK_FIRST_MAMA_RECOMMEND)
-
-pre_save.connect(referalrelationship_xlmm_newtask,
-                 sender=ReferalRelationship, dispatch_uid='pre_save_referalrelationship_xlmm_newtask')
+# def referalrelationship_xlmm_newtask(sender, instance, **kwargs):
+#     """
+#     检测新手任务：发展第一个代理　
+#     """
+#     from flashsale.xiaolumm.tasks import task_push_new_mama_task
+#     from flashsale.xiaolumm.models.new_mama_task import NewMamaTask
+#     from flashsale.xiaolumm.models.models import PotentialMama, XiaoluMama
+#
+#     referal_relationship = instance
+#     xlmm_id = referal_relationship.referal_from_mama_id
+#     xlmm = XiaoluMama.objects.filter(id=xlmm_id).first()
+#
+#     item = PotentialMama.objects.filter(referal_mama=xlmm_id).exists() or \
+#         ReferalRelationship.objects.filter(referal_from_mama_id=xlmm_id).exists()
+#
+#     if not item:
+#         task_push_new_mama_task.delay(xlmm, NewMamaTask.TASK_FIRST_MAMA_RECOMMEND)
+#
+# pre_save.connect(referalrelationship_xlmm_newtask,
+#                  sender=ReferalRelationship, dispatch_uid='pre_save_referalrelationship_xlmm_newtask')
 
 
 def update_mamafortune_invite_num(sender, instance, created, **kwargs):
@@ -1346,13 +1347,13 @@ post_save.connect(update_referal_awardcarry,
                   sender=ReferalRelationship, dispatch_uid='post_save_update_referal_awardcarry')
 
 
-def update_group_awardcarry(sender, instance, created, **kwargs):
-    if instance.created.date() > MAMA_FORTUNE_HISTORY_LAST_DAY:
-        from flashsale.xiaolumm.tasks import task_update_group_awardcarry
-        task_update_group_awardcarry.delay(instance)
-
-post_save.connect(update_group_awardcarry,
-                  sender=ReferalRelationship, dispatch_uid='post_save_update_group_awardcarry')
+# def update_group_awardcarry(sender, instance, created, **kwargs):
+#     if instance.created.date() > MAMA_FORTUNE_HISTORY_LAST_DAY:
+#         from flashsale.xiaolumm.tasks import task_update_group_awardcarry
+#         task_update_group_awardcarry.delay(instance)
+#
+# post_save.connect(update_group_awardcarry,
+#                   sender=ReferalRelationship, dispatch_uid='post_save_update_group_awardcarry')
 
 
 class GroupRelationship(BaseModel):

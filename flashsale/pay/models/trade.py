@@ -878,61 +878,6 @@ def update_customer_first_paytime(sender, obj, **kwargs):
 signal_saletrade_pay_confirm.connect(update_customer_first_paytime, sender=SaleTrade)
 
 
-def do_buy_xiaolucoin_365(saleorder):
-    """
-    新人充值365，得到365你的铺子币，100个积分。
-
-    此函数功能:推荐人得到30积分，推荐人上级得到10个积分。
-    """
-    from flashsale.coupon.apis.v1.transfer import create_new_elite_mama
-    from flashsale.coupon.apis.v1.transfer import create_present_elite_score
-    from flashsale.coupon.apis.v1.coupontemplate import get_coupon_template_by_id
-    from flashsale.xiaolumm.tasks.tasks_mama_push import task_weixin_push_mama_invite_award
-    from flashsale.xiaolumm.models import XiaoluMama
-
-    customer_id = saleorder.buyer_id
-    customer = Customer.objects.filter(id=customer_id).first()
-    mama = customer.get_xiaolumm()
-
-    # 购买的妈妈已经是一个精英妈妈了，那么就不用创建推荐关系了
-    if mama and mama.last_renew_type >= XiaoluMama.ELITE and mama.charge_status == XiaoluMama.CHARGED \
-            and mama.status == XiaoluMama.EFFECT:
-        return
-    if (not mama) and customer.unionid:
-        # 是微信登录的就创建你的铺子妈妈账号，用手机号登录的那只能找管理员了
-        mama = XiaoluMama.objects.create(
-            mobile=customer.mobile,
-            progress=XiaoluMama.PROFILE,
-            openid=customer.unionid,
-            last_renew_type=XiaoluMama.SCAN,
-        )
-    if not mama:
-        return
-
-    # 生成推荐关系
-    create_new_elite_mama(customer, mama, saleorder)
-
-    # 给一级推荐人30积分
-    level_1_mama = mama.get_referal_from_mama()
-    if not level_1_mama:
-        logger.error(u'do_buy_xiaolucoin_365 {}没有一级推荐人'.format(mama.id))
-        return
-
-    level_1_customer = level_1_mama.get_mama_customer()
-    template = get_coupon_template_by_id(id=374)
-    create_present_elite_score(level_1_customer, 30, template, '')
-    task_weixin_push_mama_invite_award.delay(level_1_mama, customer, '30积分')
-
-    # 二级推荐人10积分
-    level_2_mama = level_1_mama.get_referal_from_mama()
-    if (not level_2_mama) or level_1_mama.referal_from == XiaoluMama.DIRECT:
-        return
-
-    level_2_customer = level_2_mama.get_mama_customer()
-    create_present_elite_score(level_2_customer, 10, template, '')
-    task_weixin_push_mama_invite_award.delay(level_2_mama, customer, '10积分', level_1_customer=level_1_customer)
-
-
 def buy_boutique_register_product(sender, obj, **kwargs):
     """
     购买你的铺子全球精品会员注册礼包
@@ -941,31 +886,8 @@ def buy_boutique_register_product(sender, obj, **kwargs):
     from flashsale.coupon.apis.v1.transfer import create_present_elite_score
     from flashsale.coupon.apis.v1.coupontemplate import get_coupon_template_by_id
     from flashsale.pay.models import Envelop
-    from shopapp.weixin.models import WeixinUnionID
-    from flashsale.xiaolumm.models.elite_mama import EliteMamaAwardLog
     from flashsale.xiaolumm.tasks.tasks_mama_push import task_weixin_push_mama_invite_award
     from flashsale.xiaolumm.models import XiaoluMama
-
-    def create_envelop(customer, flow_amount, subject=None, referal_id='',
-                       buy_mama_id=None, level_1_mama=None, level_2_mama=None):
-        if level_2_mama:
-            desc = u'购买人{} - 1级推荐人{},积分{} - 2级推荐人{},积分{}'.format(buy_mama_id, level_1_mama.id, level_1_mama.elite_score, level_2_mama.id, level_2_mama.elite_score)
-        else:
-            desc = u'购买人{} - 1级推荐人{},积分{} - 2级推荐人无'.format(buy_mama_id, level_1_mama.id, level_1_mama.elite_score)
-
-        wx_union = WeixinUnionID.objects.get(app_key=settings.WX_PUB_APPID, unionid=customer.unionid)
-        recipient = wx_union.openid
-        body = u'你的铺子全球精品会员注册礼包'
-        Envelop.objects.create(
-            amount=flow_amount,
-            platform=Envelop.WXPUB,
-            recipient=recipient,
-            subject=subject,
-            body=body,
-            receiver=customer.mobile,
-            description=desc,
-            referal_id=referal_id
-        )
 
     def do(customer, saleorder):
         mama = customer.get_xiaolumm()
@@ -980,7 +902,7 @@ def buy_boutique_register_product(sender, obj, **kwargs):
                 mobile=customer.mobile,
                 progress=XiaoluMama.PROFILE,
                 openid=customer.unionid,
-                last_renew_type=XiaoluMama.SCAN,
+                last_renew_type=XiaoluMama.TRIAL,
             )
         if not mama:
             return
@@ -988,51 +910,13 @@ def buy_boutique_register_product(sender, obj, **kwargs):
         # 生成推荐关系
         create_new_elite_mama(customer, mama, saleorder)
 
-        # 给一级推荐人5积分,30红包
-        level_1_mama = mama.get_referal_from_mama()
-        if not level_1_mama:
-            logger.error(u'{}没有一级推荐人'.format(mama.id))
-            return
-
-        level_2_mama = level_1_mama.get_referal_from_mama()
-        level_1_customer = level_1_mama.get_mama_customer()
-        elite_score = 5
-        template = get_coupon_template_by_id(id=374)
-        create_present_elite_score(level_1_customer, elite_score, template, '')
-        create_envelop(level_1_customer, 3000, subject=Envelop.LEVEL_1, referal_id=saleorder.oid,
-                       buy_mama_id=mama.id, level_1_mama=level_1_mama, level_2_mama=level_2_mama)
-        task_weixin_push_mama_invite_award.delay(level_1_mama, customer, 30)
-
-        # 二级推荐人积分>=30,发10元红包
-        if (not level_2_mama) or level_1_mama.referal_from == XiaoluMama.DIRECT:
-            return
-
-        if level_2_mama.elite_score >= 30:
-            level_2_customer = level_2_mama.get_mama_customer()
-            create_envelop(level_2_customer, 1000, subject=Envelop.LEVEL_2, referal_id=saleorder.oid,
-                           buy_mama_id=mama.id, level_1_mama=level_1_mama, level_2_mama=level_2_mama)
-            task_weixin_push_mama_invite_award.delay(level_2_mama, customer, 10, level_1_customer=level_1_customer)
-
-
-        # 三级推荐人积分>=60,记录奖励一次
-        level_3_mama = level_2_mama.get_referal_from_mama()
-        if level_3_mama and level_3_mama.elite_score >= 60 and level_2_mama.referal_from == XiaoluMama.INDIRECT:
-            level_3_customer = level_3_mama.get_mama_customer()
-            EliteMamaAwardLog.objects.create(
-                customer_id=level_3_customer.id,
-                mama_id=level_3_mama.id,
-                referal_id='saleorder-{}'.format(saleorder.oid),
-                remark=u'购买人{}, 1级推荐人{}, 2级推荐人{}'.format(mama.id, level_1_mama.id, level_2_mama.id)
-            )
-            task_weixin_push_mama_invite_award.delay(level_3_mama, customer, 0, level_1_customer=level_1_customer)
-
     try:
         saletrade = obj
         customer = saletrade.order_buyer
         saleorders = saletrade.sale_orders.all()
         for order in saleorders:
             model_id = order.item_product.model_id
-            if model_id == 25514:  # 新人礼包
+            if model_id == 20 or model_id == 94:  # 新人礼包
                 with transaction.atomic():
                     do(customer, order)
                     break
@@ -1070,35 +954,35 @@ def push_trade_pay_notify(sender, obj, **kwargs):
 signal_saletrade_pay_confirm.connect(push_trade_pay_notify, sender=SaleTrade)
 
 
-def tongji_trade_source(sender, obj, **kwargs):
-    """
-    统计付款订单来源，发送到 OneAPM
-    1. 来自你的铺子妈妈或者你的铺子妈妈分享的链接
-    2. 来自直接购买
-    """
-    from flashsale.pay.tasks import task_tongji_trade_source
-    task_tongji_trade_source.delay()
+# def tongji_trade_source(sender, obj, **kwargs):
+#     """
+#     统计付款订单来源，发送到 OneAPM
+#     1. 来自你的铺子妈妈或者你的铺子妈妈分享的链接
+#     2. 来自直接购买
+#     """
+#     from flashsale.pay.tasks import task_tongji_trade_source
+#     task_tongji_trade_source.delay()
+#
+#
+# signal_saletrade_pay_confirm.connect(tongji_trade_source, sender=SaleTrade)
 
 
-signal_saletrade_pay_confirm.connect(tongji_trade_source, sender=SaleTrade)
-
-
-def tongji_trade_pay_channel(sender, obj, **kwargs):
-    """
-    统计订单支付方式：微信，支付宝等
-    """
-    from django_statsd.clients import statsd
-
-    channel = obj.channel
-    now = datetime.datetime.today()
-    today = datetime.datetime(now.year, now.month, now.day)
-
-    key = 'xiaolumm.paychannel_from_%s' % channel
-    trades_count = SaleTrade.objects.filter(pay_time__gte=today, channel=channel).count()
-    statsd.gauge(key, trades_count)
-
-
-signal_saletrade_pay_confirm.connect(tongji_trade_pay_channel, sender=SaleTrade)
+# def tongji_trade_pay_channel(sender, obj, **kwargs):
+#     """
+#     统计订单支付方式：微信，支付宝等
+#     """
+#     from django_statsd.clients import statsd
+#
+#     channel = obj.channel
+#     now = datetime.datetime.today()
+#     today = datetime.datetime(now.year, now.month, now.day)
+#
+#     key = 'xiaolumm.paychannel_from_%s' % channel
+#     trades_count = SaleTrade.objects.filter(pay_time__gte=today, channel=channel).count()
+#     statsd.gauge(key, trades_count)
+#
+#
+# signal_saletrade_pay_confirm.connect(tongji_trade_pay_channel, sender=SaleTrade)
 
 
 # attention:优惠券使用要和订单状态变化、用户钱包支付的transaction一起修改，放到signal里面不合适，signal只处理一些额外工作
@@ -1640,40 +1524,12 @@ def post_save_order_trigger(sender, instance, created, raw, **kwargs):
         try:
             if instance.is_deposit():
                 if instance.is_confirmed():
-                    if instance.is_1_deposit():  # 一元开店 不记录推荐关系
-                        return
-                    if instance.is_transfer_coupon():
-                        send_order_transfer_coupons(instance.sale_trade.buyer_id, instance.id,
-                                                    instance.oid, instance.num, instance.item_id)
-                        return
                     if instance.is_recharge_deposit():
                         elite_mama_recharge(instance.sale_trade.buyer_id, instance.id,
                                             instance.oid, instance.item_id)
                         return
                     task_update_referal_relationship(instance)
             else:
-                # 365 order create relationship and first give 60 score
-                from flashsale.xiaolumm.models.models import XiaoluMama
-                if instance.is_elite_365_order() and SaleOrder.WAIT_SELLER_SEND_GOODS <= instance.status <= SaleOrder.TRADE_FINISHED:
-                    customer = Customer.objects.get(id=instance.sale_trade.buyer_id)
-                    to_mama = customer.get_xiaolumm()
-                    if (not to_mama) and customer.unionid:
-                        # 是微信登录的就创建你的铺子妈妈账号，用手机号登录的那只能找管理员了
-                        to_mama = XiaoluMama.objects.create(
-                            mobile=customer.mobile,
-                            progress=XiaoluMama.PROFILE,
-                            openid=customer.unionid,
-                            last_renew_type=XiaoluMama.SCAN,
-                        )
-                    if not to_mama:
-                        return
-                    uni_key = "gift-365elite-in-%s" % (to_mama.id)
-                    from flashsale.coupon.models.transfer_coupon import CouponTransferRecord
-                    gift_cts = CouponTransferRecord.objects.filter(uni_key=uni_key).first()
-                    # 判断妈妈为一个新妈妈，满足条件如下：妈妈还不是精英妈妈；
-                    if (not to_mama.is_elite_mama) or (not gift_cts):
-                        create_new_elite_mama(customer, to_mama, instance)
-                        give_gift_score_to_new_elite_mama(customer, to_mama, instance)
                 task_order_trigger(instance)
         except Exception, exc:
             message = traceback.format_exc(),
