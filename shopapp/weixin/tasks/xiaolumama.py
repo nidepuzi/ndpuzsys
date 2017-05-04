@@ -307,45 +307,46 @@ def create_push_event_subscribe(mama_id, unionid, carry_num, date_field):
 
 @app.task(max_retries=3, default_retry_delay=60)
 def task_weixinfans_create_subscribe_awardcarry(unionid):
-    carry_num = 100
-    carry_type = AwardCarry.AWARD_SUBSCRIBE # 关注公众号
-
-    try:
-        mama = XiaoluMama.objects.filter(openid=unionid).first()
-        # 20170330试用3取消，关注公众号或扫码没有新增妈妈记录，那么就没有1块的奖励了，成为正式妈妈后还是有
-        if not mama:
-            # raise XiaoluMama.DoesNotExist()
-            return
-
-        mama_id = mama.id
-        # We get here too fast that WeixinUserInfo objects have not been created yet,
-        # and when we try to access, error comes.
-        userinfo = WeixinUserInfo.objects.filter(unionid=unionid).first()
-        if not userinfo:
-            raise WeixinUserInfo.DoesNotExist()
-
-        uni_key = AwardCarry.gen_uni_key(mama_id, carry_type)
-        ac = AwardCarry.objects.filter(uni_key=uni_key).first()
-        if ac:
-            return
-
-        date_field = datetime.date.today()
-        carry_description = u'谢谢关注！每天分享好东西，赚佣么么哒！'
-        carry_plan_name = u'你的铺子千万粉丝计划'
-        contributor_mama_id = mama_id
-        contributor_nick = userinfo and userinfo.nick or '匿名'
-        contributor_img  = userinfo and userinfo.thumbnail or '匿名'
-
-        ac = AwardCarry(mama_id=mama_id,carry_num=carry_num, carry_type=carry_type, carry_description=carry_description,
-                        contributor_nick=contributor_nick, contributor_img=contributor_img,
-                        contributor_mama_id=contributor_mama_id, carry_plan_name=carry_plan_name,
-                        date_field=date_field, uni_key=uni_key, status=AwardCarry.CONFIRMED)
-        ac.save()
-        create_push_event_subscribe(mama_id, unionid, carry_num, date_field)
-
-    except Exception,exc:
-        #logger.error(str(exc), exc_info=True)
-        raise task_weixinfans_create_subscribe_awardcarry.retry(exc=exc)
+    return
+    # carry_num = 100
+    # carry_type = AwardCarry.AWARD_SUBSCRIBE # 关注公众号
+    #
+    # try:
+    #     mama = XiaoluMama.objects.filter(openid=unionid).first()
+    #     # 20170330试用3取消，关注公众号或扫码没有新增妈妈记录，那么就没有1块的奖励了，成为正式妈妈后还是有
+    #     if not mama:
+    #         # raise XiaoluMama.DoesNotExist()
+    #         return
+    #
+    #     mama_id = mama.id
+    #     # We get here too fast that WeixinUserInfo objects have not been created yet,
+    #     # and when we try to access, error comes.
+    #     userinfo = WeixinUserInfo.objects.filter(unionid=unionid).first()
+    #     if not userinfo:
+    #         raise WeixinUserInfo.DoesNotExist()
+    #
+    #     uni_key = AwardCarry.gen_uni_key(mama_id, carry_type)
+    #     ac = AwardCarry.objects.filter(uni_key=uni_key).first()
+    #     if ac:
+    #         return
+    #
+    #     date_field = datetime.date.today()
+    #     carry_description = u'谢谢关注！每天分享好东西，赚佣么么哒！'
+    #     carry_plan_name = u'你的铺子千万粉丝计划'
+    #     contributor_mama_id = mama_id
+    #     contributor_nick = userinfo and userinfo.nick or '匿名'
+    #     contributor_img  = userinfo and userinfo.thumbnail or '匿名'
+    #
+    #     ac = AwardCarry(mama_id=mama_id,carry_num=carry_num, carry_type=carry_type, carry_description=carry_description,
+    #                     contributor_nick=contributor_nick, contributor_img=contributor_img,
+    #                     contributor_mama_id=contributor_mama_id, carry_plan_name=carry_plan_name,
+    #                     date_field=date_field, uni_key=uni_key, status=AwardCarry.CONFIRMED)
+    #     ac.save()
+    #     create_push_event_subscribe(mama_id, unionid, carry_num, date_field)
+    #
+    # except Exception,exc:
+    #     #logger.error(str(exc), exc_info=True)
+    #     raise task_weixinfans_create_subscribe_awardcarry.retry(exc=exc)
 
 
 def get_max_today_fans_invites(mama_id):
@@ -396,56 +397,57 @@ def create_push_event_invite_fans(mama_id, contributor_nick, contributor_mama_id
 
 @app.task(max_retries=3, default_retry_delay=5)
 def task_weixinfans_create_fans_awardcarry(referal_from_mama_id, referal_to_unionid):
-    if referal_from_mama_id < 1:
-        return
-    # mama referal award carrynum
-    carry_num = 10
-    carry_type = AwardCarry.AWARD_INVITE_FANS # 邀请关注成为粉丝
-    mama_id = referal_from_mama_id
-
-    date_field = datetime.date.today()
-    today_invites = AwardCarry.objects.filter(mama_id=mama_id,carry_type=carry_type,date_field=date_field).count() + 1
-
-    max_today_fans_invites = get_max_today_fans_invites(mama_id)
-    if today_invites > max_today_fans_invites:
-        return
-
-    try:
-        # We get here too fast that WeixinUserInfo or referal XiaoluMama objects have not
-        # been created yet, and when we try to access , error comes.
-        referal_to_mama = XiaoluMama.objects.filter(openid=referal_to_unionid).first()
-        userinfo = WeixinUserInfo.objects.filter(unionid=referal_to_unionid).first()
-        # 20170330试用3取消，关注公众号或扫码没有新增妈妈记录，那么就没有1块的奖励了，成为正式妈妈后还是有
-        if not referal_to_mama:
-            # raise XiaoluMama.DoesNotExist()
-            return
-
-        if not userinfo:
-            raise WeixinUserInfo.DoesNotExist()
-
-        uni_key = AwardCarry.gen_uni_key(referal_to_mama.id, carry_type)
-        ac = AwardCarry.objects.filter(uni_key=uni_key).first()
-        if ac:
-            return
-
-        carry_description = u'恭喜，又增加一名粉丝！'
-        carry_plan_name = u'你的铺子千万粉丝计划'
-        contributor_mama_id = referal_to_mama.id
-        contributor_nick = userinfo.nick
-        contributor_img = userinfo.thumbnail
-
-        # send weixin push
-        create_push_event_invite_fans(mama_id, contributor_nick, contributor_mama_id, date_field, today_invites)
-
-        ac = AwardCarry(mama_id=mama_id,carry_num=carry_num, carry_type=carry_type, carry_description=carry_description,
-                        contributor_nick=contributor_nick, contributor_img=contributor_img,
-                        contributor_mama_id=contributor_mama_id, carry_plan_name=carry_plan_name,
-                        date_field=date_field, uni_key=uni_key, status=AwardCarry.CONFIRMED)
-        ac.save()
-
-    except Exception,exc:
-        #logger.error(str(exc), exc_info=True)
-        raise task_weixinfans_create_fans_awardcarry.retry(exc=exc)
+    return
+    # if referal_from_mama_id < 1:
+    #     return
+    # # mama referal award carrynum
+    # carry_num = 10
+    # carry_type = AwardCarry.AWARD_INVITE_FANS # 邀请关注成为粉丝
+    # mama_id = referal_from_mama_id
+    #
+    # date_field = datetime.date.today()
+    # today_invites = AwardCarry.objects.filter(mama_id=mama_id,carry_type=carry_type,date_field=date_field).count() + 1
+    #
+    # max_today_fans_invites = get_max_today_fans_invites(mama_id)
+    # if today_invites > max_today_fans_invites:
+    #     return
+    #
+    # try:
+    #     # We get here too fast that WeixinUserInfo or referal XiaoluMama objects have not
+    #     # been created yet, and when we try to access , error comes.
+    #     referal_to_mama = XiaoluMama.objects.filter(openid=referal_to_unionid).first()
+    #     userinfo = WeixinUserInfo.objects.filter(unionid=referal_to_unionid).first()
+    #     # 20170330试用3取消，关注公众号或扫码没有新增妈妈记录，那么就没有1块的奖励了，成为正式妈妈后还是有
+    #     if not referal_to_mama:
+    #         # raise XiaoluMama.DoesNotExist()
+    #         return
+    #
+    #     if not userinfo:
+    #         raise WeixinUserInfo.DoesNotExist()
+    #
+    #     uni_key = AwardCarry.gen_uni_key(referal_to_mama.id, carry_type)
+    #     ac = AwardCarry.objects.filter(uni_key=uni_key).first()
+    #     if ac:
+    #         return
+    #
+    #     carry_description = u'恭喜，又增加一名粉丝！'
+    #     carry_plan_name = u'你的铺子千万粉丝计划'
+    #     contributor_mama_id = referal_to_mama.id
+    #     contributor_nick = userinfo.nick
+    #     contributor_img = userinfo.thumbnail
+    #
+    #     # send weixin push
+    #     create_push_event_invite_fans(mama_id, contributor_nick, contributor_mama_id, date_field, today_invites)
+    #
+    #     ac = AwardCarry(mama_id=mama_id,carry_num=carry_num, carry_type=carry_type, carry_description=carry_description,
+    #                     contributor_nick=contributor_nick, contributor_img=contributor_img,
+    #                     contributor_mama_id=contributor_mama_id, carry_plan_name=carry_plan_name,
+    #                     date_field=date_field, uni_key=uni_key, status=AwardCarry.CONFIRMED)
+    #     ac.save()
+    #
+    # except Exception,exc:
+    #     #logger.error(str(exc), exc_info=True)
+    #     raise task_weixinfans_create_fans_awardcarry.retry(exc=exc)
 
 
 def get_or_create_weixin_xiaolumm(wxpubId, openid, event, eventKey):

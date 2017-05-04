@@ -248,7 +248,14 @@ def create_new_elite_mama(customer, to_mama, so):
     from flashsale.xiaolumm.models.models import XiaoluMama
     if to_mama.last_renew_type < XiaoluMama.ELITE or to_mama.charge_status != XiaoluMama.CHARGED\
             or to_mama.status != XiaoluMama.EFFECT:
-        to_mama.last_renew_type = XiaoluMama.ELITE
+        now = datetime.datetime.now()
+        if so.item_product.model_id == 20:
+            to_mama.last_renew_type = XiaoluMama.FULL
+            renew_time = now + datetime.timedelta(days=366)
+            to_mama.renew_time = renew_time
+        else:
+            renew_time = now + datetime.timedelta(days=31)
+            to_mama.renew_time = renew_time
         to_mama.charge_status = XiaoluMama.CHARGED
         to_mama.status = XiaoluMama.EFFECT
     else:
@@ -303,7 +310,6 @@ def create_new_elite_mama(customer, to_mama, so):
     grandma_id = 0
     if relation_ship:
         # modify relation ship
-        relation_ship.referal_type = XiaoluMama.ELITE
         relation_ship.referal_from_mama_id = upper_mama_id
 
         if referal_mm:
@@ -521,11 +527,6 @@ def elite_mama_recharge(customer_id, order_id, order_oid, product_id):
                 customer_id, order_id, order_oid, product_id),
         })
         return
-
-    # 充值365自动开通账户
-    if int(so.item_id) == 80880 and int(so.sku_id) == 297999:
-        from flashsale.pay.models.trade import do_buy_xiaolucoin_365
-        do_buy_xiaolucoin_365(so)
 
     coin = XiaoluCoin.get_or_create(to_mama.id)
     coin.recharge(round(so.total_fee * 100), order_oid)

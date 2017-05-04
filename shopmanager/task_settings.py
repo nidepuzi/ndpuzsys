@@ -821,10 +821,6 @@ CELERY_ROUTES = {
         'queue': 'notify',
         'routing_key': 'notify.task_app_push_ordercarry',
     },  # 妈妈奖金APP推送
-    'flashsale.xiaolumm.tasks.tasks_mama_push.task_push_new_mama_task': {
-        'queue': 'notify',
-        'routing_key': 'notify.task_push_new_mama_task',
-    },  # 妈妈新手任务引导推送
     'flashsale.xiaolumm.tasks.tasks_mama_push.task_sms_push_mama': {
         'queue': 'notify',
         'routing_key': 'notify.task_sms_push_mama',
@@ -1446,21 +1442,9 @@ BOUTIQUE_SCHEDULE = {
         'args': (),
         'options': {'queue': 'peroid', 'routing_key': 'peroid.task_schedule_check_boutique_modelproduct'}
     },
-    u'定时检查超过2天未兑换的券订单': {
-        'task': 'flashsale.xiaolumm.tasks.tasks_mama_dailystats.task_auto_exchg_xlmm_order',
-        'schedule': crontab(minute="0", hour="19"),
-        'args': (),
-        'options': {'queue': 'peroid', 'routing_key': 'peroid.task_auto_exchg_xlmm_order'}
-    },
 }
 
 WDT_SCHEDULE = {
-    u'每小时同步优禾订单到旺店通': {
-        'task': 'shopback.trades.tasks.tasks_erp.task_sync_order_to_erp',
-        'schedule': crontab(minute="0"),
-        'args': (),
-        'options': {'queue': 'peroid', 'routing_key': 'peroid.task_sync_order_to_erp'}
-    },
     u'每小时同步旺店通订单物流信息': {
         'task': 'shopback.trades.tasks.tasks_erp.task_sync_erp_deliver',
         'schedule': crontab(minute="15"),
@@ -1486,30 +1470,6 @@ STATSD_SCHEDULE = {
         'schedule': crontab(minute="*/1"),
         'args': (),
         'options': {'queue': 'peroid', 'routing_key': 'peroid.task_celery_queue_message_statsd'}
-    },
-    u'每分钟发送精品券数量及金额统计': {
-        'task': 'statistics.daystats.tasks.boutique_statsd.task_transfer_coupon_order_statsd',
-        'schedule': crontab(minute="*/1"),
-        'args': (),
-        'options': {'queue': 'peroid', 'routing_key': 'peroid.task_transfer_coupon_order_statsd'}
-    },
-    u'每分钟发送精品券妈妈活跃数据统计': {
-        'task': 'statistics.daystats.tasks.boutique_statsd.task_boutique_mama_statsd',
-        'schedule': crontab(minute="*/1"),
-        'args': (),
-        'options': {'queue': 'peroid', 'routing_key': 'peroid.task_boutique_mama_statsd'}
-    },
-    u'每小时发送精品券妈妈七天活跃数量': {
-        'task': 'statistics.daystats.tasks.boutique_statsd.task_boutique_mama_weekly_active',
-        'schedule': crontab(minute="0", hour="*/1"),
-        'args': (),
-        'options': {'queue': 'peroid', 'routing_key': 'peroid.task_boutique_mama_weekly_active'}
-    },
-    u'每5分钟发送短信短信累计消耗量数据': {
-        'task': 'statistics.daystats.tasks.sms_statsd.task_sms_send_count_gauge_statsd',
-        'schedule': crontab(minute="*/5"),
-        'args': (),
-        'options': {'queue': 'peroid', 'routing_key': 'peroid.task_sms_send_count_gauge_statsd'}
     },
 }
 

@@ -100,28 +100,28 @@ class OrderShareCoupon(BaseModel):
         return self.limit_share_count - self.release_count
 
 
-def coupon_share_xlmm_newtask(sender, instance, **kwargs):
-    # type: (Any, Any, **Any) -> None
-    """
-    检测新手任务：分享第一个红包
-    """
-    from flashsale.xiaolumm.tasks import task_push_new_mama_task
-    from flashsale.xiaolumm.models.new_mama_task import NewMamaTask
-    from flashsale.pay.models.user import Customer
-
-    coupon_share = instance
-    customer_id = coupon_share.share_customer
-    customer = Customer.objects.filter(id=customer_id).first()
-    if not customer:
-        return
-
-    xlmm = customer.getXiaolumm()
-    coupon_share = OrderShareCoupon.objects.filter(share_customer=customer_id).exists()
-
-    if xlmm and not coupon_share:
-        task_push_new_mama_task.delay(xlmm, NewMamaTask.TASK_FIRST_SHARE_COUPON)
-
-
-pre_save.connect(coupon_share_xlmm_newtask,
-                 sender=OrderShareCoupon, dispatch_uid='pre_save_coupon_share_xlmm_newtask')
+# def coupon_share_xlmm_newtask(sender, instance, **kwargs):
+#     # type: (Any, Any, **Any) -> None
+#     """
+#     检测新手任务：分享第一个红包
+#     """
+#     from flashsale.xiaolumm.tasks import task_push_new_mama_task
+#     from flashsale.xiaolumm.models.new_mama_task import NewMamaTask
+#     from flashsale.pay.models.user import Customer
+#
+#     coupon_share = instance
+#     customer_id = coupon_share.share_customer
+#     customer = Customer.objects.filter(id=customer_id).first()
+#     if not customer:
+#         return
+#
+#     xlmm = customer.getXiaolumm()
+#     coupon_share = OrderShareCoupon.objects.filter(share_customer=customer_id).exists()
+#
+#     if xlmm and not coupon_share:
+#         task_push_new_mama_task.delay(xlmm, NewMamaTask.TASK_FIRST_SHARE_COUPON)
+#
+#
+# pre_save.connect(coupon_share_xlmm_newtask,
+#                  sender=OrderShareCoupon, dispatch_uid='pre_save_coupon_share_xlmm_newtask')
 
