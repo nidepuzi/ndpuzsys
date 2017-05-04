@@ -98,7 +98,7 @@ class XiaoluMama(BaseModel):
 
     RENEW_TYPE = (
         (SCAN, u'试用3'),
-        (TRIAL, u'试用15'),
+        (TRIAL, u'试用30'),
         (ELITE, u'精英mama'),
         (HALF, u'半年'),
         (FULL, u'一年'),
