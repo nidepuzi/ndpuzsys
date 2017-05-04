@@ -752,31 +752,31 @@ class SaleScheduleDetailViewSet(viewsets.ModelViewSet):
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
     @parser_classes(JSONParser)
-    @transaction.atomic()
     def create_manage_detail(self, request, schedule_id, *args, **kwargs):
         model_product_ids = request.data.get('model_product_id') or None
         mps = ModelProduct.objects.filter(id__in=model_product_ids)
         details = SaleProductManageDetail.objects.filter(schedule_manage_id=schedule_id,
                                                          today_use_status=SaleProductManageDetail.NORMAL)
-        for modelproduct in mps:
-            order_weight = details.count() + 1
-            sale_product = modelproduct.sale_product
-            request.data.update({
-                "schedule_manage": schedule_id,
-                "sale_product_id": sale_product.id,
-                "model_product_id": modelproduct.id,
-                "name": sale_product.title,
-                "today_use_status": SaleProductManageDetail.NORMAL,
-                "pic_path": sale_product.pic_url,
-                "product_link": sale_product.product_link,
-                "sale_category": sale_product.sale_category.full_name,
-                "order_weight": order_weight,
-                "design_complete": True if modelproduct and modelproduct.head_imgs and modelproduct.content_imgs else False,
-                "material_status": SaleProductManageDetail.COMPLETE if modelproduct else SaleProductManageDetail.WORKING,
-            })
-            serializer = serializers.SaleProductManageDetailSimpleSerializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-            self.perform_create(serializer)
+        with transaction.atomic():
+            for modelproduct in mps:
+                order_weight = details.count() + 1
+                sale_product = modelproduct.sale_product
+                request.data.update({
+                    "schedule_manage": schedule_id,
+                    "sale_product_id": sale_product.id,
+                    "model_product_id": modelproduct.id,
+                    "name": sale_product.title,
+                    "today_use_status": SaleProductManageDetail.NORMAL,
+                    "pic_path": sale_product.pic_url,
+                    "product_link": sale_product.product_link,
+                    "sale_category": sale_product.sale_category.full_name,
+                    "order_weight": order_weight,
+                    "design_complete": True if modelproduct and modelproduct.head_imgs and modelproduct.content_imgs else False,
+                    "material_status": SaleProductManageDetail.COMPLETE if modelproduct else SaleProductManageDetail.WORKING,
+                })
+                serializer = serializers.SaleProductManageDetailSimpleSerializer(data=request.data)
+                serializer.is_valid(raise_exception=True)
+                self.perform_create(serializer)
         return Response(status=status.HTTP_201_CREATED)
 
     def modify_manage_detail(self, request, schedule_id, pk, *args, **kwargs):
