@@ -248,8 +248,14 @@ def create_new_elite_mama(customer, to_mama, so):
     from flashsale.xiaolumm.models.models import XiaoluMama
     if to_mama.last_renew_type < XiaoluMama.ELITE or to_mama.charge_status != XiaoluMama.CHARGED\
             or to_mama.status != XiaoluMama.EFFECT:
+        now = datetime.datetime.now()
         if so.item_product.model_id == 20:
             to_mama.last_renew_type = XiaoluMama.FULL
+            renew_time = now + datetime.timedelta(days=366)
+            to_mama.renew_time = renew_time
+        else:
+            renew_time = now + datetime.timedelta(days=31)
+            to_mama.renew_time = renew_time
         to_mama.charge_status = XiaoluMama.CHARGED
         to_mama.status = XiaoluMama.EFFECT
     else:
