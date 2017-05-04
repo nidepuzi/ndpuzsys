@@ -484,6 +484,12 @@ class Product(models.Model):
         self.update_collect_num(real_update_num)
         self.update_reduce_num(real_reduct_num, full_update=True)
 
+    def update_model_product(self):
+        if self.model_id:
+            mp = self.get_product_model()
+            mp.set_lowest_price()
+            mp.save()
+
     @property
     def is_stock_warn(self):
         """
@@ -1114,6 +1120,9 @@ class Product(models.Model):
         self.agent_price = product_dict.get('avg_agent_price', 0)
         self.staff_price = product_dict.get('avg_staff_price', 0)
         self.save()
+        model_product = self.get_product_model()
+        if model_product:
+            model_product.set_lowest_price()
 
     def set_outer_id(self):
         self.outer_id = Product.get_inner_outer_id('SP')
@@ -1169,6 +1178,9 @@ class Product(models.Model):
         if sku_ids:
             ProductSku.objects.filter(id__in=sku_ids).update(status=pcfg.DELETE)
         self.reset_price()
+        model_product = self.get_product_model()
+        if model_product:
+            model_product.change_title_imgs_skus()
         return self
 
 
