@@ -32,10 +32,11 @@ class ModelProductViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         try:
             model_product = serializer.save(serializer.data, request.user)
-            serializers_v2.SimpleModelProductSerializer(model_product)
-            return Response(serializer.data, status=rest_status.HTTP_201_CREATED)
         except Exception, e0:
             raise exceptions.APIException(e0.message)
+        serializers_v2.SimpleModelProductSerializer(model_product)
+        return Response(serializer.data, status=rest_status.HTTP_201_CREATED)
+
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
