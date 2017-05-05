@@ -1147,7 +1147,7 @@ class RecruitEliteMamaView(APIView):
         mama.last_renew_type = XiaoluMama.ELITE
         mama.charge_time = charge_time
         mama.renew_time = renew_time
-        mama.agencylevel = XiaoluMama.A_LEVEL
+        mama.agencylevel = XiaoluMama.VIP_LEVEL
         mama.save()
 
         info = u"精英妈妈帐户开启成功，请立即转入5张精品券！"
