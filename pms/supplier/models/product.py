@@ -79,7 +79,7 @@ class SaleProduct(BaseTagModel):
                                 # default=lambda: 'OO%s' % int(time.time() * 10 ** 3),
                                 verbose_name=u'外部ID')
     title = models.CharField(max_length=64, blank=True, db_index=True, verbose_name=u'标题')
-    price = models.FloatField(default=0, verbose_name=u'价格')
+    price = models.FloatField(default=0, verbose_name=u'价格')#作废
     pic_url = models.CharField(max_length=512, blank=True, verbose_name=u'商品图片')
     product_link = models.CharField(max_length=512, blank=True, verbose_name=u'商品外部链接')
 
@@ -90,15 +90,15 @@ class SaleProduct(BaseTagModel):
     platform = models.CharField(max_length=16, blank=True, default=MANUAL,
                                 choices=PLATFORM_CHOICE, verbose_name=u'来自平台')
 
-    hot_value = models.IntegerField(default=0, verbose_name=u'热度值')
+    hot_value = models.IntegerField(default=0, verbose_name=u'热度值')#作废
     stocking_mode = models.IntegerField(default=0, choices=STOCKING_MODE_CHOICES, db_index=True, verbose_name=u'存货模式')
-    voting = models.BooleanField(default=False, verbose_name=u'参与投票')
+    voting = models.BooleanField(default=False, verbose_name=u'参与投票')#作废
     sale_price = models.FloatField(default=0, verbose_name=u'采购价')
-    on_sale_price = models.FloatField(default=0, verbose_name=u'售价')
-    std_sale_price = models.FloatField(default=0, verbose_name=u'吊牌价')
-    product_material = models.CharField(max_length=16, blank=True, verbose_name=u'商品材质')
+    on_sale_price = models.FloatField(default=0, verbose_name=u'售价')#作废
+    std_sale_price = models.FloatField(default=0, verbose_name=u'吊牌价')#作废
+    product_material = models.CharField(max_length=16, blank=True, verbose_name=u'商品材质')#作废
     memo = models.TextField(max_length=1024, blank=True, verbose_name=u'备注')
-    is_changed = models.BooleanField(default=False, db_index=True, verbose_name=u'排期改动')
+    is_changed = models.BooleanField(default=False, db_index=True, verbose_name=u'排期改动')#作废
 
     status = models.CharField(max_length=16, blank=True,
                               choices=STATUS_CHOICES, default=WAIT, verbose_name=u'状态')
@@ -107,10 +107,10 @@ class SaleProduct(BaseTagModel):
     librarian = models.CharField(max_length=32, blank=True, db_index=True, null=True, verbose_name=u'资料员')
     buyer = models.CharField(max_length=32, blank=True, null=True, db_index=True, verbose_name=u'采购员')
 
-    sale_time = models.DateTimeField(null=True, blank=True, verbose_name=u'上架日期')
-    reserve_time = models.DateTimeField(null=True, blank=True, verbose_name=u'预留时间')
-    supplier_sku = models.CharField(max_length=64, blank=True, verbose_name=u'供应商货号')
-    orderlist_show_memo = models.BooleanField(default=False, verbose_name=u'订货详情显示备注')
+    sale_time = models.DateTimeField(null=True, blank=True, verbose_name=u'上架日期')#作废
+    reserve_time = models.DateTimeField(null=True, blank=True, verbose_name=u'预留时间')#作废
+    supplier_sku = models.CharField(max_length=64, blank=True, verbose_name=u'供应商货号')#作废
+    orderlist_show_memo = models.BooleanField(default=False, verbose_name=u'订货详情显示备注')#作废
     source_type = models.IntegerField(default=SOURCE_SELF, db_index=True, choices=SOURCE_CHOICES, verbose_name=u'商品货源')
     # TODO@MENTION 之前的比如第三方仓货源信息需要刷新数据, 并且需要更新到modelproduct记录上
     sku_extras = JSONCharMyField(max_length=10240, default=[], verbose_name=u"sku信息")

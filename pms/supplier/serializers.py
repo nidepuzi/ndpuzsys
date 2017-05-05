@@ -387,6 +387,7 @@ class ModelProductSerializer(serializers.ModelSerializer):
         model = ModelProduct
         fields = (
             'id',
+            'name',
             'head_imgs',
             'content_imgs',
             'detail_first_img',

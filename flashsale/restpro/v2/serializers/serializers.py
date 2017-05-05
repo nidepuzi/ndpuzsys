@@ -3,6 +3,7 @@ import collections
 import datetime
 import random
 import time
+from copy import deepcopy
 from django.conf import settings
 from django.db.models import Sum, Count
 from shopback.trades.models import PackageSkuItem
@@ -543,8 +544,9 @@ class CreateModelProductSerializer(serializers.Serializer):
     def save(self, data, user, instance=None):
         product = Product.objects.get(id=data.get('product_id'))
         if instance:
-            instance.extras['new_properties'] = data.get('extras', {}).get('new_properties', [])
-            instance.extras['sources'] = data.get('extras', {}).get('sources', [])
+            extras = deepcopy(instance.extras)
+            extras['new_properties'] = data.get('extras', {}).get('new_properties', [])
+            extras['sources'] = data.get('extras', {}).get('sources', [])
             instance.is_onsale = bool(data.get('is_onsale'))
             instance.is_teambuy = bool(data.get('is_teambuy'))
             instance.is_recommend = bool(data.get('is_recommend'))
@@ -559,8 +561,13 @@ class CreateModelProductSerializer(serializers.Serializer):
                 instance.set_product_source_type(3)
             instance.set_lowest_price()
             instance.save()
+            instance.update_extras(extras)
             instance.set_title_imgs_key()
             instance.set_title_imgs_values()
+            try:
+                instance.salecategory = product.category.get_sale_category()
+            except:
+                pass
             instance.save()
             if instance.is_boutique and instance.product_type == 1 and not instance.extras.get("template_id"):
                 instance.set_boutique_coupon()
