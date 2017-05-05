@@ -355,8 +355,8 @@ class ProductSimpleSerializerV2(serializers.ModelSerializer):
     def mama_agency_level_info(self, xlmm):
         default_info = collections.defaultdict(agencylevel=XiaoluMama.INNER_LEVEL,
                                                agencylevel_desc=XiaoluMama.AGENCY_LEVEL[0][1],
-                                               next_agencylevel=XiaoluMama.A_LEVEL,
-                                               next_agencylevel_desc=XiaoluMama.AGENCY_LEVEL[2][1])
+                                               next_agencylevel=XiaoluMama.VIP_LEVEL,
+                                               next_agencylevel_desc=XiaoluMama.AGENCY_LEVEL[1][1])
 
         if not xlmm:
             return default_info

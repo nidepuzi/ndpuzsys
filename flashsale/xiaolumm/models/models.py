@@ -76,19 +76,17 @@ class XiaoluMama(BaseModel):
 
     INNER_LEVEL = 1
     VIP_LEVEL = 2
-    A_LEVEL = 3
-    VIP2_LEVEL = 12
-    VIP4_LEVEL = 14
-    VIP6_LEVEL = 16
-    VIP8_LEVEL = 18
+    VIP2_LEVEL = 3
+    VIP3_LEVEL = 4
+    VIP4_LEVEL = 5
+    VIP5_LEVEL = 6
     AGENCY_LEVEL = (
         (INNER_LEVEL, u"普通"),
         (VIP_LEVEL, "VIP1"),
-        (A_LEVEL, u"A类"),
         (VIP2_LEVEL, "VIP2"),
-        (VIP4_LEVEL, "VIP4"),
-        (VIP6_LEVEL, "VIP6"),
-        (VIP8_LEVEL, "VIP8"),
+        (VIP3_LEVEL, "VIP4"),
+        (VIP4_LEVEL, "VIP6"),
+        (VIP5_LEVEL, "VIP8"),
     )
     SCAN = 3
     TRIAL = 15
@@ -533,7 +531,7 @@ class XiaoluMama(BaseModel):
             self.charge_status = XiaoluMama.CHARGED  # 接管状态
         if self.agencylevel < XiaoluMama.VIP_LEVEL:  # 如果代理等级是普通类型更新代理等级到A类
             update_fields.append("agencylevel")
-            self.agencylevel = XiaoluMama.A_LEVEL
+            self.agencylevel = XiaoluMama.VIP_LEVEL
         if update_fields:
             self.save(update_fields=update_fields)
             return True
@@ -808,8 +806,8 @@ class XiaoluMama(BaseModel):
             return False
         if self.status != XiaoluMama.EFFECT:  # 非正常状态 返回false
             return False
-        if self.agencylevel == XiaoluMama.A_LEVEL:  # A_LEVEL 升级到VIP_LEVEL
-            self.agencylevel = XiaoluMama.VIP_LEVEL
+        if self.agencylevel == XiaoluMama.VIP_LEVEL:  # A_LEVEL 升级到VIP_LEVEL
+            self.agencylevel = XiaoluMama.VIP2_LEVEL
             self.save(update_fields=['agencylevel'])
             return True
 
@@ -843,22 +841,16 @@ class XiaoluMama(BaseModel):
 
     def upgrade_agencylevel_by_invite_and_payment(self):
         """ 邀请数量和销售额升级 """
-        if self.agencylevel != XiaoluMama.A_LEVEL:
-            return False
-        else:
-            self.agencylevel = XiaoluMama.VIP_LEVEL
-            self.save(update_fields=['agencylevel'])
-            return True
+        return False
 
     def next_agencylevel_info(self):
         level_map = {
-            XiaoluMama.INNER_LEVEL: (XiaoluMama.A_LEVEL, XiaoluMama.AGENCY_LEVEL[2][1]),
-            XiaoluMama.A_LEVEL: (XiaoluMama.VIP_LEVEL, XiaoluMama.AGENCY_LEVEL[1][1]),
-            XiaoluMama.VIP_LEVEL: (XiaoluMama.VIP2_LEVEL, XiaoluMama.AGENCY_LEVEL[3][1]),
-            XiaoluMama.VIP2_LEVEL: (XiaoluMama.VIP4_LEVEL, XiaoluMama.AGENCY_LEVEL[4][1]),
-            XiaoluMama.VIP4_LEVEL: (XiaoluMama.VIP6_LEVEL, XiaoluMama.AGENCY_LEVEL[5][1]),
-            XiaoluMama.VIP6_LEVEL: (XiaoluMama.VIP8_LEVEL, XiaoluMama.AGENCY_LEVEL[6][1]),
-            XiaoluMama.VIP8_LEVEL: (XiaoluMama.VIP8_LEVEL, XiaoluMama.AGENCY_LEVEL[6][1]),
+            XiaoluMama.INNER_LEVEL: (XiaoluMama.VIP_LEVEL, XiaoluMama.AGENCY_LEVEL[1][1]),
+            XiaoluMama.VIP_LEVEL: (XiaoluMama.VIP2_LEVEL, XiaoluMama.AGENCY_LEVEL[2][1]),
+            XiaoluMama.VIP2_LEVEL: (XiaoluMama.VIP3_LEVEL, XiaoluMama.AGENCY_LEVEL[3][1]),
+            XiaoluMama.VIP3_LEVEL: (XiaoluMama.VIP4_LEVEL, XiaoluMama.AGENCY_LEVEL[4][1]),
+            XiaoluMama.VIP4_LEVEL: (XiaoluMama.VIP5_LEVEL, XiaoluMama.AGENCY_LEVEL[5][1]),
+            XiaoluMama.VIP5_LEVEL: (XiaoluMama.VIP5_LEVEL, XiaoluMama.AGENCY_LEVEL[5][1]),
         }
         return level_map[self.agencylevel]
 

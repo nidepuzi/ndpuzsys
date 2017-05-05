@@ -216,7 +216,7 @@ def task_activate_xiaolumama(openid, wx_pubid):
     XiaoluMama.objects.filter(id=mama_id).update(charge_status=XiaoluMama.CHARGED,
                                                  charge_time=charge_time,
                                                  last_renew_type=XiaoluMama.SCAN,
-                                                 renew_time=renew_time, agencylevel=XiaoluMama.A_LEVEL)
+                                                 renew_time=renew_time, agencylevel=XiaoluMama.VIP_LEVEL)
 
     referal_from_mama_id = None
     qrscene = fan.get_qrscene()

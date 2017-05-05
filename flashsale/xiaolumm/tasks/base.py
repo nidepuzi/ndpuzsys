@@ -637,23 +637,7 @@ def task_upgrade_mama_level_to_vip():
     """
     ### 代理升级: 提现金额大于　2000 　的A　类代理升级为 vip
     """
-    sys_oa = User.objects.get(username="systemoa")
-    mamas = XiaoluMama.objects.filter(charge_status=XiaoluMama.CHARGED,
-                                      status=XiaoluMama.EFFECT,
-                                      agencylevel=XiaoluMama.A_LEVEL)  # 有效的A类代理
-    for mm in mamas.iterator():
-        cashs = CashOut.objects.filter(xlmm=mm.id, status=CashOut.APPROVED)  # 代理提现记录　
-        t_cashout_amount = cashs.aggregate(s_value=Sum('value')).get('s_value') or 0
-        update_fields = []
-        old_target_complete = mm.target_complete  # 原来的记录
-        if mm.target_complete != t_cashout_amount / 100.0:
-            mm.target_complete = t_cashout_amount / 100.0
-            update_fields.append("target_complete")
-        if update_fields:
-            mm.save(update_fields=update_fields)
-        if t_cashout_amount >= 2000 * 100:  # 如果超过2000
-            mm.upgrade_agencylevel_by_cashout()
-            log_action(sys_oa.id, mm, CHANGE, u'A类代理满2000元指标 %s : %s 升级' % (old_target_complete, mm.target_complete))
+    return
 
 
 @app.task()
@@ -862,5 +846,5 @@ def task_update_mama_agency_level_in_condition(date=None):
     logger.info({'action': 'task_update_mama_agency_level_in_condition',
                  'condition_mama_ids': log_ids})
 
-    xlmms = XiaoluMama.objects.filter(id__in=condition_mama_ids, agencylevel=XiaoluMama.A_LEVEL)
-    xlmms.update(agencylevel=XiaoluMama.VIP_LEVEL)
+    # xlmms = XiaoluMama.objects.filter(id__in=condition_mama_ids, agencylevel=XiaoluMama.A_LEVEL)
+    # xlmms.update(agencylevel=XiaoluMama.VIP_LEVEL)
