@@ -196,6 +196,7 @@ class SaleProductManageDetail(models.Model):
                                      choices=SP_TYPE_CHOICES, db_index=True, verbose_name=u'排期类型')
     schedule_manage = models.ForeignKey(SaleProductManage, related_name='manage_schedule', verbose_name=u'排期管理')
     sale_product_id = models.BigIntegerField(default=0, verbose_name=u"选品ID")
+    model_product_id = models.BigIntegerField(default=0, verbose_name=u"售卖款式ID")
     name = models.CharField(max_length=64, verbose_name=u'选品名称')
     pic_path = models.CharField(max_length=512, blank=True, verbose_name=u'商品图片')
     sale_category = models.CharField(max_length=32, blank=True, verbose_name=u'商品分类')

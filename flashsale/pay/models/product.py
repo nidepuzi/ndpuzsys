@@ -1129,7 +1129,6 @@ class ModelProduct(BaseTagModel):
             model_product.extras = default_modelproduct_extras_tpl()
         else:
             model_product.extras = extras
-        model_product.set_lowest_price()
         model_product.save()
         product.model_id = model_product.id
         product.save()
@@ -1137,6 +1136,7 @@ class ModelProduct(BaseTagModel):
             model_product.set_boutique_coupon()
         model_product.set_title_imgs_key()
         model_product.set_title_imgs_values()
+        model_product.set_lowest_price()
         model_product.save()
         model_product.set_sale_product()
         return model_product
