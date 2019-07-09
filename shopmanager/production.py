@@ -27,12 +27,11 @@ SITE_URL = 'http://admin.hongguotang.com/'
 #######################  WAP AND WEIXIN CONFIG ########################
 M_SITE_URL = 'https://m.hongguotang.com'
 
-MYSQL_HOST = 'rm-uf632p729ho32369eo.mysql.rds.aliyuncs.com'
-MYSQL_AUTH = os.environ.get('MYSQL_AUTH')
+MYSQL_HOST = 'rdsvrl2p9pu6536n7d99i.mysql.rds.aliyuncs.com'
+MYSQL_AUTH = 'KuTa@t^z' #os.environ.get('MYSQL_AUTH')
 
-REDIS_HOST = 'r-uf66d18cf4ce3a44.redis.rds.aliyuncs.com:6379'
-REDIS_AUTH = os.environ.get('REDIS_AUTH')
-
+REDIS_HOST = 'r-bp1b4317ea5c3714.redis.rds.aliyuncs.com:6379'
+REDIS_AUTH = 'Huyiinc12345' #os.environ.get('REDIS_AUTH')
 
 if os.environ.get('INSTANCE') == 'mall':
     LOGIN_URL = '/mall/user/login'
@@ -58,9 +57,9 @@ DATABASES = {
     },
     'readonly': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'xiaoludb',
-        'USER': 'xiaoludbo',
-        'PASSWORD': 'expired_20160730',
+        'NAME': 'db_ndpz',
+        'USER': 'dba_ndpz',
+        'PASSWORD': MYSQL_AUTH,
         'HOST': MYSQL_HOST,
         'OPTIONS':  {
             'charset': 'utf8',
@@ -74,7 +73,7 @@ CACHES = {
         'BACKEND': 'redis_cache.RedisCache',
         'LOCATION': REDIS_HOST,
         'OPTIONS': {
-            'DB': 1,
+            'DB': 100,
             'PASSWORD': REDIS_AUTH,
             "SOCKET_CONNECT_TIMEOUT": 5,  # in seconds
             "SOCKET_TIMEOUT": 5,  # in seconds
@@ -92,7 +91,7 @@ CACHES = {
 ##########################CELERY TASK##########################
 CLOSE_CELERY = False
 # CELERY_BROKER_URL = 'redis://:{0}@{1}:6379/9'.format(REDIS_AUTH, REDIS_HOST)
-CELERY_BROKER_URL = 'redis://:{0}@{1}/9'.format(REDIS_AUTH, REDIS_HOST)
+CELERY_BROKER_URL = 'redis://:{0}@{1}/109'.format(REDIS_AUTH, REDIS_HOST)
 CELERY_RESULT_BACKEND = 'django-db'
 
 ##########################SENTRY RAVEN##########################
