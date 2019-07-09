@@ -5,7 +5,7 @@ import os
 import sys
 import urllib2
 
-TARGET = os.environ.get('TARGET')
+TARGET = 'production'#os.environ.get('TARGET')
 
 def is_undeploy_enviroment():
     """　是否非正式环境 """
