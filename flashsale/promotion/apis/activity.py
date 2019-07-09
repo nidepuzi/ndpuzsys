@@ -120,7 +120,7 @@ def create_activity(title, act_type, start_time, end_time, **kwargs):
     """创建活动
     """
     if act_type == ActivityEntry.ACT_TOPIC and kwargs.has_key('act_link'):
-        # http://m.nidepuzi.com/mall/activity/topTen/model/2?id=264 # 专题类型活动链接固定格式
+        # http://m.hongguotang.com/mall/activity/topTen/model/2?id=264 # 专题类型活动链接固定格式
         kwargs.pop('act_link')  # 去除传来的act_link 如果有的话
     activity = Activity(title=title,
                         act_type=act_type,
@@ -212,7 +212,7 @@ def create_activity_pro(activity_id, product_img, **kwargs):
     # type: (int, text_type, **Any)
     """创建活动商品
     """
-    foot_share_img = 'http://img.nidepuzi.com/top101476965460253.jpg'
+    foot_share_img = 'http://img.hongguotang.com/top101476965460253.jpg'
     pros = get_activity_pros_by_activity_id(activity_id)
     pic_type = kwargs.get('pic_type')
     if pic_type == ActivityProduct.BANNER_PIC_TYPE:  # 头图

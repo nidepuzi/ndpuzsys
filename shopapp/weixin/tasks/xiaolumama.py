@@ -298,7 +298,7 @@ def create_push_event_subscribe(mama_id, unionid, carry_num, date_field):
               'keyword2': {'value': u'关注你的铺子系列公众号', 'color': '#394359'},
               'keyword3': {'value':now.strftime('%Y-%m-%d %H:%M:%S'), 'color':'#394359'}}
 
-    to_url = 'http://m.nidepuzi.com/rest/v2/mama/redirect_stats_link?link_id=1'
+    to_url = 'http://m.hongguotang.com/rest/v2/mama/redirect_stats_link?link_id=1'
     event = WeixinPushEvent(customer_id=customer_id,mama_id=mama_id,uni_key=uni_key,tid=tid,
                             event_type=event_type,date_field=date_field,params=params,to_url=to_url)
     event.save()
@@ -388,7 +388,7 @@ def create_push_event_invite_fans(mama_id, contributor_nick, contributor_mama_id
               'keyword2': {'value':now.strftime('%Y-%m-%d %H:%M:%S'), 'color':'#394359'},
               'remark': {'value':footer, 'color':footer_color}}
 
-    #to_url = 'http://m.nidepuzi.com/rest/v1/users/weixin_login/?next=/mama_shop/html/personal.html'
+    #to_url = 'http://m.hongguotang.com/rest/v1/users/weixin_login/?next=/mama_shop/html/personal.html'
     event = WeixinPushEvent(customer_id=customer_id,mama_id=mama_id,uni_key=uni_key,tid=tid,
                             event_type=event_type,date_field=date_field,params=params)
     event.save()

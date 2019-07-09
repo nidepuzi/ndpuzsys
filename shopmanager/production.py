@@ -23,9 +23,9 @@ STATIC_ROOT = "/data/site_media/static"
 M_STATIC_URL = '/'
 
 # WEB DNS
-SITE_URL = 'http://admin.nidepuzi.com/'
+SITE_URL = 'http://admin.hongguotang.com/'
 #######################  WAP AND WEIXIN CONFIG ########################
-M_SITE_URL = 'https://m.nidepuzi.com'
+M_SITE_URL = 'https://m.hongguotang.com'
 
 MYSQL_HOST = 'rm-uf632p729ho32369eo.mysql.rds.aliyuncs.com'
 MYSQL_AUTH = os.environ.get('MYSQL_AUTH')
@@ -43,8 +43,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
     # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'xiaoludb',  # Or path to database file if using sqlite3.
-        'USER': 'xiaoludba',  # Not used with sqlite3.
+        'NAME': 'db_ndpz',  # Or path to database file if using sqlite3.
+        'USER': 'dba_ndpz',  # Not used with sqlite3.
         'PASSWORD': MYSQL_AUTH,  # Not used with sqlite3.
         'HOST': MYSQL_HOST,
     # Set to empty string for localhost. Not used with sqlite3. #192.168.0.28

@@ -48,7 +48,7 @@ function setSaleProduct(res) {
                 text: '暂无投票产品,去首页看看~',
                 type: "",
                 showCancelButton: false,
-                imageUrl: "http://img.nidepuzi.com/logo.png",
+                imageUrl: "http://img.hongguotang.com/logo.png",
                 confirmButtonColor: '#DD6B55',
                 confirmButtonText: "确定",
                 cancelButtonText: ""

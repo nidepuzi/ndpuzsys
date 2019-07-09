@@ -44,7 +44,7 @@ def kd100_instant_query(company, number,query_url = "http://poll.kuaidi100.com/p
     return resp.text
 
 # def kd100_subscription(company, number,query_url = "http://poll.kuaidi100.com/poll",
-#                         key='ZIBQxfAP7615',callbackurl="http://admin.nidepuzi.com/rest/v1/wuliu/push_wuliu_data"):
+#                         key='ZIBQxfAP7615',callbackurl="http://admin.hongguotang.com/rest/v1/wuliu/push_wuliu_data"):
 #     company = str(company)
 #     number = str(number)
 #

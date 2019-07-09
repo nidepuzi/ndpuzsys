@@ -38,6 +38,6 @@ class URLRedirectViewSet(viewsets.ViewSet):
         try:
             val(url)
         except ValidationError:
-            url = 'http://m.nidepuzi.com'
+            url = 'http://m.hongguotang.com'
 
         return redirect(url)

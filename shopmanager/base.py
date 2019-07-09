@@ -25,7 +25,7 @@ ALLOWED_HOSTS = ['*']
 
 # 微信分享备用域名
 STANDBY_DOMAINS = [
-    ('m.nidepuzi.com', 'http'),
+    ('m.hongguotang.com', 'http'),
 ]
 
 DATABASES = {
@@ -310,7 +310,7 @@ FONT_PATH = '/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif-Bold.ttf'
 ASYNC_FILE_PATH = os.path.join(PROJECT_ROOT, "site_media", "asyncfile")
 
 ################### HTTPS/SSL SETTINGS ##################
-SECURE_SSL_HOST = 'https://m.nidepuzi.com'
+SECURE_SSL_HOST = 'https://m.hongguotang.com'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 HTTPS_SUPPORT = False
 SECURE_REQUIRED_PATHS = (

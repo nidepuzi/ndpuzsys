@@ -184,7 +184,7 @@ function Button_tijiao() {
                     text: "已经提交过了哦~ 去首页逛逛?",
                     type: "",
                     showCancelButton: true,
-                    imageUrl: "http://img.nidepuzi.com/logo.png",
+                    imageUrl: "http://img.hongguotang.com/logo.png",
                     confirmButtonColor: '#DD6B55',
                     confirmButtonText: "确定",
                     cancelButtonText: "取消"
@@ -201,7 +201,7 @@ function Button_tijiao() {
                     text: mess,
                     type: "",
                     showCancelButton: true,
-                    imageUrl: "http://img.nidepuzi.com/logo.png",
+                    imageUrl: "http://img.hongguotang.com/logo.png",
                     confirmButtonColor: '#DD6B55',
                     confirmButtonText: "确定",
                     cancelButtonText: "取消"

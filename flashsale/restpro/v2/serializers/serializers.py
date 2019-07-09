@@ -109,7 +109,7 @@ class MamaFortuneSerializer(serializers.ModelSerializer):
         invite_url = constants.MAMA_INVITE_AGENTCY_URL.format(**{'site_url': settings.M_SITE_URL})
         surplus_days = (xlmm.renew_time.date() - datetime.date.today()).days if xlmm.renew_time else 0
         surplus_days = max(surplus_days, 0)
-        next_level_exam_url = 'http://m.nidepuzi.com/mall/activity/exam'
+        next_level_exam_url = 'http://m.hongguotang.com/mall/activity/exam'
         xlmm_next_level = xlmm.next_agencylevel_info()
         could_cash_out = 1
         tmp_des = []

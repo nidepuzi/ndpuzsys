@@ -9,9 +9,9 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 SESSION_COOKIE_AGE = 24 * 30 * 60 * 60
 
 # WEB DNS
-SITE_URL = 'http://admin.nidepuzi.com/'
+SITE_URL = 'http://admin.hongguotang.com/'
 #######################  WAP AND WEIXIN CONFIG ########################
-M_SITE_URL = 'http://m.nidepuzi.com'
+M_SITE_URL = 'http://m.hongguotang.com'
 
 MYSQL_HOST = 'rm-uf632p729ho32369e.mysql.rds.aliyuncs.com'
 MYSQL_AUTH = os.environ.get('MYSQL_AUTH')
@@ -26,8 +26,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
     # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'nidepuzidb',  # Or path to database file if using sqlite3.
-        'USER': 'nidepuzidba',  # Not used with sqlite3.
+        'NAME': 'db_ndpz',  # Or path to database file if using sqlite3.
+        'USER': 'dba_ndpz',  # Not used with sqlite3.
         'PASSWORD': MYSQL_AUTH,  # Not used with sqlite3.
         'HOST': MYSQL_HOST,
     # Set to empty string for localhost. Not used with sqlite3. #192.168.0.28

@@ -160,7 +160,7 @@ class CouponTransferRecordViewSet(viewsets.ModelViewSet):
         waiting_out_num = CouponTransferRecord.get_waiting_out_num(mama_id)
         is_elite_mama = mama.is_elite_mama
         direct_buy = mama.can_buy_transfer_coupon()  # 可否直接购买精品券
-        direct_buy_link = "http://m.nidepuzi.com/mall/buycoupon"
+        direct_buy_link = "http://m.hongguotang.com/mall/buycoupon"
         upgrade_score = mama.get_upgrade_score()
         elite_level = mama.elite_level
         coin = XiaoluCoin.get_or_create(mama_id)
